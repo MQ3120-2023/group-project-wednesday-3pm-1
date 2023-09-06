@@ -1,0 +1,15 @@
+# First Brainstorming Session 
+- Weather Application - Using a third party API
+- Weather DashBoard - Includes forecasts
+- Reddit Clone 
+    - Home forum with the different posts, are clickable, will have text and images, ability to add new commnts
+    - Can filter topics in the home page 
+    - Have a list of topics 
+    - Users have the ability to create new topics 
+    - They can then make a post under than topic 
+    - Each post they make has an option of adding an image 
+    - Users can like posts 
+    - Users can view the list of posts they liked in their profile (each time they like somethihg, the ID of that post will be added to the User Object)
+    - Authentication of users 
+    - 
+- 
