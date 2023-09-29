@@ -11,5 +11,5 @@
     - Users can like posts 
     - Users can view the list of posts they liked in their profile (each time they like somethihg, the ID of that post will be added to the User Object)
     - Authentication of users 
-    - Users have the ability to delete posts they have made
-    - Content Moderation: Before the user makes a post, that post is checked for inappropriate words, the users are not allowed to make a post with inapproprite words: 
+    - 
+- 
