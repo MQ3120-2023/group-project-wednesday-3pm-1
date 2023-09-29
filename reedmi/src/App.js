@@ -1,11 +1,23 @@
-import React from 'react';
+import logo from './logo.svg';
 import './App.css';
-import SplashPage from './SplashPage';
 
 function App() {
   return (
     <div className="App">
-      <SplashPage />
+      <header className="App-header">
+        
+        <p>
+          Welcome to ReedMi!
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
