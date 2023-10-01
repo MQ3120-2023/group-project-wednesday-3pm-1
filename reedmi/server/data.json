@@ -1,0 +1,31 @@
+{
+    "posts":[
+        {
+            "id": 1,
+            "postTitle": "Which coding language is the best?", 
+            "postContent":"I was wondering which coding language is considered on average as the best language to learn",
+            "img": "https://as1.ftcdn.net/v2/jpg/05/05/12/96/1000_F_505129668_YXHq2XRQZqlXiiFFfVe2zYdqCDgyrzVS.jpg",
+            "category": "coding languages"
+        },
+        {
+            "id": 2,
+            "postTitle": "Why can coding be so stressfull", 
+            "postContent":"I wanted to make a quick post in pursuit of finding out why coding can be so stressful!",
+            "img": "https://cdn2.picryl.com/photo/1920/06/20/composition-c-by-piet-mondrian-museum-of-modern-art-2571948-c1fd6b-small.jpg",
+            "category": "solutions"
+        },
+        {
+            "id": 3,
+            "postTitle": "Best gaming rig", 
+            "postContent":"Hey guys, just building a gaming rig atm, I was wondering what specs I should be looking at getting? ",
+            "img": "https://www.trustedreviews.com/wp-content/uploads/sites/54/2023/01/AlphaSync-PBA-Diamond-Gaming-Desktop-PC-10-920x693.jpg",
+            "category": "hardware"
+        },
+        {
+            "id": 4,
+            "postTitle": "Does the GTX1080 still hold up today?", 
+            "postContent":"I feel like my PC is a little outdated, it has a GTX1080, and I was wondering if it still holds up in 2023? ",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/3/3b/K%C3%A9t_Nvidia_GTX_1080_SLI-ban.jpg",
+            "category": "hardware"
+        }]
+}
