@@ -5,7 +5,7 @@
             "postTitle": "Which coding language is the best?", 
             "postContent":"I was wondering which coding language is considered on average as the best language to learn",
             "img": "https://as1.ftcdn.net/v2/jpg/05/05/12/96/1000_F_505129668_YXHq2XRQZqlXiiFFfVe2zYdqCDgyrzVS.jpg",
-            "category": "coding languages"
+            "category": "languages"
         },
         {
             "id": 2,
@@ -27,5 +27,19 @@
             "postContent":"I feel like my PC is a little outdated, it has a GTX1080, and I was wondering if it still holds up in 2023? ",
             "img": "https://upload.wikimedia.org/wikipedia/commons/3/3b/K%C3%A9t_Nvidia_GTX_1080_SLI-ban.jpg",
             "category": "hardware"
+        },
+        {
+            "id": 5,
+            "postTitle": "Alphabetical sort not working", 
+            "postContent":"Hi everyone, I am currently working on an alphabetical sort algorithm, but it isnt working, any ideas? ",
+            "img": "https://static.javatpoint.com/python/images/python-native-data-programs5.png",
+            "category": "solutions"
+        },
+        {
+            "id": 6,
+            "postTitle": "What's with all the hate regarding Python??", 
+            "postContent":"Every time I'm on reddit I see people talking badly about Python, why does the language have such a bad rep?",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/2/21/Python_image.jpg",
+            "category": "languages"
         }]
 }
