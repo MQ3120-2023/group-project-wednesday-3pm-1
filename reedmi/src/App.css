@@ -38,6 +38,12 @@
 }
 
 /**Posts**/
+.post-container{
+  background-color: rgb(48, 50, 54);
+  width: 1100px;
+  margin-top: 50px;
+  border-radius: 30px;
+}
 .postContent{
   text-align: left;
   margin-left: 100px;
