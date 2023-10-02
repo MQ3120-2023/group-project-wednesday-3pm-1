@@ -28,8 +28,10 @@ function App() {
         {posts.map(post => (
         <div key={post.id} className="post-container">
           <h1>{post.postTitle}</h1>
-          <img src={post.img} alt={post.postTitle} />
-          <p>{post.postContent}</p>
+          <figure>
+          <img className="postImage" src={post.img} alt={post.postTitle} />
+          </figure>
+          <p className="postContent">{post.postContent}</p>
         </div>
         ))}
       </header>
