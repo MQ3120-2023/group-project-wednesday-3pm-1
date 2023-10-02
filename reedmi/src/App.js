@@ -25,14 +25,13 @@ function App() {
         <p>
           Welcome to ReedMi!
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {posts.map(post => (
+        <div key={post.id} className="post-container">
+          <h1>{post.postTitle}</h1>
+          <img src={post.img} alt={post.postTitle} />
+          <p>{post.postContent}</p>
+        </div>
+        ))}
       </header>
     </div>
   );
