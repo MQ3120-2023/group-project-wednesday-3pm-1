@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     console.log("effect is running");
     axios
-    .get("https://clothesandco.onrender.com/api/products")
+    .get("http://localhost:3001/api/posts")
     .then((response) => {
       //get request to retrieve product information from the sampledata.json from the back end server
       console.log("we have a response", response);
