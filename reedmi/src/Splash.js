@@ -13,6 +13,16 @@ function Splash() {
         onError: (error) => console.log('Login Failed:', error)
     });
 
+    useEffect(() => {
+        if (profile) {
+            axios.post('http://localhost:3001/register', profile)
+                .then(response => {
+                    console.log(response.data);
+                    localStorage.setItem('loggedInUser', JSON.stringify(profile));
+                })
+                .catch(err => console.log(err));
+        }
+    }, [profile]);
 
     useEffect(
         () => {
