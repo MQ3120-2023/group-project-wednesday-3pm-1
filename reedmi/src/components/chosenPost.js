@@ -14,6 +14,16 @@ function ChosenPost({posts}){
                 <img className="postImage" src={post.img} alt={post.postTitle} />
               </figure>
               <p className="postContent">{post.postContent}</p>
+
+
+              <div className="formBox">
+                <form>
+                  <label>add comment: </label>
+                  <input type="text" className="comment"/>
+                  <button type="submit" className="submitButton">Submit</button>
+                </form>
+              </div>
+
             </div>
     );
 }

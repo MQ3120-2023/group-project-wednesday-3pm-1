@@ -73,3 +73,32 @@ a{
   color: rgb(244, 233, 233);
   display: block;
 }
+
+/*ChosenPost*/
+
+form{
+  font-size: 16px;
+}
+
+.comment{
+  width: 500px;         
+  padding: 10px;      
+  font-size: 16px;     
+  border-radius: 3px;  
+  border: 1px solid;  
+}
+.submitButton{
+  background-color: transparent;
+  text-decoration: none;
+  border-style: solid;
+  padding: 10px;
+  color: white;
+  margin-left: 5px;
+}
+.submitButton:hover{
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 50%);
+  color: black;
+  border-radius: 3px;
+}
+
