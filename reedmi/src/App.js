@@ -29,7 +29,7 @@ function App() {
         <div key={post.id} className="post-container">
           <h1>{post.postTitle}</h1>
           <figure>
-          <img className="postImage" src={post.img} alt={post.postTitle} />
+            <img className="postImage" src={post.img} alt={post.postTitle} />
           </figure>
           <p className="postContent">{post.postContent}</p>
         </div>
