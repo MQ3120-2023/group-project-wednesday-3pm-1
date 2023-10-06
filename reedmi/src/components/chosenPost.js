@@ -23,6 +23,9 @@ function ChosenPost({posts}){
                   <button type="submit" className="submitButton">Submit</button>
                 </form>
               </div>
+              {post.comments.map(comment=>(
+                <p>{comment.author}: {comment.text}</p>
+              ))}
 
             </div>
     );
