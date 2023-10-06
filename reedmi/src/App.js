@@ -1,7 +1,8 @@
 import './App.css';
 import axios from "axios";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+//import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import PostList from './components/PostList';
 
 function App() {
 
@@ -25,15 +26,7 @@ function App() {
         <p>
           Welcome to ReedMi!
         </p>
-        {posts.map(post => (
-        <div key={post.id} className="post-container">
-          <h1>{post.postTitle}</h1>
-          <figure>
-            <img className="postImage" src={post.img} alt={post.postTitle} />
-          </figure>
-          <p className="postContent">{post.postContent}</p>
-        </div>
-        ))}
+        <PostList posts={posts}/>
       </header>
     </div>
   );
