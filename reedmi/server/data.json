@@ -5,7 +5,14 @@
             "postTitle": "Which coding language is the best?", 
             "postContent":"In the ever-evolving landscape of technology, a question frequently posed by aspiring developers and tech enthusiasts is about the optimal coding language to master. Many ponder upon this, seeking the most valuable and versatile language to invest their time and resources in. I was wondering which coding language is considered on average as the best language to learn is a sentiment shared by numerous individuals across the globe. The answer, however, isn't always straightforward. Factors like the specific goals, desired applications, and the region's dominant industries can influence the answer. Nonetheless, understanding the prevailing trends and industry demands can guide one towards a wise decision.",
             "img": "https://as1.ftcdn.net/v2/jpg/05/05/12/96/1000_F_505129668_YXHq2XRQZqlXiiFFfVe2zYdqCDgyrzVS.jpg",
-            "category": "languages"
+            "category": "languages",
+            "comment": [
+                {
+                    "id": "c1",
+                    "author": "Calum Dempster",
+                    "text": "This is a test comment"
+                }
+            ]
         },
         {
             "id": 2,
