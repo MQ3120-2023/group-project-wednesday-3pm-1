@@ -1,8 +1,9 @@
 import './App.css';
 import axios from "axios";
-//import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PostList from './components/PostList';
+import ChosenPost from './components/ChosenPost';
 
 function App() {
 
@@ -23,10 +24,16 @@ function App() {
     <div className="App">
       <header className="App-header">
         
-        <p>
+      <Router>
+        
+        <p><Link to={"/"}>
           Welcome to ReedMi!
-        </p>
-        <PostList posts={posts}/>
+        </Link></p>
+        <Routes>
+          <Route path="/ChosenPost/:postId" element={<ChosenPost posts={posts}/>}/>
+          <Route path='/' element={<PostList posts={posts}/>}/>
+        </Routes>
+      </Router>
       </header>
     </div>
   );
