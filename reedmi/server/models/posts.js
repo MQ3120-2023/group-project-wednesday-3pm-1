@@ -11,9 +11,6 @@ const doConnect = async () => {
     // A global connection
     // exists as long as the application is running
   await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }) 
-      // .then(result => {
-      //   console.log('connected to MongoDB')
-      // })
       .catch((error) => {    
           console.log('error connecting to MongoDB:', error.message)
       })
