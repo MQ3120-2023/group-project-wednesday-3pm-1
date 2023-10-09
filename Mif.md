@@ -7,6 +7,7 @@
 # Connecting to the database 
 - URL format is different 
 - Loaded some data to the database 
+- node server/ingestdb.js
 
 # Linking to the server Routes 
 - Connect our database to the routes we have in the Express server - so we can retrieve data from it and put data into our store 
