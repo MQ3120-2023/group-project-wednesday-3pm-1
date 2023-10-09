@@ -13,7 +13,15 @@ const data = JSON.parse(rawData)
 
 // going through each "object" in the posts array using map
 data.posts.map(record => {
-
+//    const newPost = new Post({
+//         postTitle: record.postTitle,
+//         postContent: record.postContent,
+//         img: record.img,
+//         category: record.category
+//     });
+//         newPost.save().then(result => {
+//             console.log("post record saved");
+//     });
     Post.findOne({ postTitle: record.postTitle }).then(existingPost => {
     if (!existingPost) {
         // Only create a new post if it doesn't exist
