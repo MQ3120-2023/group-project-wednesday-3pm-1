@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "../App.css";
 
-function ChosenPost({posts}){
+function SelectedPost({posts}){
     const id = useParams().postId;
 
     const post = posts.find(i => i.id == id) || {};
@@ -31,4 +31,4 @@ function ChosenPost({posts}){
     );
 }
 
-export default ChosenPost;
+export default SelectedPost;

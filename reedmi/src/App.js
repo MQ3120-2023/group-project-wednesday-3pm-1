@@ -3,7 +3,7 @@ import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PostList from './components/PostList';
-import ChosenPost from './components/ChosenPost';
+import SelectedPost from './components/SelectedPost';
 
 function App() {
 
@@ -30,7 +30,7 @@ function App() {
           Welcome to ReedMi!
         </Link></p>
         <Routes>
-          <Route path="/ChosenPost/:postId" element={<ChosenPost posts={posts}/>}/>
+          <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts}/>}/>
           <Route path='/' element={<PostList posts={posts}/>}/>
         </Routes>
       </Router>
