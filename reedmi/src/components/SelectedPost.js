@@ -10,6 +10,7 @@ function SelectedPost({ posts }) {
 
   const [commentInput, setCommentInput] = useState("");
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -31,12 +32,29 @@ function SelectedPost({ posts }) {
       });
   };
 
+  const handleLike = () => {
+    axios.post(`http://localhost:3001/api/posts/${id}/like`).then(() => {
+      post.likes = post.likes + 1;
+    });
+  };
+  
+  const handleDislike = () => {
+    axios.post(`http://localhost:3001/api/posts/${id}/dislike`).then(() => {
+      post.likes = post.likes - 1;
+    });
+  };
+
   return (
     <div className="post-container">
       <h1 id="postTitle">{post.postTitle}</h1>
       <figure>
         <img className="postImage" src={post.img} alt={post.postTitle} />
       </figure>
+      <div>
+        <p>Likes: {post.likes}</p>
+        <button onClick={handleLike}>Like</button>
+        <button onClick={handleDislike}>Dislike</button>
+      </div>
       <p className="postContent">{post.postContent}</p>
       <div className="formBox">
         <form onSubmit={handleSubmit}>

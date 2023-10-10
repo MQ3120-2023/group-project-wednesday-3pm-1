@@ -59,23 +59,53 @@ app.get('/checkUser/:email', (req, res) => {
   }
 });
 
+//MAKING NEW COMMENTS
 app.post("/api/posts/:postId/comments", (req, res) => {
-  const postId = parseInt(req.params.postId, 10);
+  const postId = parseInt(req.params.postId);
   const comment = req.body;
 
-  // Find the post
+  // Finds the specified post
   const post = posts.find(p => p.id === postId);
   if (!post) {
-      return res.status(404).send({ error: 'Post not found' });
+      return res.status(404).json({ error: 'Your post has not been found!' });
   }
 
-  // Add the new comment to the post's comments
+  // Adds the newly made comment to the post's comment section
   post.comments.push(comment);
 
-  // Save the updated posts array back to data.json
+  // Saves the updated posts array backwards to the data.json
   fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
 
   res.send({ status: 'success' });
+});
+
+
+//LIKING
+app.post("/api/posts/:postId/like", (req, res) => {
+  const postId = parseInt(req.params.postId, 10);
+  const post = posts.find(p => p.id === postId);
+  if (!post) {
+      return res.status(404).json({ error: 'Your post has not been found!' });
+  }
+
+  post.likes = post.likes + 1;
+
+  fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
+  res.json({ status: 'Request fulfilled' });
+});
+
+//DISLIKING
+app.post("/api/posts/:postId/dislike", (req, res) => {
+  const postId = parseInt(req.params.postId, 10);
+  const post = posts.find(p => p.id === postId);
+  if (!post) {
+      return res.status(404).json({ error: 'Your post has not been found!' });
+  }
+
+  post.likes = post.likes - 1;
+
+  fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
+  res.json({ status: 'success' });
 });
 
 
