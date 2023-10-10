@@ -1,117 +1,153 @@
 {
-    "posts":[
+  "posts": [
+    {
+      "id": 1,
+      "postTitle": "Which coding language is the best?",
+      "postContent": "In the ever-evolving landscape of technology, a question frequently posed by aspiring developers and tech enthusiasts is about the optimal coding language to master. Many ponder upon this, seeking the most valuable and versatile language to invest their time and resources in. I was wondering which coding language is considered on average as the best language to learn is a sentiment shared by numerous individuals across the globe. The answer, however, isn't always straightforward. Factors like the specific goals, desired applications, and the region's dominant industries can influence the answer. Nonetheless, understanding the prevailing trends and industry demands can guide one towards a wise decision.",
+      "img": "https://as1.ftcdn.net/v2/jpg/05/05/12/96/1000_F_505129668_YXHq2XRQZqlXiiFFfVe2zYdqCDgyrzVS.jpg",
+      "category": "languages",
+      "comments": [
         {
-            "id": 1,
-            "postTitle": "Which coding language is the best?", 
-            "postContent":"In the ever-evolving landscape of technology, a question frequently posed by aspiring developers and tech enthusiasts is about the optimal coding language to master. Many ponder upon this, seeking the most valuable and versatile language to invest their time and resources in. I was wondering which coding language is considered on average as the best language to learn is a sentiment shared by numerous individuals across the globe. The answer, however, isn't always straightforward. Factors like the specific goals, desired applications, and the region's dominant industries can influence the answer. Nonetheless, understanding the prevailing trends and industry demands can guide one towards a wise decision.",
-            "img": "https://as1.ftcdn.net/v2/jpg/05/05/12/96/1000_F_505129668_YXHq2XRQZqlXiiFFfVe2zYdqCDgyrzVS.jpg",
-            "category": "languages",
-            "comments": [
-                {
-                    "id": "c1",
-                    "author": "Calum Dempster",
-                    "text": "This is a test comment"
-                },
-                {
-                    "id": "c2",
-                    "author": "Michael Myers",
-                    "text": "Hello, this is Michael Myers speaking!"
-                }
-            ]
+          "id": "c1",
+          "author": "Calum Dempster",
+          "text": "This is a test comment"
         },
         {
-            "id": 2,
-            "postTitle": "Why can coding be so stressfull!!!!", 
-            "postContent":"Hey everyone! So, I was sitting at my computer the other day trying to smash out some code for this super cool project I'm working on. And man, why does coding have to be so stressful? I wanted to make a quick post about this 'cause I'm genuinely curious. I mean, it's just typing and making a computer do stuff, right? But nope, it's like my brain decides to go on vacation every time there's an error. And don't even get me started on those weird symbols and brackets! One tiny mistake and everything goes haywire. And, you know what's wild? Even when I think I've got everything right, the computer's all like, Nah, try again. It’s like a never-ending game of 'Where’s Waldo', but with bugs and errors instead. Anyone else feel this? I just wanna know if I'm the only one struggling or if coding is just a universal brain-twister for everyone. Let's chat about it!",
-            "img": "https://cdn2.picryl.com/photo/1920/06/20/composition-c-by-piet-mondrian-museum-of-modern-art-2571948-c1fd6b-small.jpg",
-            "category": "solutions",
-            "comments": [
-                {
-                    "id": "c1",
-                    "author": "Calum Dempster",
-                    "text": "This is a test comment"
-                },
-                {
-                    "id": "c2",
-                    "author": "Michael Myers",
-                    "text": "Hello, this is Michael Myers speaking!"
-                }
-            ]
+          "id": "c2",
+          "author": "Michael Myers",
+          "text": "Hello, this is Michael Myers speaking!"
         },
         {
-            "id": 3,
-            "postTitle": "Best gaming rig", 
-            "postContent":"Hey guys, just building a gaming rig atm, I was wondering what specs I should be looking at getting? ",
-            "img": "https://www.trustedreviews.com/wp-content/uploads/sites/54/2023/01/AlphaSync-PBA-Diamond-Gaming-Desktop-PC-10-920x693.jpg",
-            "category": "hardware",
-            "comments": [
-                {
-                    "id": "c1",
-                    "author": "Calum Dempster",
-                    "text": "This is a test comment"
-                },
-                {
-                    "id": "c2",
-                    "author": "Michael Myers",
-                    "text": "Hello, this is Michael Myers speaking!"
-                }
-            ]
+          "id": "c3",
+          "author": "Your Name",
+          "text": "ij0"
         },
         {
-            "id": 4,
-            "postTitle": "Does the GTX1080 still hold up today?", 
-            "postContent":"Lately, I've been getting the vibe that my PC might be lagging behind the times. I mean, it's running on a GTX1080, which was a beast back in the day. But now, in 2023, I'm genuinely curious. Does this card still hold its own, or is it becoming a relic?",
-            "img": "https://upload.wikimedia.org/wikipedia/commons/3/3b/K%C3%A9t_Nvidia_GTX_1080_SLI-ban.jpg",
-            "category": "hardware",
-            "comments": [
-                {
-                    "id": "c1",
-                    "author": "Calum Dempster",
-                    "text": "This is a test comment"
-                },
-                {
-                    "id": "c2",
-                    "author": "Michael Myers",
-                    "text": "Hello, this is Michael Myers speaking!"
-                }
-            ]
+          "id": "c4",
+          "author": "Your Name",
+          "text": "ij0"
         },
         {
-            "id": 5,
-            "postTitle": "Alphabetical sort not working", 
-            "postContent":"Hi everyone, I am currently working on an alphabetical sort algorithm, but it isnt working, any ideas? ",
-            "img": "https://static.javatpoint.com/python/images/python-native-data-programs5.png",
-            "category": "solutions",
-            "comments": [
-                {
-                    "id": "c1",
-                    "author": "Calum Dempster",
-                    "text": "This is a test comment"
-                },
-                {
-                    "id": "c2",
-                    "author": "Michael Myers",
-                    "text": "Hello, this is Michael Myers speaking!"
-                }
-            ]
+          "id": "c5",
+          "author": "Your Name",
+          "text": "0987"
         },
         {
-            "id": 6,
-            "postTitle": "What's with all the hate regarding Python??", 
-            "postContent":"Every time I browse Reddit, I'm struck by a noticeable trend: lots of shade thrown at Python. Between memes, rants, and debates, the criticism is evident. What's sparking this negativity? Why does this popular language, once celebrated, now seem to have such a tarnished reputation?",
-            "img": "https://upload.wikimedia.org/wikipedia/commons/2/21/Python_image.jpg",
-            "category": "languages",
-            "comments": [
-                {
-                    "id": "c1",
-                    "author": "Calum Dempster",
-                    "text": "This is a test comment"
-                },
-                {
-                    "id": "c2",
-                    "author": "Michael Myers",
-                    "text": "Hello, this is Michael Myers speaking!"
-                }
-            ]
-        }]
+          "id": "c6",
+          "author": "Your Name",
+          "text": "oinoi"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "postTitle": "Why can coding be so stressfull!!!!",
+      "postContent": "Hey everyone! So, I was sitting at my computer the other day trying to smash out some code for this super cool project I'm working on. And man, why does coding have to be so stressful? I wanted to make a quick post about this 'cause I'm genuinely curious. I mean, it's just typing and making a computer do stuff, right? But nope, it's like my brain decides to go on vacation every time there's an error. And don't even get me started on those weird symbols and brackets! One tiny mistake and everything goes haywire. And, you know what's wild? Even when I think I've got everything right, the computer's all like, Nah, try again. It’s like a never-ending game of 'Where’s Waldo', but with bugs and errors instead. Anyone else feel this? I just wanna know if I'm the only one struggling or if coding is just a universal brain-twister for everyone. Let's chat about it!",
+      "img": "https://cdn2.picryl.com/photo/1920/06/20/composition-c-by-piet-mondrian-museum-of-modern-art-2571948-c1fd6b-small.jpg",
+      "category": "solutions",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "Calum Dempster",
+          "text": "This is a test comment"
+        },
+        {
+          "id": "c2",
+          "author": "Michael Myers",
+          "text": "Hello, this is Michael Myers speaking!"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "postTitle": "Best gaming rig",
+      "postContent": "Hey guys, just building a gaming rig atm, I was wondering what specs I should be looking at getting? ",
+      "img": "https://www.trustedreviews.com/wp-content/uploads/sites/54/2023/01/AlphaSync-PBA-Diamond-Gaming-Desktop-PC-10-920x693.jpg",
+      "category": "hardware",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "Calum Dempster",
+          "text": "This is a test comment"
+        },
+        {
+          "id": "c2",
+          "author": "Michael Myers",
+          "text": "Hello, this is Michael Myers speaking!"
+        },
+        {
+          "id": "c3",
+          "author": "Your Name",
+          "text": "poiu"
+        },
+        {
+          "id": "c4",
+          "author": "Your Name",
+          "text": "i0jm"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "postTitle": "Does the GTX1080 still hold up today?",
+      "postContent": "Lately, I've been getting the vibe that my PC might be lagging behind the times. I mean, it's running on a GTX1080, which was a beast back in the day. But now, in 2023, I'm genuinely curious. Does this card still hold its own, or is it becoming a relic?",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/3/3b/K%C3%A9t_Nvidia_GTX_1080_SLI-ban.jpg",
+      "category": "hardware",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "Calum Dempster",
+          "text": "This is a test comment"
+        },
+        {
+          "id": "c2",
+          "author": "Michael Myers",
+          "text": "Hello, this is Michael Myers speaking!"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "postTitle": "Alphabetical sort not working",
+      "postContent": "Hi everyone, I am currently working on an alphabetical sort algorithm, but it isnt working, any ideas? ",
+      "img": "https://static.javatpoint.com/python/images/python-native-data-programs5.png",
+      "category": "solutions",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "Calum Dempster",
+          "text": "This is a test comment"
+        },
+        {
+          "id": "c2",
+          "author": "Michael Myers",
+          "text": "Hello, this is Michael Myers speaking!"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "postTitle": "What's with all the hate regarding Python??",
+      "postContent": "Every time I browse Reddit, I'm struck by a noticeable trend: lots of shade thrown at Python. Between memes, rants, and debates, the criticism is evident. What's sparking this negativity? Why does this popular language, once celebrated, now seem to have such a tarnished reputation?",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/2/21/Python_image.jpg",
+      "category": "languages",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "Calum Dempster",
+          "text": "This is a test comment"
+        },
+        {
+          "id": "c2",
+          "author": "Michael Myers",
+          "text": "Hello, this is Michael Myers speaking!"
+        },
+        {
+          "id": "c3",
+          "author": "Your Name",
+          "text": "kp[joguhgf"
+        }
+      ]
+    }
+  ]
 }

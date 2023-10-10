@@ -3,6 +3,7 @@ const cors = require('cors');
 
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 
@@ -56,6 +57,25 @@ app.get('/checkUser/:email', (req, res) => {
   } else {
       res.send(false);
   }
+});
+
+app.post("/api/posts/:postId/comments", (req, res) => {
+  const postId = parseInt(req.params.postId, 10);
+  const comment = req.body;
+
+  // Find the post
+  const post = posts.find(p => p.id === postId);
+  if (!post) {
+      return res.status(404).send({ error: 'Post not found' });
+  }
+
+  // Add the new comment to the post's comments
+  post.comments.push(comment);
+
+  // Save the updated posts array back to data.json
+  fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
+
+  res.send({ status: 'success' });
 });
 
 
