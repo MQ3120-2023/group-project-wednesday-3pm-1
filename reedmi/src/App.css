@@ -74,7 +74,10 @@ a{
   display: block;
 }
 
-/*ChosenPost*/
+/*SelectedPost*/
+
+.post-container{
+}
 
 form{
   font-size: 16px;
