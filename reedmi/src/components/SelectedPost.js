@@ -58,7 +58,7 @@ function SelectedPost({ posts }) {
       <p className="postContent">{post.postContent}</p>
       <div className="formBox">
         <form onSubmit={handleSubmit}>
-          <label>add comment: </label>
+          <label>Add comment: </label>
           <input
             type="text"
             className="comment"
