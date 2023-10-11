@@ -52,8 +52,8 @@ function SelectedPost({ posts }) {
       </figure>
       <div>
         <p>Likes: {post.likes}</p>
-        <button onClick={handleLike}>Like</button>
-        <button onClick={handleDislike}>Dislike</button>
+        <button onClick={handleLike} className="submitButton">Like</button>
+        <button onClick={handleDislike} className="submitButton">Dislike</button>
       </div>
       <p className="postContent">{post.postContent}</p>
       <div className="formBox">
