@@ -19,6 +19,28 @@ function Splash() {
         navigateToFeed(); // You can navigate to the "Feed" page here
     };
 
+    const handleAddUser = async () => {
+       
+    
+        // Define dummy data
+        const dummyData = {
+          username: `user${Math.floor(Math.random() * 10000)}`, // creates a random username
+          password: 'dummyPassword123'
+        };
+    
+        try {
+          const response = await axios.post('http://localhost:3001/api/auth/register', dummyData);
+          console.log(response.data); // Logging the response (can be removed)
+          alert('User added successfully!'); 
+        } catch (error) {
+          console.error("Error adding user:", error);
+          alert('Failed to add user.');
+        }
+    
+       
+      };
+    
+
     useEffect(() => {
         if (user) {
             axios
@@ -58,7 +80,7 @@ function Splash() {
                 <div>
                     
                     <br />
-                    <button className="splash-temporary-button" onClick={temporaryButtonHandler}>Temporary Testing Button</button>
+                    <button className="splash-temporary-button" onClick={handleAddUser}>Add User</button>
                 </div>
             )}
         </div>
