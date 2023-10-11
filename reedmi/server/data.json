@@ -116,9 +116,14 @@
           "id": "c2",
           "author": "Ryan",
           "text": "Hello, this is Ryan speaking and i hate Python!"
+        },
+        {
+          "id": "c3",
+          "author": "Your Name",
+          "text": "PythonLover420: @Ryan this is the worst take of all time python is the best I love indenting"
         }
       ],
-      "likes": 0
+      "likes": 9
     }
   ]
 }
