@@ -82,13 +82,14 @@ app.post("/api/posts/:postId/comments", (req, res) => {
 
 //LIKING
 app.post("/api/posts/:postId/like", (req, res) => {
+  const body = req.body
   const postId = parseInt(req.params.postId, 10);
   const post = posts.find(p => p.id === postId);
   if (!post) {
       return res.status(404).json({ error: 'Your post has not been found!' });
   }
 
-  post.likes = post.likes + 1;
+  post.likes = post.likes + body.likes;
 
   fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
   res.json({ status: 'Request fulfilled' });
@@ -96,13 +97,14 @@ app.post("/api/posts/:postId/like", (req, res) => {
 
 //DISLIKING
 app.post("/api/posts/:postId/dislike", (req, res) => {
+  const body = req.body
   const postId = parseInt(req.params.postId, 10);
   const post = posts.find(p => p.id === postId);
   if (!post) {
       return res.status(404).json({ error: 'Your post has not been found!' });
   }
 
-  post.likes = post.likes - 1;
+  post.dislikes = post.dislikes + body.dislikes;
 
   fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
   res.json({ status: 'success' });
