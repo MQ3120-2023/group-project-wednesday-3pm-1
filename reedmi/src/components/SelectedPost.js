@@ -37,27 +37,19 @@ function SelectedPost({posts}) {
   const [likes, setLikes] = useState(post.likes);
 
   const handleLike = () => {
-    if (reacted) {
+    if(reacted){
       console.log("removing a like");
-      axios.post(`http://localhost:3001/api/posts/${id}/like`, { likes: -1 }).then(() => {
-        setLikes((prevLikes) => {
-          console.log("prevLikes:", prevLikes);
-          console.log("post.likes:", post.likes);
-          return prevLikes - 1;
-        });
+      axios.post(`http://localhost:3001/api/posts/${id}/like`, {likes:-1}).then(() => {
+        setLikes(likes-1);
         setReacted(false);
       });
-    } else {
+   }else{
       console.log("adding a like");
-      axios.post(`http://localhost:3001/api/posts/${id}/like`, { likes: 1 }).then(() => {
-        setLikes((prevLikes) => {
-          console.log("prevLikes:", prevLikes);
-          console.log("post.likes:", post.likes);
-          return prevLikes + 1;
-        });
+      axios.post(`http://localhost:3001/api/posts/${id}/like`, {likes:1}).then(() => {
+        setLikes(likes+1);
         setReacted(true);
-      });
-    }
+    });
+   }
   };
   
   const [dislikes, setDislikes] = useState(post.dislikes);
@@ -66,13 +58,13 @@ function SelectedPost({posts}) {
     if(reacted){
       console.log("removing a dislike")
       axios.post(`http://localhost:3001/api/posts/${id}/dislike`, {dislikes:-1}).then(() => {
-        setDislikes((prevDislikes) => prevDislikes - 1);
+        setDislikes(dislikes-1);
         setReacted(false);
       });
     }else{
       console.log("adding a dislike");
       axios.post(`http://localhost:3001/api/posts/${id}/dislike`, {dislikes:1}).then(() => {
-        setDislikes((prevDislikes) => prevDislikes + 1); 
+        setDislikes(dislikes+1);
         setReacted(true);
     });
 
