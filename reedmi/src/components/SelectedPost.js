@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 
-function SelectedPost({ posts }) {
+function SelectedPost({posts}) {
+
   const id = useParams().postId;
 
   const post = posts.find((i) => i.id == id) || { comments: [] };
 
   const [commentInput, setCommentInput] = useState("");
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,16 +32,43 @@ function SelectedPost({ posts }) {
       });
   };
 
+  const [reacted, setReacted] = useState(false);
+  console.log(post.likes);
+  const [likes, setLikes] = useState(post.likes);
+
   const handleLike = () => {
-    axios.post(`http://localhost:3001/api/posts/${id}/like`).then(() => {
-      post.likes = post.likes + 1;
+    if(reacted){
+      console.log("removing a like");
+      axios.post(`http://localhost:3001/api/posts/${id}/like`, {likes:-1}).then(() => {
+        setLikes(likes-1);
+        setReacted(false);
+      });
+   }else{
+      console.log("adding a like");
+      axios.post(`http://localhost:3001/api/posts/${id}/like`, {likes:1}).then(() => {
+        setLikes(likes+1);
+        setReacted(true);
     });
+   }
   };
   
+  const [dislikes, setDislikes] = useState(post.dislikes);
+
   const handleDislike = () => {
-    axios.post(`http://localhost:3001/api/posts/${id}/dislike`).then(() => {
-      post.likes = post.likes - 1;
+    if(reacted){
+      console.log("removing a dislike")
+      axios.post(`http://localhost:3001/api/posts/${id}/dislike`, {dislikes:-1}).then(() => {
+        setDislikes(dislikes-1);
+        setReacted(false);
+      });
+    }else{
+      console.log("adding a dislike");
+      axios.post(`http://localhost:3001/api/posts/${id}/dislike`, {dislikes:1}).then(() => {
+        setDislikes(dislikes+1);
+        setReacted(true);
     });
+
+    }
   };
 
   return (
@@ -51,7 +78,8 @@ function SelectedPost({ posts }) {
         <img className="postImage" src={post.img} alt={post.postTitle} />
       </figure>
       <div>
-        <p>Likes: {post.likes}</p>
+        <p>Likes: {likes}</p>
+        <p>Dislikes: {dislikes}</p>
         <button onClick={handleLike} className="submitButton">Like</button>
         <button onClick={handleDislike} className="submitButton">Dislike</button>
       </div>
