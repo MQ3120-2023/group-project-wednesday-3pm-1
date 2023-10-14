@@ -39,7 +39,8 @@
           "text": "Hello, this is Michael Myers speaking!"
         }
       ],
-      "likes": 0
+      "likes": 0,
+      "dislikes": 0
     },
     {
       "id": 3,
@@ -59,7 +60,8 @@
           "text": "Hello, this is Michael Myers speaking!"
         }
       ],
-      "likes": 0
+      "likes": 0,
+      "dislikes": 0
     },
     {
       "id": 4,
@@ -79,7 +81,8 @@
           "text": "Hello, this is Michael Myers speaking!"
         }
       ],
-      "likes": 0
+      "likes": 0,
+      "dislikes": 0
     },
     {
       "id": 5,
@@ -99,7 +102,8 @@
           "text": "Hello, this is Michael Myers speaking!"
         }
       ],
-      "likes": 0
+      "likes": 0,
+      "dislikes": 0
     },
     {
       "id": 6,
@@ -124,7 +128,8 @@
           "text": "PythonLover420: @Ryan this is the worst take of all time python is the best I love indenting"
         }
       ],
-      "likes": 9
+      "likes": 0,
+      "dislikes": 0
     }
   ]
 }
