@@ -28,8 +28,8 @@
           "text": "Oh no!"
         }
       ],
-      "likes": 0,
-      "dislikes": 0
+      "likes": 1,
+      "dislikes": -1
     },
     {
       "id": 2,
