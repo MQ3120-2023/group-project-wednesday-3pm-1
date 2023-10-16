@@ -112,8 +112,8 @@ app.post("/api/posts/:postId/dislike", (req, res) => {
 });
 
 // Fetching Latest News from a third party API
-
 app.get('/api/techNews', (req, res) => {
+  // the server is making the request to the third party API using Axios 
   axios.get(apiURL, {
     headers : {
       'X-Api-Key': apiKey
