@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PostList from './components/PostList';
 import SelectedPost from './components/SelectedPost';
+import TechNews from './components/TechNews';
 
 function App() {
 
