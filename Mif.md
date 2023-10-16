@@ -93,3 +93,13 @@ The flow of data is as follows:
 3. Third-party API returns data to Express backend.
 4. Express backend returns data to React frontend.
 5. The frontend then updates its state based on this returned data.
+
+
+## Issues + possible ideas with the News Feature 
+- env way not working for API_KEY
+- when you first search for a topic in the search bar, works fine, but after some articles are loaded, putting another topic in the search bar and clicking on the search button does not change the articles 
+  - setting the news array should reset everything, but new articles are being added to the array instead of replacing it
+- going back to application from a news article brings back blank page with search bar, a way to take user back to where they first clicked the link (Use React Router's state for that) / `Local Storage/Session Storage!!!!/ Server-Side Caching`
+- /api/techNews end point gives cannot fetch but things load just fine on front end
+- Maybe have topics they can click from?
+- Allow Filter by country?
