@@ -29,9 +29,11 @@ function App() {
         <p><Link to={"/"}>
           Welcome to ReedMi!
         </Link></p>
+        <Link to="/techNews">TechNews</Link>
         <Routes>
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts}/>}/>
           <Route path='/' element={<PostList posts={posts}/>}/>
+          <Route path ="/techNews" element = {<TechNews />} />
         </Routes>
       </Router>
       </header>
