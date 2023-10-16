@@ -1,6 +1,6 @@
+require("dotenv").config()
 const express = require('express');
 const cors = require('cors');
-
 
 const app = express();
 app.use(express.json());
@@ -11,7 +11,8 @@ app.use(cors());
 const DATA_FILE = './users.json';
 
 const fs = require("fs");
-
+const apiURL = 'https://newsapi.org/v2/everything'
+const apiKey = process.env.API_KEY;
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
@@ -110,8 +111,26 @@ app.post("/api/posts/:postId/dislike", (req, res) => {
   res.json({ status: 'success' });
 });
 
+// Fetching Latest News from a third party API
+
+app.get('/api/techNews', (req, res) => {
+  axios.get(apiURL, {
+    headers : {
+      'X-Api-Key': apiKey
+    }
+  }).then(newsArray => { // once the newsArray is received from API, send it to the Client
+    res.json(newsArray.data);
+    console.log("Received news data from third party API successfully")
+  }).catch(error => {
+    res.status(404);
+    res.send("Server could not fetch data from third-party API")
+  });
+});
 
 const port = 3001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+

@@ -16,10 +16,19 @@ function TechNews() {
         })
     }
 
-    
     useEffect(() => {
-        fetchNews()
+        fetchNews() // is called when the TechNews Page is rendered 
     }, [])
+
+    return (
+        // depends on how the data we get from the Third Party Api is formatted
+        <div>
+        
+        </div>
+
+
+
+    )
 }
 
 
