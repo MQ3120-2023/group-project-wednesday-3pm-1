@@ -16,10 +16,20 @@
           "id": "c2",
           "author": "Michael Myers",
           "text": "Hello, this is Michael Myers speaking!"
+        },
+        {
+          "id": "c3",
+          "author": "Your Name",
+          "text": "Mif: Mif says Mif"
+        },
+        {
+          "id": "c4",
+          "author": "Your Name",
+          "text": "Oh no!"
         }
       ],
-      "likes": 0,
-      "dislikes": 0
+      "likes": 1,
+      "dislikes": -1
     },
     {
       "id": 2,
