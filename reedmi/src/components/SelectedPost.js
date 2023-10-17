@@ -85,19 +85,22 @@ function SelectedPost({posts}) {
       </div>
       <p className="postContent">{post.postContent}</p>
       <div className="formBox">
-        <form onSubmit={handleSubmit}>
-          <label>Add comment: </label>
-          <input
-            type="text"
-            className="comment"
-            value={commentInput}
-            onChange={(e) => setCommentInput(e.target.value)}
-          />
-          <button type="submit" className="submitButton">
-            Submit
-          </button>
-        </form>
-      </div>
+  <form onSubmit={handleSubmit}>
+    <label>Add comment: </label>
+    <div className="comment-container">
+      <textarea
+        className="comment"
+        value={commentInput}
+        onChange={(e) => setCommentInput(e.target.value)}
+        rows="1" // start with 1 row
+      />
+    </div>
+    <button type="submit" className="submitButton">
+      Submit
+    </button>
+  </form>
+</div>
+
       {post.comments.map((comment) => (
         <p key={comment.id}>
           {comment.author}: {comment.text}
