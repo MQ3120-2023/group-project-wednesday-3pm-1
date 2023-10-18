@@ -13,6 +13,13 @@ const DATA_FILE = './users.json';
 
 const url = "mongodb+srv://mifta:Cwss2018@cluster0.bigvbv9.mongodb.net/reedmiDB?retryWrites=true&w=majority"
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
@@ -26,20 +33,8 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     optionsSuccessStatus: 200 
 };
 
-// Middleware to enable CORS
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-
 app.use(cors(corsOptions));
 app.use(express.json());
-
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(session({
   secret: 'reedmiauth',
@@ -53,6 +48,13 @@ app.use(session({
       //domain: 'localhost',
   }
 }));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
 
 
 

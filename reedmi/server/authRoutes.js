@@ -6,7 +6,6 @@ const cors = require('cors');
 
 const router = express.Router();
 
-
 var corsOptions = {
     origin: 'http://localhost:3000',
     methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
@@ -16,37 +15,31 @@ var corsOptions = {
 
 router.use(cors(corsOptions));
 router.use(express.json());
-
-
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
-    // Simple validation
     if (!username || !password) {
         return res.status(400).send({ message: 'Please enter all fields' });
     }
 
     try {
-        // Check for existing user
+        
         const existingUser = await User.findOne({ username });
         if (existingUser) {
             console.log("User taken");
             return res.status(400).send({ message: 'User already exists' });
         }
 
-        // Create a new user instance
         const newUser = new User({
             username,
-            password // Note: It's crucial to hash passwords before storing them
+            password
         });
 
-        // Hash password before saving in database
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, async (err, hash) => {
                 if (err) throw err;
                 newUser.password = hash;
-                
-                // Saving user to the database
+    
                 try {
                     const savedUser = await newUser.save();
                     res.send({
@@ -66,7 +59,6 @@ router.post('/register', async (req, res) => {
     }
 });
 
-
 router.post('/login', passport.authenticate('local'), (req, res) => {
     res.send({ message: 'Logged in successfully!', user: req.user });
 });
@@ -81,7 +73,7 @@ const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
       return next();
     }
-    // If the user is not authenticated, you could redirect them to the login page or send a 401 response
+
     res.status(401).send('You need to log in first.');
   };
   router.get('/current_user', ensureAuthenticated, (req, res) => {
