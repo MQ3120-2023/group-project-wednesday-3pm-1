@@ -2,12 +2,60 @@ require("dotenv").config()
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const fs = require("fs");
+const authRoutes = require('./authRoutes');
+require('./passportSetup');
+
 
 const app = express();
+const DATA_FILE = './users.json';
+
+const url = "mongodb+srv://mifta:Cwss2018@cluster0.bigvbv9.mongodb.net/reedmiDB?retryWrites=true&w=majority"
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((error) => console.log('Error connecting to MongoDB:', error.message));
+
+
+  var corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
+    credentials: true, 
+    optionsSuccessStatus: 200 
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cors());
+
+app.use(session({
+  secret: 'reedmiauth',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      secure: process.env.NODE_ENV === 'production',  // Set to true if you are using https
+      httpOnly: false, // client-side script cannot read the cookie
+      sameSite: 'none',
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      //domain: 'localhost',
+  }
+}));
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.use('/api/auth', authRoutes);
 
 const DATA_FILE = './users.json';
 
@@ -29,38 +77,11 @@ app.get("/api/posts", (_, response) => {
   response.send(posts);
 });
 
-// Middleware to enable CORS
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+let posts = JSON.parse(fs.readFileSync("data.json")).posts;
 
-app.post('/register', (req, res) => {
-  let users = [];
-  if (fs.existsSync(DATA_FILE)) {
-      users = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-  }
-
-  const newUser = req.body;
-  const existingUser = users.find(user => user.email === newUser.email);
-
-  if (!existingUser) {
-      users.push(newUser);
-      fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
-  }
-
-  res.send({ status: 'success' });
-});
-
-app.get('/checkUser/:email', (req, res) => {
-  if (fs.existsSync(DATA_FILE)) {
-      const users = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-      const user = users.find(u => u.email === req.params.email);
-      res.send(!!user);
-  } else {
-      res.send(false);
-  }
+app.get("/api/posts", (_, response) => {
+  console.log("received request post");
+  response.send(posts);
 });
 
 //MAKING NEW COMMENTS
@@ -138,10 +159,10 @@ app.get('/api/techNews', (req, res) => {
 });
 
 
+
 const port = 3001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
 
 
