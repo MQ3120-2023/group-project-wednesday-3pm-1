@@ -1,0 +1,10 @@
+.singleArticle{
+ font-family: monospace;
+ font-size: 20px;
+ background-color: rgb(1, 19, 54)
+}
+
+#articleLink{
+    text-decoration: underline;
+    color:rgb(235, 123, 11);
+}
