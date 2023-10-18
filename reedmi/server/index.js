@@ -11,7 +11,6 @@ require('./passportSetup');
 
 
 const app = express();
-const DATA_FILE = './users.json';
 
 const url = "mongodb+srv://mifta:Cwss2018@cluster0.bigvbv9.mongodb.net/reedmiDB?retryWrites=true&w=majority"
 
@@ -57,11 +56,9 @@ app.use(passport.session());
 
 app.use('/api/auth', authRoutes);
 
-const DATA_FILE = './users.json';
-
-const fs = require("fs");
 const apiURL = 'https://newsapi.org/v2/everything'
 // const apiKey = process.env.API_KEY // does not work, will fix later
+const apiKey = '8ab8a0f1c0b346d6b1182bac2e252c9e';
 // works if I hardcode the API key
 // const query = 'bitcoin'
 app.get('/', (req, res) => {
@@ -77,7 +74,6 @@ app.get("/api/posts", (_, response) => {
   response.send(posts);
 });
 
-let posts = JSON.parse(fs.readFileSync("data.json")).posts;
 
 app.get("/api/posts", (_, response) => {
   console.log("received request post");
@@ -164,5 +160,4 @@ const port = 3001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
 

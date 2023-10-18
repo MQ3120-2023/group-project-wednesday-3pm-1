@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import SingleArticle from "./SingleArticle";
+import { v4 as uuidv4 } from 'uuid';
 
 function TechNews() {
     const[news, setNews] = useState([])
@@ -39,7 +40,7 @@ function TechNews() {
             />
             <button onClick={fetchNews}>Search</button>
             {news.map((singleNewsArticle) => ( // maybe this happens before the async call returns 
-                <SingleArticle key={singleNewsArticle.source.id} singleNewsArticle={singleNewsArticle}/>
+                <SingleArticle key={uuidv4()} singleNewsArticle={singleNewsArticle}/>
             ))}
         </div>
     )
