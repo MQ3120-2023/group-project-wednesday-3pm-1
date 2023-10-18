@@ -1,13 +1,5 @@
 /* Splash.css */
 
-/* Global reset for margins and paddings */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Primary Container */
 .splash-main-container {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f9fd;
@@ -15,25 +7,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
+    flex-direction: column;
 
-h2 {
+}
+.splash-heading {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
 }
 
-h3 {
+.splash-subheading { 
     color: #444;
     margin-bottom: 10px;
 }
 
-p {
+.splash-loading, 
+.splash-welcome-text {
     margin-bottom: 10px;
     color: #666;
 }
 
-/* User Profile Image */
 .splash-user-image {
     width: 80px;
     height: 80px;
@@ -41,7 +34,6 @@ p {
     margin-bottom: 20px;
 }
 
-/* Buttons */
 button.splash-sign-in-button,
 button.splash-temporary-button,
 button.splash-logout-button {
