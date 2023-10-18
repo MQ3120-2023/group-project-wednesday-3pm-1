@@ -1,71 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
-import { useGoogleLogin } from '@react-oauth/google';
-import './Splash.css'
+import { useNavigate } from 'react-router-dom';
+import './Splash.css';
 
 function Splash() {
-    const [ user, setUser ] = useState(null);
-    const [ profile, setProfile ] = useState(null);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
-    const login = useGoogleLogin({
-        onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
-    });
-
+   
     useEffect(() => {
-        if (profile) {
-            axios.post('http://localhost:3001/register', profile)
-                .then(response => {
-                    console.log(response.data);
-                    localStorage.setItem('loggedInUser', JSON.stringify(profile));
-                })
-                .catch(err => console.log(err));
-        }
-    }, [profile]);
+        axios.get('http://localhost:3001/api/auth/current_user')
+            .then(response => {
+               
+                setUser(response.data);
+                setLoading(false); 
+            })
+            .catch(error => {
+                console.error('There was an issue with getting user information:', error);
+                setLoading(false);
+            });
+    }, []);
 
-    useEffect(
-        () => {
-            if (user) {
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        setProfile(res.data);
-                    })
-                    .catch((err) => console.log(err));
-            }
-        },
-        [ user ]
-    );
-
-
-    const logOut = () => {
-        googleLogout();
-        setProfile(null);
+    const navigateToFeed = () => {
+        navigate('/feed');
     };
 
+    const temporaryButtonHandler = () => {
+        console.log('Temporary button clicked');
+        navigateToFeed();
+    };
+
+    const handleAddUser = () => {
+        navigate('/register');
+    };
+   
     return (
-        <div className="main-container">
-            <h2>Welcome To ReedMi</h2>
+        <div className="splash-main-container">
+            <h2 className="splash-heading">Welcome To ReedMi</h2>
             <br />
             <br />
-            {profile ? (
+            {loading ? (
+                <p className="splash-loading">Loading...</p> 
+            ) : user ? (
                 <div>
-                    <img src={profile.picture} alt="user image" />
-                    <h3>User Logged in</h3>
-                    <p>Name: {profile.name}</p>
-                    <p>Email Address: {profile.email}</p>
-                    <br />
-                    <br />
-                    <button onClick={logOut}>Log out</button>
+                    <p className="splash-welcome-text">Welcome back, {user.username}!</p>
+                    <button className="splash-temporary-button" onClick={navigateToFeed}>Go to Feed</button>
                 </div>
             ) : (
-                <button onClick={() => login()}>Sign in with Google</button>
+                <div>
+                    <button className="splash-temporary-button" onClick={handleAddUser}>Sign Up</button>
+                    <button className="splash-temporary-button" onClick={temporaryButtonHandler}>Login</button>
+                </div>
             )}
         </div>
     );

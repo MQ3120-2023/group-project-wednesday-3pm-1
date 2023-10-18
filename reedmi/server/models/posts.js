@@ -3,6 +3,7 @@
 require("dotenv").config()
 const mongoose = require('mongoose')
 // THE ENV version is not working
+
 const url = process.env.MONGO_URL
 
 // we want the database connection to happen synchronously so we define

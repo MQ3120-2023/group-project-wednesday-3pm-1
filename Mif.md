@@ -31,6 +31,9 @@
   ```
   Which means all the routes we defined in `api.js` are now active and part of your server's route handling whenever a particular request is made by the client.
 
+# Linking to the server Routes 
+- Connect our database to the routes we have in the Express server - so we can retrieve data from it and put data into our store 
+
 ## Express Server vs. MongoDB Database
 
 ### Express Server
@@ -63,5 +66,45 @@
 - Order of data being ingested into mongodb
 - create a "userRoute.js" file in controllers to modularise route handlers involving users (Ryan's route handlers)
 - Work on password handling and authentication
+
+
+## TechNews Feature
+- Fetching News from a Third Party API
+
+### Frontend (React)
+
+- `const[news, setNews] = useState([])`: We using React's `useState` hook to manage the state of `news`, which will hold the array of news data. It's initially set to an empty array.
+
+- `axios.get(baseurl)`: This makes an HTTP GET request to `/api/techNews`, which is the endpoint on our Express server.
+
+- `.then((response) => {...})`: When the request is successful, we update the `news` state using `setNews(response.data)`.
+
+### Backend (Express)
+
+- `app.get('/api/techNews', (req, res) => {...})`: Our Express server listens for GET requests at the `/api/techNews` endpoint.
+
+- `axios.get(apiURL, {...})`: The server makes another HTTP GET request, this time to a third-party API. It includes an API key in the request header for authentication.
+
+- `.then(newsArray => {...})`: If the request to the third-party API is successful, the server sends the received data back to the React frontend using `res.json(newsArray.data)`.
+
+- `.catch(error => {...})`: If the server fails to fetch data from the third-party API, it will return a 404 status and send an error message.
+
+The flow of data is as follows:
+
+1. React frontend makes a request to Express backend.
+2. Express backend makes a request to a third-party API.
+3. Third-party API returns data to Express backend.
+4. Express backend returns data to React frontend.
+5. The frontend then updates its state based on this returned data.
+
+
+## Issues + possible ideas with the News Feature 
+- env way not working for API_KEY
+- when you first search for a topic in the search bar, works fine, but after some articles are loaded, putting another topic in the search bar and clicking on the search button does not change the articles 
+  - setting the news array should reset everything, but new articles are being added to the array instead of replacing it
+- going back to application from a news article brings back blank page with search bar, a way to take user back to where they first clicked the link (Use React Router's state for that) / `Local Storage/Session Storage!!!!/ Server-Side Caching`
+- /api/techNews end point gives cannot fetch but things load just fine on front end
+- Maybe have topics they can click from?
+- Allow Filter by country?
 
 

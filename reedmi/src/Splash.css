@@ -1,52 +1,42 @@
+/* Splash.css */
 
-body {
+.splash-main-container {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f9fd;
     height: 100vh;
-    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+    flex-direction: column;
 
-h2 {
+}
+.splash-heading {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
 }
 
-h3 {
+.splash-subheading { 
     color: #444;
     margin-bottom: 10px;
 }
 
-p {
+.splash-loading, 
+.splash-welcome-text {
     margin-bottom: 10px;
     color: #666;
 }
 
-
-.main-container {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    border-radius: 20px;
-    max-width: 400px;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-
-img {
+.splash-user-image {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     margin-bottom: 20px;
 }
 
-
-button {
+button.splash-sign-in-button,
+button.splash-temporary-button,
+button.splash-logout-button {
     padding: 10px 20px;
     border: none;
     background-color: #007BFF;
@@ -56,6 +46,8 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+button.splash-sign-in-button:hover,
+button.splash-temporary-button:hover,
+button.splash-logout-button:hover {
     background-color: #0056b3;
 }

@@ -2,6 +2,9 @@ import './App.css';
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import PostList from './components/PostList';
+import SelectedPost from './components/SelectedPost';
+import TechNews from './components/TechNews';
 
 function App() {
 
@@ -22,18 +25,18 @@ function App() {
     <div className="App">
       <header className="App-header">
         
-        <p>
+      <Router>
+        
+        <p><Link to={"/"}>
           Welcome to ReedMi!
-        </p>
-        {posts.map(post => (
-        <div key={post.id} className="post-container">
-          <h1>{post.postTitle}</h1>
-          <figure>
-          <img className="postImage" src={post.img} alt={post.postTitle} />
-          </figure>
-          <p className="postContent">{post.postContent}</p>
-        </div>
-        ))}
+        </Link></p>
+        <Link to="/techNews">TechNews</Link>
+        <Routes>
+          <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts}/>}/>
+          <Route path='/' element={<PostList posts={posts}/>}/>
+          <Route path ="/techNews" element = {<TechNews />} />
+        </Routes>
+      </Router>
       </header>
     </div>
   );
