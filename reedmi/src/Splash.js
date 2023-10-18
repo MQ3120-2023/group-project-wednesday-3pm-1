@@ -34,16 +34,17 @@ function Splash() {
     const handleAddUser = () => {
         navigate('/register');
     };
+   
     return (
         <div className="splash-main-container">
-            <h2>Welcome To ReedMi</h2>
+            <h2 className="splash-heading">Welcome To ReedMi</h2>
             <br />
             <br />
             {loading ? (
-                <p>Loading...</p> 
+                <p className="splash-loading">Loading...</p> 
             ) : user ? (
                 <div>
-                    <p>Welcome back, {user.username}!</p>
+                    <p className="splash-welcome-text">Welcome back, {user.username}!</p>
                     <button className="splash-temporary-button" onClick={navigateToFeed}>Go to Feed</button>
                 </div>
             ) : (
