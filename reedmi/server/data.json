@@ -28,8 +28,8 @@
           "text": "Oh no!"
         }
       ],
-      "likes": 1,
-      "dislikes": -1
+      "likes": 0,
+      "dislikes": 0
     },
     {
       "id": 2,
@@ -47,6 +47,11 @@
           "id": "c2",
           "author": "Michael Myers",
           "text": "Hello, this is Michael Myers speaking!"
+        },
+        {
+          "id": "c3",
+          "author": "Your Name",
+          "text": "wadfew"
         }
       ],
       "likes": 0,
