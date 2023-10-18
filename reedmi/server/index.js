@@ -74,7 +74,7 @@ app.get("/api/posts", (_, response) => {
 });
 
 //MAKING NEW COMMENTS
-app.post("/api/posts/:postId/comments", (req, res) => {
+app.post("/api/posts/:postId/comments"), (req, res) => {
   const postId = parseInt(req.params.postId);
   const comment = req.body;
 
@@ -90,8 +90,7 @@ app.post("/api/posts/:postId/comments", (req, res) => {
   // Saves the updated posts array backwards to the data.json
   fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
 
-
-
+}
 
 
 //LIKING
@@ -153,4 +152,5 @@ const port = 3001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
 
