@@ -1,28 +1,30 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const fs = require("fs");
+const authRoutes = require('./authRoutes');
+require('./passportSetup');
 
 
 const app = express();
-app.use(cors());
-
-
-
 const DATA_FILE = './users.json';
 
-const fs = require("fs");
+const url = "mongodb+srv://mifta:Cwss2018@cluster0.bigvbv9.mongodb.net/reedmiDB?retryWrites=true&w=majority"
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
 
-let posts = JSON.parse(fs.readFileSync("data.json")).posts;
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((error) => console.log('Error connecting to MongoDB:', error.message));
 
-app.get("/api/posts", (_, response) => {
-  console.log("received request post")
-  //responds requested product data
-  //get request retrieving different parts of json file
-  response.send(posts);
-});
+
+  var corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
+    credentials: true, 
+    optionsSuccessStatus: 200 
+};
 
 // Middleware to enable CORS
 app.use((req, res, next) => {
@@ -31,32 +33,38 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/register', (req, res) => {
-  let users = [];
-  if (fs.existsSync(DATA_FILE)) {
-      users = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+
+app.use(cors(corsOptions));
+app.use(express.json());
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(session({
+  secret: 'reedmiauth',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      secure: process.env.NODE_ENV === 'production',  // Set to true if you are using https
+      httpOnly: false, // client-side script cannot read the cookie
+      sameSite: 'none',
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      //domain: 'localhost',
   }
+}));
 
-  const newUser = req.body;
-  const existingUser = users.find(user => user.email === newUser.email);
 
-  if (!existingUser) {
-      users.push(newUser);
-      fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
-  }
 
-  res.send({ status: 'success' });
+app.use('/api/auth', authRoutes);
+
+let posts = JSON.parse(fs.readFileSync("data.json")).posts;
+
+app.get("/api/posts", (_, response) => {
+  console.log("received request post");
+  response.send(posts);
 });
 
-app.get('/checkUser/:email', (req, res) => {
-  if (fs.existsSync(DATA_FILE)) {
-      const users = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-      const user = users.find(u => u.email === req.params.email);
-      res.send(!!user);
-  } else {
-      res.send(false);
-  }
-});
 
 
 const port = 3001;
