@@ -67,6 +67,7 @@
 - create a "userRoute.js" file in controllers to modularise route handlers involving users (Ryan's route handlers)
 - Work on password handling and authentication
 
+
 ## TechNews Feature
 - Fetching News from a Third Party API
 
@@ -105,4 +106,5 @@ The flow of data is as follows:
 - /api/techNews end point gives cannot fetch but things load just fine on front end
 - Maybe have topics they can click from?
 - Allow Filter by country?
+
 

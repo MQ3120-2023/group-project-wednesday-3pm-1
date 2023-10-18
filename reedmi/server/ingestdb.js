@@ -13,18 +13,31 @@ const data = JSON.parse(rawData)
 
 // going through each "object" in the posts array using map
 data.posts.map(record => {
-
-    console.log(record)
-    // syntax for creating a "new object/record" in the databaser
-    const newPost = new Post({
-        postTitle: record.postTitle,
-        postContent: record.postContent,
-        img: record.img,
-        category: record.category
-    })
-    newPost.save().then(result => {
-        console.log("post record saved")
-    })
+//    const newPost = new Post({
+//         postTitle: record.postTitle,
+//         postContent: record.postContent,
+//         img: record.img,
+//         category: record.category
+//     });
+//         newPost.save().then(result => {
+//             console.log("post record saved");
+//     });
+    Post.findOne({ postTitle: record.postTitle }).then(existingPost => {
+    if (!existingPost) {
+        // Only create a new post if it doesn't exist
+        const newPost = new Post({
+            postTitle: record.postTitle,
+            postContent: record.postContent,
+            img: record.img,
+            category: record.category
+        });
+        newPost.save().then(result => {
+            console.log("post record saved");
+        });
+    } else {
+        console.log("post record already exists");
+    }
+    });
 })
 
 // mongoose.connection.close() 

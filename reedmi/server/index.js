@@ -1,3 +1,4 @@
+
 require("dotenv").config()
 const express = require('express');
 const cors = require('cors');
@@ -10,7 +11,7 @@ const authRoutes = require('./authRoutes');
 require('./passportSetup');
 
 
-const app = express();
+
 
 const url = "mongodb+srv://mifta:Cwss2018@cluster0.bigvbv9.mongodb.net/reedmiDB?retryWrites=true&w=majority"
 
@@ -20,10 +21,10 @@ app.use((req, res, next) => {
   next();
 });
 
-
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.log('Error connecting to MongoDB:', error.message));
+
 
 
   var corsOptions = {
@@ -65,14 +66,6 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-let posts = JSON.parse(fs.readFileSync("data.json")).posts;
-
-app.get("/api/posts", (_, response) => {
-  console.log("received request post")
-  //responds requested product data
-  //get request retrieving different parts of json file
-  response.send(posts);
-});
 
 
 app.get("/api/posts", (_, response) => {
@@ -97,8 +90,8 @@ app.post("/api/posts/:postId/comments", (req, res) => {
   // Saves the updated posts array backwards to the data.json
   fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
 
-  res.send({ status: 'success' });
-});
+
+
 
 
 //LIKING
