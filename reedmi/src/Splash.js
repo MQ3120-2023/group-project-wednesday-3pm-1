@@ -5,82 +5,51 @@ import './Splash.css';
 
 function Splash() {
     const [user, setUser] = useState(null);
-    const [profile, setProfile] = useState(null);
-
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+   
+    useEffect(() => {
+        axios.get('http://localhost:3001/api/auth/current_user')
+            .then(response => {
+               
+                setUser(response.data);
+                setLoading(false); 
+            })
+            .catch(error => {
+                console.error('There was an issue with getting user information:', error);
+                setLoading(false);
+            });
+    }, []);
 
     const navigateToFeed = () => {
         navigate('/feed');
     };
 
     const temporaryButtonHandler = () => {
-        // This function can be used for temporary testing purposes
         console.log('Temporary button clicked');
-        navigateToFeed(); // You can navigate to the "Feed" page here
+        navigateToFeed();
     };
 
-    const handleAddUser = async () => {
-       
-    
-        // Define dummy data
-        const dummyData = {
-          username: `user${Math.floor(Math.random() * 10000)}`, // creates a random username
-          password: 'dummyPassword123'
-        };
-    
-        try {
-          const response = await axios.post('http://localhost:3001/api/auth/register', dummyData);
-          console.log(response.data); // Logging the response (can be removed)
-          alert('User added successfully!'); 
-        } catch (error) {
-          console.error("Error adding user:", error);
-          alert('Failed to add user.');
-        }
-    
-       
-      };
-    
-
-    useEffect(() => {
-        if (user) {
-            axios
-                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                    headers: {
-                        Authorization: `Bearer ${user.access_token}`,
-                        Accept: 'application/json',
-                    },
-                })
-                .then((res) => {
-                    setProfile(res.data);
-                })
-                .catch((err) => console.log(err));
-        }
-    }, [user]);
-
-    const logOut = () => {
-        // Implement your logout logic here
+    const handleAddUser = () => {
+        navigate('/register');
     };
-
     return (
         <div className="splash-main-container">
             <h2>Welcome To ReedMi</h2>
             <br />
             <br />
-            {profile ? (
+            {loading ? (
+                <p>Loading...</p> 
+            ) : user ? (
                 <div>
-                    <img src={profile.picture} alt="user image" className="splash-user-image" />
-                    <h3>User Logged in</h3>
-                    <p className="splash-user-info">Name: {profile.name}</p>
-                    <p className="splash-user-info">Email Address: {profile.email}</p>
-                    <br />
-                    <br />
-                    <button className="splash-logout-button" onClick={logOut}>Log out</button>
+                    <p>Welcome back, {user.username}!</p>
+                    <button className="splash-temporary-button" onClick={navigateToFeed}>Go to Feed</button>
                 </div>
             ) : (
                 <div>
-                    
-                    <br />
-                    <button className="splash-temporary-button" onClick={handleAddUser}>Add User</button>
+                    <button className="splash-temporary-button" onClick={handleAddUser}>Sign Up</button>
+                    <button className="splash-temporary-button" onClick={temporaryButtonHandler}>Login</button>
                 </div>
             )}
         </div>
