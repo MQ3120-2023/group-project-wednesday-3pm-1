@@ -2,18 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../App.css';
 
-function PostList({posts}){
+function PostList({posts, filter}){
+    
     return(
-        <div>
-            {posts.map(post => (
-            <Link to={"/SelectedPost/" + post.id} key={post.id} className="post-container">
-              <h1 id="postTitle" >{post.postTitle}</h1>
-              <figure>
-                <img className="postImage" src={post.img} alt={post.postTitle} />
-              </figure>
-              
-            </Link>
-            ))}
+      
+      <div>
+            {posts
+              // Filter the posts based on the filter value.
+              .filter(post => !filter || filter === "All" || post.topic === filter) //MIFF post.topic is undefined
+              .map((post) => {
+                return(<Link to={"/SelectedPost/" + post.id} key={post.id} className="post-container">
+                  <h1 id="postTitle" >{post.postTitle}</h1>
+                  <figure>
+                    <img className="postImage" src={post.img} alt={post.postTitle} />
+                  </figure>
+                </Link>)
+              })}
         </div>
     )
 }
