@@ -3,73 +3,86 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 
-function SelectedPost({posts}) {
+function SelectedPost({ posts }) {
+  const { postId } = useParams();
 
-  const id = useParams().postId;
+ 
+  const post = posts ? posts.find((p) => p.id === postId) : null;
 
-  const post = posts.find((i) => i.id == id) || { comments: [] };
-
+ 
   const [commentInput, setCommentInput] = useState("");
+  const [reacted, setReacted] = useState(false);
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+
+ 
+  useEffect(() => {
+    if (post) {
+      setLikes(post.likes || 0);
+      setDislikes(post.dislikes || 0);
+    }
+  }, [post]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Sends  posted comment to backend server
-    axios
-      .post(`http://localhost:3001/api/posts/${id}/comments`, {
-        id: "c" + (post.comments.length + 1).toString(), // Generates new comment id consisting of c (comment) followed by a number representing the next iteration
-        author: "Your Name", // to be changed to logged in user
-        text: commentInput,
-      })
-      .then(() => {
-        // Updates local post's comment section with the newly made comment
-        post.comments.push({
+    
+      axios
+        .post(`http://localhost:3001/api/posts/${postId}/comments`, {
           id: "c" + (post.comments.length + 1).toString(),
           author: "Your Name",
           text: commentInput,
+        })
+        .then(() => {
+
+          post.comments.push({
+            id: "c" + (post.comments.length + 1).toString(),
+            author: "Your Name",
+            text: commentInput,
+          });
+          setCommentInput("");
         });
-        setCommentInput(""); // Resets input box to be blank after submit has been pressed
-      });
-  };
+    };
 
-  const [reacted, setReacted] = useState(false);
-  console.log(post.likes);
-  const [likes, setLikes] = useState(post.likes);
 
-  const handleLike = () => {
-    if(reacted){
-      console.log("removing a like");
-      axios.post(`http://localhost:3001/api/posts/${id}/like`, {likes:-1}).then(() => {
-        setLikes(likes-1);
-        setReacted(false);
+    const handleLike = () => {
+      if(reacted){
+        console.log("removing a like");
+        axios.post(`http://localhost:3001/api/posts/${postId}/like`, {likes:-1}).then(() => {
+          setLikes(likes-1);
+          setReacted(false);
+        });
+    }else{
+        console.log("adding a like");
+        axios.post(`http://localhost:3001/api/posts/${postId}/like`, {likes:1}).then(() => {
+          setLikes(likes+1);
+          setReacted(true);
       });
-   }else{
-      console.log("adding a like");
-      axios.post(`http://localhost:3001/api/posts/${id}/like`, {likes:1}).then(() => {
-        setLikes(likes+1);
-        setReacted(true);
-    });
-   }
-  };
-  
-  const [dislikes, setDislikes] = useState(post.dislikes);
+    }
+    };
+    
 
   const handleDislike = () => {
     if(reacted){
       console.log("removing a dislike")
-      axios.post(`http://localhost:3001/api/posts/${id}/dislike`, {dislikes:-1}).then(() => {
+      axios.post(`http://localhost:3001/api/posts/${postId}/dislike`, {dislikes:-1}).then(() => {
         setDislikes(dislikes-1);
         setReacted(false);
       });
     }else{
       console.log("adding a dislike");
-      axios.post(`http://localhost:3001/api/posts/${id}/dislike`, {dislikes:1}).then(() => {
+      axios.post(`http://localhost:3001/api/posts/${postId}/dislike`, {dislikes:1}).then(() => {
         setDislikes(dislikes+1);
         setReacted(true);
     });
 
     }
   };
+
+  
+  if (!post) {
+    return <div>Loading post...</div>;
+  }
 
   return (
     <div className="post-container">
@@ -85,27 +98,31 @@ function SelectedPost({posts}) {
       </div>
       <p className="postContent">{post.postContent}</p>
       <div className="formBox">
-  <form onSubmit={handleSubmit}>
-    <label>Add comment: </label>
-    <div className="comment-container">
-      <textarea
-        className="comment"
-        value={commentInput}
-        onChange={(e) => setCommentInput(e.target.value)}
-        rows="1" // start with 1 row
-      />
-    </div>
-    <button type="submit" className="submitButton">
-      Submit
-    </button>
-  </form>
-</div>
+        <form onSubmit={handleSubmit}>
+          <label>Add comment: </label>
+          <div className="comment-container">
+            <textarea
+              className="comment"
+              value={commentInput}
+              onChange={(e) => setCommentInput(e.target.value)}
+              rows="1"
+            />
+          </div>
+          <button type="submit" className="submitButton">
+            Submit
+          </button>
+        </form>
+      </div>
 
-      {post.comments.map((comment) => (
-        <p key={comment.id}>
-          {comment.author}: {comment.text}
-        </p>
-      ))}
+      {post.comments && post.comments.length > 0 ? (
+        post.comments.map((comment) => (
+          <p key={comment.id}>
+            {comment.author}: {comment.text}
+          </p>
+        ))
+      ) : (
+        <p>No comments yet.</p>
+      )}
     </div>
   );
 }
