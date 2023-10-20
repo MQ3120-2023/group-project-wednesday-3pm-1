@@ -61,7 +61,7 @@ function App() {
           <p onClick={() => setSelectedTopic("All")}>All</p>
           </Link>
           {topics.map((topic, index) => {
-            console.log("Selected Topic:", selectedTopic)
+            
             return(
           <Link to="/">  
           <p key={index} onClick={() => setSelectedTopic(topic)}>{topic} </p> 
