@@ -19,12 +19,13 @@ function App() {
   const [showTopicForm, setShowTopicForm] = useState(false)
   
   //const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState("All");
   const topics= [
       "Languages",
       "Solutions",
       "Hardware"
   ]
+
 
   useEffect(() => {
     console.log("effect is running");
@@ -76,7 +77,7 @@ function App() {
       
         <Routes>
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts}/>}/>
-          <Route path='/' element={<PostList posts={posts} filter={selectedTopic}/>}/>
+          <Route path='/' element={<PostList posts={posts} filter={selectedTopic} />} />
           <Route path ="/techNews" element = {<TechNews />} />
         </Routes>
       </Router>
