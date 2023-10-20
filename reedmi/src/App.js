@@ -9,6 +9,12 @@ import TechNews from './components/TechNews';
 function App() {
 
   const [posts, setPosts] = useState([]);
+  //const [topics, setTopics] = useState([]);
+  const topics= [
+      "Languages",
+      "Solutions",
+      "Hardware"
+  ]
 
   useEffect(() => {
     console.log("effect is running");
@@ -19,25 +25,36 @@ function App() {
       console.log("we have a response", response);
       setPosts(response.data);
     });
+    // axios
+    // .get("https://localhost:3001/api/topics")
+    // .then((response) => {
+    //   setTopics(response.data);
+    // })
   }, []);
 
   return (
     <div className="App">
+      <Router>  
       <header className="App-header">
-        
-      <Router>
-        
         <p><Link to={"/"}>
-          Welcome to ReedMi!
+          ReedMi
         </Link></p>
         <Link to="/techNews">TechNews</Link>
+      </header>
+      <aside id='sideBar'>
+          
+          Topics:
+
+          {topics.map((topic, index) => (
+          <p key={index}>{topic}</p>
+          ))}
+      </aside>
         <Routes>
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts}/>}/>
           <Route path='/' element={<PostList posts={posts}/>}/>
           <Route path ="/techNews" element = {<TechNews />} />
         </Routes>
       </Router>
-      </header>
     </div>
   );
 }
