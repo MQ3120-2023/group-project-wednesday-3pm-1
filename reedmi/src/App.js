@@ -5,10 +5,18 @@ import { useState, useEffect } from "react";
 import PostList from './components/PostList';
 import SelectedPost from './components/SelectedPost';
 import TechNews from './components/TechNews';
+import NewTopic from './components/NewTopic';
 
 function App() {
 
   const [posts, setPosts] = useState([]);
+  
+  const showForm = (booleanVariable) => {
+    if(booleanVariable){
+      return(<NewTopic />)
+    }
+  }
+  const [showTopicForm, setShowTopicForm] = useState(false)
   
   //const [topics, setTopics] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState("");
@@ -49,13 +57,20 @@ function App() {
           Topics:
           
           {/*maps through topics from data.json and displays them one after the other*/}
+          <Link to="/">
           <p onClick={() => setSelectedTopic("All")}>All</p>
+          </Link>
           {topics.map((topic, index) => {
             console.log("Selected Topic:", selectedTopic)
             return(
-          <p key={index} onClick={() => setSelectedTopic(topic)}>{topic} </p> )
+          <Link to="/">  
+          <p key={index} onClick={() => setSelectedTopic(topic)}>{topic} </p> 
+          </Link>  )
+          
           })}
-          <button>Add New Topic</button>
+            <button onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
+
+            {showForm(showTopicForm)}
           
       </aside>
       
