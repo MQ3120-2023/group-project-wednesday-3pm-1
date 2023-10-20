@@ -9,7 +9,9 @@ import TechNews from './components/TechNews';
 function App() {
 
   const [posts, setPosts] = useState([]);
+  
   //const [topics, setTopics] = useState([]);
+  const [selectedTopic, setSelectedTopic] = useState("");
   const topics= [
       "Languages",
       "Solutions",
@@ -25,7 +27,8 @@ function App() {
       console.log("we have a response", response);
       setPosts(response.data);
     });
-    // axios
+    // MIFF (Can't make axios call properly)
+    //  axios 
     // .get("https://localhost:3001/api/topics")
     // .then((response) => {
     //   setTopics(response.data);
@@ -41,17 +44,24 @@ function App() {
         </Link></p>
         <Link to="/techNews">TechNews</Link>
       </header>
-      <aside id='sideBar'>
+      <aside id='sideBar'> 
           
           Topics:
-
-          {topics.map((topic, index) => (
-          <p key={index}>{topic}</p>
-          ))}
+          
+          {/*maps through topics from data.json and displays them one after the other*/}
+          <p onClick={() => setSelectedTopic("All")}>All</p>
+          {topics.map((topic, index) => {
+            console.log("Selected Topic:", selectedTopic)
+            return(
+          <p key={index} onClick={() => setSelectedTopic(topic)}>{topic} </p> )
+          })}
+          <button>Add New Topic</button>
+          
       </aside>
+      
         <Routes>
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts}/>}/>
-          <Route path='/' element={<PostList posts={posts}/>}/>
+          <Route path='/' element={<PostList posts={posts} filter={selectedTopic}/>}/>
           <Route path ="/techNews" element = {<TechNews />} />
         </Routes>
       </Router>
