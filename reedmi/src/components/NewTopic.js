@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import '../App.css';
 
 function NewTopic(){
@@ -10,13 +11,13 @@ function NewTopic(){
         console.log("value", event.target[0].value)
         //MIFF, please add this to backend 
         // Sends  posted comment to backend server
-        // axios
-        //   .post(`http://localhost:3001/api/topics/`, {
-        //     newTopic: event.target[0].value
-        //   })
-        //   .then(() => {
-        //     window.reload()
-        //   });
+        axios
+          .post(`http://localhost:3001/api/topics/`, {
+            newTopic: event.target[0].value
+          })
+          .then(() => {
+            window.reload()
+          });
       };
     
     return(
