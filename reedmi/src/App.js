@@ -59,7 +59,7 @@ function App() {
           
           {/*maps through topics from data.json and displays them one after the other*/}
           <Link to="/">
-          <p onClick={() => setSelectedTopic("All")}>All</p>
+          <p onClick={() => setSelectedTopic("All")}>Home</p>
           </Link>
           {topics.map((topic, index) => {
             
