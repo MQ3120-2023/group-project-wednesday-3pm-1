@@ -24,7 +24,7 @@
 .App-header p {
   font-size: 2em; /* Increase font size */
   font-weight: 600; /* Make it slightly bolder */
-  margin-bottom: 15px; /* Space between "ReedMi" and "TechNews" */
+  margin-bottom: 10px; /* Space between "ReedMi" and "TechNews" */
 }
 
 .App-header a {
