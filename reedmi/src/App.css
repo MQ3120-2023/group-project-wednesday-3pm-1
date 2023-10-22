@@ -17,13 +17,26 @@
 }
 
 .App-header {
-  
+  padding: 20px 0;
   grid-column: 1/4;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header p {
+  font-size: 2em; /* Increase font size */
+  font-weight: 600; /* Make it slightly bolder */
+  margin-bottom: 15px; /* Space between "ReedMi" and "TechNews" */
 }
+
+.App-header a {
+  padding: 10px 20px; 
+  border-radius: 5px; /* Round the corners slightly */
+  transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+.App-header a:hover {
+  background-color: rgba(97, 218, 251, 0.1); /*Background on hover */
+}
+
 
 @keyframes App-logo-spin {
   from {
