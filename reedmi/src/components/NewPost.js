@@ -3,7 +3,7 @@ import axios from 'axios'
 import './NewPost.css'
 import { v4 as uuidv4 } from 'uuid';
 
-function NewPost({addNewPost, allTopics}) {
+function NewPost({fetchPosts, allTopics}) {
     // states for each entry in the form
     const [postTitle, setTitle] = useState('');
     const [postContent, setContent] = useState('');
@@ -14,18 +14,31 @@ function NewPost({addNewPost, allTopics}) {
 
     const addPostToBackEnd = (e) => {
         e.preventDefault();
-        const newPost ={
-            postTitle: postTitle,
-            postContent: postContent,
-            img: postImage? URL.createObjectURL(postImage): null, // Converting the File Object to a data URL
-            topic: postTopic,
-            comments: [],
-            likes: 0,
-            dislikes: 0
-       };
-        axios.post(baseurl, newPost)
+        const formData = new FormData();
+        formData.append('postTitle', postTitle);
+        formData.append('postContent', postContent);
+        formData.append('postTopic', postTopic);
+
+        if (postImage) {
+            formData.append('postImage', postImage);
+        }
+    //     const newPost ={
+    //         postTitle: postTitle,
+    //         postContent: postContent,
+    //         img: postImage? URL.createObjectURL(postImage): null, // Converting the File Object to a data URL
+    //         topic: postTopic,
+    //         comments: [],
+    //         likes: 0,
+    //         dislikes: 0
+    //    };
+        // axios.post(baseurl, newPost)
+        axios.post(baseurl, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         .then(response => {
-                // Handle successful Post Request
+                fetchPosts(); // PostList Rerendered whenever a new Post is added
                 console.log('Post successfully added: ', response.data);
         }).catch(error => {
                 // Handle error

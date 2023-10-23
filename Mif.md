@@ -108,9 +108,104 @@ The flow of data is as follows:
 - Allow Filter by country?
 
 
-# Topics Feature 
+# Topics Feature (FIXED)
 - Issue: The front end should be getting the array of topics from the backend, and we should also have a state for the array of topics
-- when the form is submitted, we add that topic to the state for the array of topics
-- which will cause the Topic Component to rerender
-- should also make a post request to the server to add the newly added topic to the database
-- new schema for "Topic"  
+- when the form is submitted, we make a post request to the server to add the newly added topic to the database
+- once that topic has been added, fetch the topics from the database again, so the most updated TopicList is displayed 
+
+Certainly! Let's delve into the parts that involve using `multer` and storing the image.
+
+---
+
+# Use of Multer to 
+- Store user uploaded images in the Local Storage
+- And creating a URL that can be uploaded to the database, rather than the whole image
+
+## Multer - Introduction
+
+**Multer** is a middleware for Express and Node.js that makes it easy to handle `multipart/form-data` when uploading files. In our code, it's used for handling image uploads for reedmi posts.
+
+### Installing Multer
+
+Before using Multer, it needs to be installed:
+
+```bash
+npm install multer --save
+```
+
+### Configuring Multer for Local Storage
+
+In our code, Multer is set up to store uploaded files in the local file system. This is achieved through `multer.diskStorage`.
+
+The storage variable is an instance of Multer's diskStorage engine, which is configured to determine how uploaded files should be saved on the server's disk - our customised rulebook for telling Multer where and how to save the uploaded files.
+
+```javascript
+const storage = multer.diskStorage({
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
+        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    },
+});
+```
+
+- **destination**: This function determines the path where the uploaded files should be stored. In our example, all files are saved in the `uploads/` directory.
+
+- **filename**: This function defines how to rename the files. Our configuration renames the file to a combination of the field name, current timestamp, and the original file extension, ensuring uniqueness.
+
+Using the `diskStorage` option allows you to fully control where and under what name files will be stored.
+
+### Initializing Multer Middleware
+
+Once the storage details are set up, we initialize Multer with:
+  - The upload variable is an instance of Multer configured with the storage engine that we previously defined.
+  - This means Multer now knows how and where to save the incoming files based on the rules set in our `storage` variable.
+
+```javascript
+const upload = multer({ storage: storage });
+```
+
+### Handling File Uploads in Routes
+
+The actual handling of the file upload happens in routes. Here's an example:
+
+```javascript
+apiRouter.post('/api/createNewPost', upload.single('postImage'), (req, res) => {
+    //... Rest of the code
+});
+```
+
+- **upload.single('postImage')**: This middleware function indicates that we expect a single file in the `postImage` field of the form. Once this middleware processes the request, the file details can be accessed via `req.file`.
+
+### Preparing the Image URL for Local Storage
+
+After Multer processes the file, it's saved in the local directory. However, to reference it from the frontend, we need its URL:
+
+```javascript
+let imgUrl = '';
+if (req.file) {
+    imgUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+}
+```
+
+Here:
+
+- `req.protocol` returns the protocol used, typically `http` or `https`.
+- `req.get('host')` returns the domain name or IP address of the server.
+- `req.file.filename` is the name of the file as saved on the server.
+
+Combining these gives us the complete URL to access the uploaded image.
+
+### Serving Static Files with Express
+
+To ensure that the images can be accessed and viewed in the client's browser, the Express server should be configured to serve them as static files:
+
+```javascript
+apiRouter.use('/uploads', express.static('uploads'));
+```
+
+Here, any file inside the `uploads/` directory can be accessed by going to `<server-url>/uploads/<filename>`.
+
+# Side Note 
+`req.body` is used for regular form fields (text, select options, checkboxes, etc.).
+`req.file` is used for file uploads when Multer is involved.
+---

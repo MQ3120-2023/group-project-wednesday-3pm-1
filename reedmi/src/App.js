@@ -15,7 +15,7 @@ function App() {
   const [selectedTopic, setSelectedTopic] = useState("All");
   const [showTopicForm, setShowTopicForm] = useState(false)
   
-  const fetchProducts = () => {
+  const fetchPosts = () => {
     axios
       .get("http://localhost:3001/api/posts")
       .then((response) => {
@@ -50,7 +50,7 @@ function App() {
 
   useEffect(() => {
     console.log("effect is running");
-    fetchProducts();
+    fetchPosts();
     fetchTopics();
   }, []);
 
@@ -83,7 +83,7 @@ function App() {
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts} />} />
           <Route path='/' element={<PostList posts={posts} filter={selectedTopic} />} />
           <Route path="/techNews" element={<TechNews />} />
-          <Route path="/createNewPost" element={<NewPost addNewPost={addNewPost} allTopics={allTopics} />} />
+          <Route path="/createNewPost" element={<NewPost fetchPosts = {fetchPosts} allTopics={allTopics} />} />
         </Routes>
       </Router>
     </div>

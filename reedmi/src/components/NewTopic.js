@@ -22,7 +22,7 @@ function NewTopic({ fetchTopics, hideForm}){
         axios
           .post(`http://localhost:3001/api/topics/`, newTopic)
           .then(() => {
-            fetchTopics();
+            fetchTopics(); // To make sure that the updated topic list is displayed
           })
           .catch((error) => {
             console.error("There was an error posting the new topic:", error);

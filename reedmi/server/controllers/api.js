@@ -4,7 +4,8 @@ const express = require('express')
 const fs = require("fs") 
 const Post = require("../models/posts") // Importing the Post model
 const Topic = require("../models/topics") // Importing the Topic model
-// const SECRET = process.env.SECRET
+const multer = require('multer')
+const path = require('path');
 
 // Load data from JSON file into memory
 const rawData = fs.readFileSync("server/data.json")
@@ -14,6 +15,21 @@ const data = JSON.parse(rawData)
 // that you can use to define routes. This router doesn't represent the whole application but rather a subset of route handlers.
 // Instead of app.get(a route), we now use apiRouter.get(a route) and import const apiRouter = express.Router()
 const apiRouter = express.Router()
+// Middleware to parse url-encoded bodies
+apiRouter.use(express.urlencoded({ extended: false }));
+// Serve static images from the 'uploads' directory
+apiRouter.use('/uploads', express.static('uploads'));
+
+// Configure multer storage
+const storage = multer.diskStorage({
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
+        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    },
+});
+
+const upload = multer({ storage: storage });
+
 
 apiRouter.get('/', (req, res) => {
   res.send('Hello World');
@@ -31,6 +47,29 @@ apiRouter.get('/api/posts', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 });
+
+apiRouter.post('/api/createNewPost', upload.single('postImage'), (req, res) => {
+    const body = req.body;
+    // Prepare image URL for local storage
+    let imgUrl = '';
+    if (req.file) {
+        imgUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    }
+    const newPost = new Post({
+        postTitle: body.postTitle,
+        postContent: body.postContent,
+        img: imgUrl,
+        category: body.postTopic,
+        comments: [],
+        likes: 0,
+        dislikes: 0
+    });
+
+    newPost.save().then(result => {
+        res.json(result)
+        console.log("New Post by User saved")
+    })
+})
 
 apiRouter.get('/api/topics', (req, res) => {
     // Instead of returning the "posts" array from file
