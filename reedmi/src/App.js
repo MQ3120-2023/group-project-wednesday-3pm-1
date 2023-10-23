@@ -6,6 +6,7 @@ import PostList from './components/PostList';
 import SelectedPost from './components/SelectedPost';
 import TechNews from './components/TechNews';
 import NewTopic from './components/NewTopic';
+import NewPost from './components/NewPost';
 
 function App() {
 
@@ -44,41 +45,35 @@ function App() {
     // })
   }, []);
 
+  const addNewPost = (newPost) => {
+
+  }
   return (
     <div className="App">
-      <Router>  
-      <header className="App-header">
-        <p><Link to={"/"}>
-          ReedMi
-        </Link></p>
-        <Link to="/techNews">TechNews</Link>
-      </header>
-      <aside id='sideBar'> 
-          
+      <Router>
+        <header className="App-header">
+          <p><Link to={"/"}> ReedMi </Link></p>
+          <Link to="/techNews">TechNews</Link>
+        </header>
+        <aside id='sideBar'>
           Topics:
-          
           {/*maps through topics from data.json and displays them one after the other*/}
-          <Link to="/">
-          <p onClick={() => setSelectedTopic("All")}>Home</p>
-          </Link>
+          <Link to="/"> <p onClick={() => setSelectedTopic("All")}>Home</p> </Link>
           {topics.map((topic, index) => {
-            
-            return(
-          <Link to="/">  
-          <p key={index} onClick={() => setSelectedTopic(topic)}>{topic} </p> 
-          </Link>  )
-          
+            return (
+              <Link to="/"> <p key={index} onClick={() => setSelectedTopic(topic)}>{topic} </p></Link>)
           })}
-            <button onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
-
-            {showForm(showTopicForm)}
-          
-      </aside>
-      
+          <button onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
+          {showForm(showTopicForm)}
+        </aside>
+        <div>
+          <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
+        </div>
         <Routes>
-          <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts}/>}/>
+          <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts} />} />
           <Route path='/' element={<PostList posts={posts} filter={selectedTopic} />} />
-          <Route path ="/techNews" element = {<TechNews />} />
+          <Route path="/techNews" element={<TechNews />} />
+          <Route path="/createNewPost" element={<NewPost addNewPost={addNewPost} topics={topics} />} />
         </Routes>
       </Router>
     </div>

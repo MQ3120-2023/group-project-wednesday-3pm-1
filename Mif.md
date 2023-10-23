@@ -108,3 +108,9 @@ The flow of data is as follows:
 - Allow Filter by country?
 
 
+# Topics Feature 
+- Issue: The front end should be getting the array of topics from the backend, and we should also have a state for the array of topics
+- when the form is submitted, we add that topic to the state for the array of topics
+- which will cause the Topic Component to rerender
+- should also make a post request to the server to add the newly added topic to the database
+- new schema for "Topic"  

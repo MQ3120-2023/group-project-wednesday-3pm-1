@@ -1,7 +1,8 @@
 .singleArticle{
  font-family: monospace;
  font-size: 20px;
- background-color: rgb(1, 19, 54)
+ background-color: rgb(1, 19, 54);
+ color: white;
 }
 
 #articleLink{
