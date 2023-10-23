@@ -147,9 +147,19 @@
       "dislikes": 0
     }
   ],
-  "topics": [
-      "Languages",
-      "Solutions",
-      "Hardware"
+  "topics":[
+    {
+      "topicName": "Languages",
+      "topicDescription": "This topic covers various programming languages like Python, JavaScript, and more."
+    },
+    {
+      "topicName": "Solutions",
+      "topicDescription": "Focused on providing solutions to common problems in software development."
+    },
+    {
+      "topicName": "Hardware",
+      "topicDescription": "Everything related to computer hardware, including CPUs, GPUs, and storage solutions."
+    }
   ]
+
 }

@@ -3,24 +3,12 @@ const express = require('express')
 // const jwt = require("jsonwebtoken")
 const fs = require("fs") 
 const Post = require("../models/posts") // Importing the Post model
-
+const Topic = require("../models/topics") // Importing the Topic model
 // const SECRET = process.env.SECRET
 
 // Load data from JSON file into memory
 const rawData = fs.readFileSync("server/data.json")
 const data = JSON.parse(rawData)
-
-// const getUser = (username) => {
-//     return data.users.filter(u => u.username === username)[0]
-// }
-
-// const getTokenFrom = request => {
-//     const authorization = request.get('authorization') 
-//     if (authorization && authorization.toLowerCase().startsWith('bearer ')) { 
-//            return authorization.substring(7)  
-//         }  
-//     return null
-// }
 
 // When you create a router using express.Router(), it's like creating a "mini-application" 
 // that you can use to define routes. This router doesn't represent the whole application but rather a subset of route handlers.
@@ -32,9 +20,9 @@ apiRouter.get('/', (req, res) => {
 });
 
 apiRouter.get('/api/posts', (req, res) => {
-    // instead of returning the "posts" array from file
-    // we will fetch the data from the database
-    // and passing it back to our client
+    // Instead of returning the "posts" array from file
+    // We will fetch the data from the database
+    // And passing it back to our client
     Post.find({}).then(result => {
         console.log(result)
         res.json(result)
@@ -44,16 +32,37 @@ apiRouter.get('/api/posts', (req, res) => {
         });
 });
 
+apiRouter.get('/api/topics', (req, res) => {
+    // Instead of returning the "posts" array from file
+    // We will fetch the data from the database
+    // And passing it back to our client
+    Topic.find({}).then(result => {
+        console.log(result)
+        res.json(result)
+    }).catch(error => {
+        console.error("Error fetching Topics:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    });
+});
 
-apiRouter.get('/api/posts/:id', (req, res) => {
+apiRouter.post('/api/topics', (req, res)  => {
+    const body = req.body;
+    Topic.findOne({ topicName: body.topicName }).then(existingTopic => {
+        if (!existingTopic) {
+            // Only create a new topic if it doesn't exist
+            const newTopic = new Topic({
+                topicName: body.topicName,
+                topicDescription: body.topicDescription
+            })
 
-    Like.findById(req.params.id)
-        .then(result => {
-            res.json(result)
-        })
-        .catch(() => {
-            res.status(404).json({error: "Not found"})
-        })
+            newTopic.save().then(result => {
+                res.json(result)
+                console.log("New Topic saved")
+            })
+        } else {
+            console.log("Topic already exists");
+        }
+    });
 })
 
 // apiRouter.post('/api/posts', (req, res) => {
@@ -103,53 +112,5 @@ apiRouter.get('/api/posts/:id', (req, res) => {
 //     })   
 // })
 
-// // handle post request for login with {username, password}
-// apiRouter.post('/auth/login', async (req, res) => {
-
-//     const {username, password} = req.body
-
-//     const user = getUser(username)
-
-//     if (!user) {
-//         return res.status(401).json({error: "invalid username or password"})
-//     }
-
-//     if (await bcrypt.compare(password, user.password)) {
-        
-//         const userForToken = {
-//             id: user.id,
-//             username: user.username            
-//         }
-//         let token = null
-//         try {
-//             token = jwt.sign(userForToken, SECRET)
-//         } 
-//         catch (error) {
-//             return res.status(401).json({error: "invalid token"})
-//         }
-
-//         // store the token in the user session
-//         req.session.token = token
-//         return res.status(200).json({token, username: user.username, name: user.name})
-        
-//     } else {
-//         return res.status(401).json({error: "invalid username or password"})
-//     }
-
-// })
-
-
-// // handle post request for login with {username, password}
-// apiRouter.get('/auth/refresh', async (req, res) => {
-
-//     if (req.session.token) {
-//         const decoded = jwt.verify(req.session.token, SECRET)
-//         const user = getUser(decoded.username)
-
-//         return res.status(200).json({token: req.session.token, username: user.username, name: user.name})
-//     } else {
-//         return res.status(401).json({error: "no or invalid cookie"})
-//     }
-// })
 
 module.exports = apiRouter;

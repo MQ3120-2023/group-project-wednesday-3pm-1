@@ -11,39 +11,49 @@ import NewPost from './components/NewPost';
 function App() {
 
   const [posts, setPosts] = useState([]);
-  
-  const showForm = (booleanVariable) => {
-    if(booleanVariable){
-      return(<NewTopic />)
-    }
-  }
+  const [allTopics, setTopics] = useState([]);
+  const [selectedTopic, setSelectedTopic] = useState("All");
   const [showTopicForm, setShowTopicForm] = useState(false)
   
-  //const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState("All");
-  const topics= [
-      "Languages",
-      "Solutions",
-      "Hardware"
-  ]
+  const fetchProducts = () => {
+    axios
+      .get("http://localhost:3001/api/posts")
+      .then((response) => {
+        setPosts(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching products:", error);
+      });
+  }
 
+  const fetchTopics = () => {
+    axios
+      .get("http://localhost:3001/api/topics")  // Changed https to http for consistency
+      .then((response) => {
+        setTopics(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching topics:", error);
+      });
+  }
+
+  const showForm = (booleanVariable) => {
+    if (booleanVariable) {
+      return (<NewTopic fetchTopics = {fetchTopics} hideForm = {hideForm} />)
+    }
+  }
+
+  const hideForm = () => {
+    setShowTopicForm(false);
+  }
 
   useEffect(() => {
     console.log("effect is running");
-    axios
-    .get("http://localhost:3001/api/posts")
-    .then((response) => {
-      //get request to retrieve product information from the sampledata.json from the back end server
-      console.log("we have a response", response);
-      setPosts(response.data);
-    });
-    // MIFF (Can't make axios call properly)
-    //  axios 
-    // .get("https://localhost:3001/api/topics")
-    // .then((response) => {
-    //   setTopics(response.data);
-    // })
+    fetchProducts();
+    fetchTopics();
   }, []);
+
 
   const addNewPost = (newPost) => {
 
@@ -59,9 +69,9 @@ function App() {
           Topics:
           {/*maps through topics from data.json and displays them one after the other*/}
           <Link to="/"> <p onClick={() => setSelectedTopic("All")}>Home</p> </Link>
-          {topics.map((topic, index) => {
+          {allTopics.map((currentTopic, index) => {
             return (
-              <Link to="/"> <p key={index} onClick={() => setSelectedTopic(topic)}>{topic} </p></Link>)
+              <Link to="/"> <p key={index} onClick={() => setSelectedTopic(currentTopic.topicName)}>{currentTopic.topicName} </p></Link>)
           })}
           <button onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
           {showForm(showTopicForm)}
@@ -73,7 +83,7 @@ function App() {
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts} />} />
           <Route path='/' element={<PostList posts={posts} filter={selectedTopic} />} />
           <Route path="/techNews" element={<TechNews />} />
-          <Route path="/createNewPost" element={<NewPost addNewPost={addNewPost} topics={topics} />} />
+          <Route path="/createNewPost" element={<NewPost addNewPost={addNewPost} allTopics={allTopics} />} />
         </Routes>
       </Router>
     </div>

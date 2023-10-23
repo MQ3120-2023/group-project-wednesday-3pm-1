@@ -3,7 +3,7 @@ import axios from 'axios'
 import './NewPost.css'
 import { v4 as uuidv4 } from 'uuid';
 
-function NewPost({addNewPost, topics}) {
+function NewPost({addNewPost, allTopics}) {
     // states for each entry in the form
     const [postTitle, setTitle] = useState('');
     const [postContent, setContent] = useState('');
@@ -44,14 +44,14 @@ function NewPost({addNewPost, topics}) {
             <textarea id="postContent" value={postContent} onChange={(e) => setContent(e.target.value)} placeholder="Content" required></textarea>
             <select id="postTopic" value={postTopic} onChange={(e) => setTopic(e.target.value)} required>
                 <option value="" disabled>Select a Topic</option>
-                {topics.map((t) => (
-                    <option value={t}>
-                        {t}
+                {allTopics.map((t) => (
+                    <option value={t.topicName}>
+                        {t.topicName}
                     </option>
                 ))}
                 <option value="other">Other</option>
             </select>
-            <button id="submitButton" type="submit">Submit</button>
+            <button id="submitButton" type="submit">Post</button>
         </form>
     )
 }
