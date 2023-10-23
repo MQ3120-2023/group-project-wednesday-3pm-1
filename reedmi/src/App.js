@@ -54,13 +54,13 @@ function App() {
         <Link to="/techNews">TechNews</Link>
       </header>
       <aside id='sideBar'> 
-          
-          Topics:
+        <Link to="/">
+          <p onClick={() => setSelectedTopic("All")}>Home</p>
+        </Link>
+          <strong>Topics:</strong>
           
           {/*maps through topics from data.json and displays them one after the other*/}
-          <Link to="/">
-          <p onClick={() => setSelectedTopic("All")}>Home</p>
-          </Link>
+          
           {topics.map((topic, index) => {
             
             return(
