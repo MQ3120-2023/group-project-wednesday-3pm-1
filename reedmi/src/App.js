@@ -66,14 +66,14 @@ function App() {
           <Link to="/techNews">TechNews</Link>
         </header>
         <aside id='sideBar'>
-          Topics:
+        Topics:
           {/*maps through topics from data.json and displays them one after the other*/}
-          <Link to="/"> <p onClick={() => setSelectedTopic("All")}>Home</p> </Link>
+          <Link className="sideBarLink" to="/"> <p className="sideBarP" onClick={() => setSelectedTopic("All")}>Home</p> </Link>
           {allTopics.map((currentTopic, index) => {
             return (
-              <Link to="/"> <p key={index} onClick={() => setSelectedTopic(currentTopic.topicName)}>{currentTopic.topicName} </p></Link>)
+              <Link className="sideBarLink" to="/"> <p className="sideBarP" key={index} onClick={() => setSelectedTopic(currentTopic.topicName)}>{currentTopic.topicName} </p></Link>)
           })}
-          <button onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
+          <button className="sideBarButton" onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
           {showForm(showTopicForm)}
         </aside>
         <div>
