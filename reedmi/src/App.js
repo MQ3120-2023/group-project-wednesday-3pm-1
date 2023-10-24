@@ -9,6 +9,7 @@ import NewTopic from './components/NewTopic';
 import NewPost from './components/NewPost';
 import './components/SideBar.css';
 import './components/SelectedPost.css';
+import './components/HomePosts.css';
 
 function App() {
 
@@ -63,10 +64,10 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <header className="App-header">
-          <p><Link to={"/"}> ReedMi </Link></p>
-          <Link to="/techNews">TechNews</Link>
-        </header>
+      <header className="App-header">
+        <p className="header-title"><Link className="header-link" to={"/"}> ReedMi </Link></p>
+        <Link className="header-link" to="/techNews">TechNews</Link>
+      </header>
         <aside id='sideBar'>
         Topics:
           {/*maps through topics from data.json and displays them one after the other*/}
