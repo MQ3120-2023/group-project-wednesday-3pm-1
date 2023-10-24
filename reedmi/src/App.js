@@ -7,6 +7,8 @@ import SelectedPost from './components/SelectedPost';
 import TechNews from './components/TechNews';
 import NewTopic from './components/NewTopic';
 import NewPost from './components/NewPost';
+import './components/SideBar.css';
+import './components/SelectedPost.css';
 
 function App() {
 

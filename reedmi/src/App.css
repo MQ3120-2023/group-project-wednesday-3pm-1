@@ -47,30 +47,6 @@
   }
 }
 
-/**SIDEBAR**/
-#sideBar{
-  background-color: white;
-  padding: 20px;
-}
-
-#sideBar a {
-color:rgb(48, 50, 54)
-}
-
-#sideBar p, #sideBar button {
-  margin: 10px 0; /* Some space between each link */
-  border-radius: 5px; /* Rounded edges for aesthetic appeal */
-  transition: background-color 0.3s; /* Smooth transition */
-  cursor: pointer; /* Cursor style for clickable items */
-}
-
-#sideBar p:hover, #sideBar button:hover {
-  background-color: rgb(214, 96, 28); /* Slightly lighter shade on hover */
-}
-
-
-
-
 /**POSTS**/
 
 #postTitle{
@@ -106,58 +82,5 @@ a{
   text-decoration: none;
   color: rgb(244, 233, 233);
   display: block;
-}
-
-/*SelectedPost*/
-
-.post-container{
-}
-
-form{
-  font-size: 16px;
-}
-
-.formBox {
-  display: inline-block;
-}
-
-.comment-container {
-  display: inline-block; /* Changed from inline to inline-block */
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  padding: 1px 6px;
-  width: 100%;
-  overflow: hidden;
-  min-height: 40px;
-  line-height: 20px;
-}
-
-.comment {
-  width: 100%; /* The textarea should span the full width of its container */
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 3px;
-  overflow: auto; /* Scroll if text exceeds the height */
-}
-
-.comment:focus {
-  outline: none; /* Optional: This removes the blue outline when focused */
-}
-
-
-.submitButton{
-  background-color: transparent;
-  text-decoration: none;
-  border-style: solid;
-  padding: 10px;
-  color: white;
-  margin-left: 5px;
-}
-.submitButton:hover{
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 50%);
-  color: black;
-  border-radius: 3px;
 }
 

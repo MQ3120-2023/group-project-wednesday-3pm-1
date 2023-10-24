@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
+import './SelectedPost.css';
 
 function SelectedPost({ posts }) {
   const { postId } = useParams();

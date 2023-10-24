@@ -1,0 +1,47 @@
+form{
+  font-size: 16px;
+}
+
+.formBox {
+  display: inline-block;
+}
+
+.comment-container {
+  display: inline-block; /* Changed from inline to inline-block */
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 1px 6px;
+  width: 100%;
+  overflow: hidden;
+  min-height: 40px;
+  line-height: 20px;
+}
+
+.comment {
+  width: 100%; /* The textarea should span the full width of its container */
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 3px;
+  overflow: auto; /* Scroll if text exceeds the height */
+}
+
+.comment:focus {
+  outline: none; /* Optional: This removes the blue outline when focused */
+}
+
+
+.submitButton{
+  background-color: transparent;
+  text-decoration: none;
+  border-style: solid;
+  padding: 10px;
+  color: white;
+  margin-left: 5px;
+}
+.submitButton:hover{
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 50%);
+  color: black;
+  border-radius: 3px;
+}
