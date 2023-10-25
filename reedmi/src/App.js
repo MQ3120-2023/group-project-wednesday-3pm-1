@@ -66,12 +66,14 @@ function App() {
       <Router>
       <header className="App-header">
         <p className="header-title"><Link className="header-link" to={"/"}> ReedMi </Link></p>
+        <div className="navOptions">
         <Link className="header-link" to="/techNews">TechNews</Link>
         <div>
         <div className="navbar-links">
           <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
           <Link to="/"> 
           <p onClick={() => setSelectedTopic("All")}>Home</p> </Link>
+          </div>
           </div>
           </div>
       </header>

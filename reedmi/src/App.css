@@ -17,13 +17,24 @@
 }
 
 /**Headers**/
+
+.header-title{
+  font-size: 50px;
+}
 .App-header {
   padding: 20px 0;
   grid-column: 1/4;
 }
 
+.navbar-links{
+  margin-top: 20px;
+}
 
 
+.navOptions a:hover{
+  background-color: rgb(214, 96, 28);
+  
+}
 
 
 @keyframes App-logo-spin {
