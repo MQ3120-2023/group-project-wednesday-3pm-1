@@ -209,3 +209,8 @@ Here, any file inside the `uploads/` directory can be accessed by going to `<ser
 `req.body` is used for regular form fields (text, select options, checkboxes, etc.).
 `req.file` is used for file uploads when Multer is involved.
 ---
+
+
+## TechNews
+- Cache whatever the api returns so we do not have to keep sending requests 
+- Navigation to make sure we go back to the article rather than the search bar 

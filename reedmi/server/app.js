@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express') 
 const cors = require("cors")
+
 const apiRouter = require("./controllers/api")
 const axios = require('axios');
 const session = require('express-session');
@@ -23,7 +24,7 @@ app.use(cors(corsOptions));
 
 
 app.use(express.json())
-
+// app.use(express.static('build'))
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
