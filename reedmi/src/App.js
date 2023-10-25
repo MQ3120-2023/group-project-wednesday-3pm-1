@@ -67,11 +67,17 @@ function App() {
       <header className="App-header">
         <p className="header-title"><Link className="header-link" to={"/"}> ReedMi </Link></p>
         <Link className="header-link" to="/techNews">TechNews</Link>
+        <div>
+        <div className="navbar-links">
+          <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
+          <Link to="/"> 
+          <p onClick={() => setSelectedTopic("All")}>Home</p> </Link>
+          </div>
+          </div>
       </header>
         <aside id='sideBar'>
         Topics:
           {/*maps through topics from data.json and displays them one after the other*/}
-          <Link className="sideBarLink" to="/"> <p className="sideBarP" onClick={() => setSelectedTopic("All")}>Home</p> </Link>
           {allTopics.map((currentTopic, index) => {
             return (
               <Link className="sideBarLink" to="/"> <p className="sideBarP" key={index} onClick={() => setSelectedTopic(currentTopic.topicName)}>{currentTopic.topicName} </p></Link>)
@@ -79,9 +85,7 @@ function App() {
           <button className="sideBarButton" onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
           {showForm(showTopicForm)}
         </aside>
-        <div>
-          <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
-        </div>
+       
         <Routes>
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts} />} />
           <Route path='/' element={<PostList posts={posts} filter={selectedTopic} />} />

@@ -22,21 +22,9 @@
   grid-column: 1/4;
 }
 
-.header-title {
-  font-size: 2em; 
-  font-weight: 600; 
-  margin-bottom: 10px; /* Space between "ReedMi" and "TechNews" */
-}
 
-.header-link {
-  padding: 10px 20px; 
-  border-radius: 5px; 
-  transition: background-color 0.3s; 
-}
 
-.header-link:hover {
-  background-color: rgba(97, 218, 251, 0.1); /* Background on hover */
-}
+
 
 @keyframes App-logo-spin {
   from {

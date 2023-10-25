@@ -5,7 +5,12 @@
 
 .sideBarLink {
     color: rgb(48, 50, 54);
+    text-decoration: none;
+    display: block;
 }
+
+
+
 
 .sideBarP, .sideBarButton {
     margin: 10px 0; 
