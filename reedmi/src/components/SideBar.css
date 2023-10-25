@@ -3,9 +3,20 @@
     padding: 20px;
 }
 
-.sideBarLink {
+.sideBarLink, .homeLink {
     color: rgb(48, 50, 54);
+    text-decoration: none;
+    display: block;
 }
+
+.homeButton {
+    padding: 8px 15px;
+    border: 1px solid rgb(48, 50, 54);
+    text-align: center;
+    display: block;
+}
+
+
 
 .sideBarP, .sideBarButton {
     margin: 10px 0; 
@@ -14,6 +25,10 @@
     cursor: pointer; 
 }
 
-.sideBarP:hover, .sideBarButton:hover {
+.homeButton:hover, .sideBarP:hover, .sideBarButton:hover {
     background-color: rgb(214, 96, 28);
+}
+
+.homeButton:active, .homeButton:focus {
+    background-color: rgb(194, 76, 8);
 }
