@@ -1,14 +1,16 @@
 .App {
   text-align: center;
-  background-color: rgb(51, 83, 105);
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  background: linear-gradient(to right, #1e90ff, #00bfff);
+  /* display: grid; */
+  
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -18,12 +20,15 @@
 
 /**Headers**/
 
+
+
 .header-title{
   font-size: 50px;
 }
 .App-header {
   padding: 20px 0;
-  grid-column: 1/4;
+  /* grid-column: 1/4; */
+  background-color: rgb(32, 32, 32);
 }
 
 .navbar-links{

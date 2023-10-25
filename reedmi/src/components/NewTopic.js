@@ -35,6 +35,7 @@ function NewTopic({ fetchTopics, hideForm}){
         <form onSubmit={handleSubmitNewTopic}>
             <label>Topic Name</label>
             <input type="text" name="topicName" maxLength={25} required/>
+            <br></br>
             <label>Topic Description</label>
             <textarea type="text" name="topicDescription" required/>
             <button type="submit">Submit</button>
