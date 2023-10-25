@@ -67,6 +67,9 @@ function App() {
       <header className="App-header">
         <p className="header-title"><Link className="header-link" to={"/"}> ReedMi </Link></p>
         <Link className="header-link" to="/techNews">TechNews</Link>
+        <div>
+          <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
+        </div>
       </header>
         <aside id='sideBar'>
         <Link className="homeLink sideBarLink" to="/"> 
@@ -80,9 +83,7 @@ function App() {
           <button className="sideBarButton" onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
           {showForm(showTopicForm)}
         </aside>
-        <div>
-          <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
-        </div>
+       
         <Routes>
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts} />} />
           <Route path='/' element={<PostList posts={posts} filter={selectedTopic} />} />
