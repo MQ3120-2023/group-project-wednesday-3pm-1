@@ -68,12 +68,14 @@ function App() {
         <p className="header-title"><Link className="header-link" to={"/"}> ReedMi </Link></p>
         <Link className="header-link" to="/techNews">TechNews</Link>
         <div>
+        <div className="navbar-links">
           <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
-        </div>
+          <Link to="/"> 
+          <p onClick={() => setSelectedTopic("All")}>Home</p> </Link>
+          </div>
+          </div>
       </header>
         <aside id='sideBar'>
-        <Link className="homeLink sideBarLink" to="/"> 
-    <p className="homeButton sideBarP" onClick={() => setSelectedTopic("All")}>Home</p> </Link>
         Topics:
           {/*maps through topics from data.json and displays them one after the other*/}
           {allTopics.map((currentTopic, index) => {
