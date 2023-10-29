@@ -2,17 +2,16 @@
     background-color: whitesmoke;
     padding: 20px;
     position: fixed;
+    left: 0;
     width: 200px;
     z-index: 1;
-    border-radius: 10px;
+    border-radius: 10px; 
 }
 
 .sideBarLink {
     color: rgb(48, 50, 54);
     text-decoration: none;
-    display: block;
-    
-    
+    display: block;    
 }
 
 .sideBarP, .sideBarButton {

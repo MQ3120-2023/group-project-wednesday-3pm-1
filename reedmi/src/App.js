@@ -76,6 +76,7 @@ function App() {
           </div>
           </div>
       </header>
+      <div className="main-content">  {/* to wrap all the content */}
         <aside id='sideBar'>
         Topics:
           {/*maps through topics from data.json and displays them one after the other*/}
@@ -86,13 +87,15 @@ function App() {
           <button className="sideBarButton" onClick={() => setShowTopicForm(!showTopicForm)}>Add New Topic</button>
           {showForm(showTopicForm)}
         </aside>
-       
+        <div className="content-area">
         <Routes>
           <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts} />} />
           <Route path='/' element={<PostList posts={posts} filter={selectedTopic} />} />
           <Route path="/techNews" element={<TechNews />} />
           <Route path="/createNewPost" element={<NewPost fetchPosts = {fetchPosts} allTopics={allTopics} />} />
         </Routes>
+        </div>
+        </div>
       </Router>
     </div>
   );
