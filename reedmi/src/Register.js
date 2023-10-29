@@ -1,55 +1,61 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
 const Register = () => {
-    const [userData, setUserData] = useState({
-        username: '',
-        password: ''
-    });
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
-    const navigate = useNavigate(); // Get the navigate function
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUserData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+    const passwordsMatch = () => {
+        if (password !== confirmPassword) {
+            setError('Passwords do not match.');
+            return false;
+        }
+        return true;
     };
 
-   
     const loginUser = async () => {
         try {
-            
-            await axios.post('http://localhost:3001/api/auth/login', userData, {
-                withCredentials: true, 
-                credentials: 'include'
-            });
-            navigate('/feed');
-        } catch (loginErr) {
-            
-            setError('Automatic login failed. Please log in manually.');
-        }
-    };
-    
+            // Attempt to login
+            const response = await axios.post('http://localhost:3001/api/auth/login', { login: username, password: password });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            // Register the user
-            const response = await axios.post('http://localhost:3001/api/auth/register', userData);
             if (response.data) {
-                setSuccess(true);
-                setError(null);
-                // Now, log the user in
-                await loginUser(); // Automatically log in after successful registration
+                navigate('/home');
             }
         } catch (err) {
-            setError("Failed to register. Please try again.");
+            // Handle errors here by setting state so the user can know if their login attempt was unsuccessful
+            setError('Failed to login. Please try again.');
+        }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await axios.post('http://localhost:3001/api/auth/register', {
+                email: email,
+                username: username,
+                password: password,
+                confirm: confirmPassword,
+            });
+            
+            if (response.status === 200) {
+                // Registration was successful, redirect the user to the login page
+                loginUser();
+              } else {
+                // Registration was not successful, set the error state
+                setError('Failed to register. Please try again.');
+              }
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
         }
     };
 
@@ -62,14 +68,28 @@ const Register = () => {
             ) : (
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
-                        <label htmlFor="username">Username:</label>
-                        <input type="text" id="username" name="username" value={userData.username} onChange={handleChange} required />
+                        <label>Email:</label>
+                        <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
                     </div>
                     <div className="input-group">
-                        <label htmlFor="password">Password:</label>
-                        <input type="password" id="password" name="password" value={userData.password} onChange={handleChange} required />
+                        <label>Username:</label>
+                        <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
                     </div>
-                    <button type="submit" className="register-btn">Register</button>
+                    <div className="input-group">
+                        <label>Password:</label>
+                        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+                    </div>
+                    <div className="input-group">
+                        <label>Confirm Password:</label>
+                        <input
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(event) => setConfirmPassword(event.target.value)}
+                        />
+                    </div>
+                    <button className="register-btn" type="submit">
+                        Register
+                    </button>
                 </form>
             )}
         </div>

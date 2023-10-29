@@ -10,7 +10,7 @@ const fs = require("fs");
 const authRoutes = require('./authRoutes');
 require('./passportSetup');
 
-const app = express() // initializes the main Express application instance
+const app = express()
 
 var corsOptions = {
   origin: 'http://localhost:3000',
@@ -20,8 +20,6 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -30,17 +28,16 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use(session({
   secret: 'reedmiauth',
   resave: false,
   saveUninitialized: false,
   cookie: {
-      secure: process.env.NODE_ENV === 'production',  // Set to true if you are using https
-      httpOnly: false, // client-side script cannot read the cookie
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: false,
       sameSite: 'none',
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      //domain: 'localhost',
+      maxAge: 24 * 60 * 60 * 1000,
+     
   }
 }));
 

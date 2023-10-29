@@ -15,10 +15,28 @@ var corsOptions = {
 
 router.use(cors(corsOptions));
 router.use(express.json());
-router.post('/register', async (req, res) => {
-    const { username, password } = req.body;
 
-    if (!username || !password) {
+router.get('/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] })
+);
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('http://localhost:3000/home');
+  }
+);
+
+router.get('/oauth2/redirect/google',
+  passport.authenticate('google', { failureRedirect: '/login', failureMessage: true }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+  router.post('/register', async (req, res) => {
+    const { email, username, password, confirm } = req.body;
+
+    if (!email || !username || !password) {
         return res.status(400).send({ message: 'Please enter all fields' });
     }
 
@@ -31,6 +49,7 @@ router.post('/register', async (req, res) => {
         }
 
         const newUser = new User({
+            email,
             username,
             password
         });
@@ -59,9 +78,35 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
-    res.send({ message: 'Logged in successfully!', user: req.user });
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return res.status(500).send({ message: 'An error occurred during authentication', error: err });
+        }
+
+        if (!user) {
+            return res.status(400).send({ message: info.message });
+        }
+
+        req.logIn(user, (err) => {
+            if (err) {
+                return res.status(500).send({ message: 'An error occurred during login', error: err });
+            }
+
+            // User is now logged in
+            // You can send back the user details or any other response as needed
+            return res.send({
+                message: 'Logged in successfully!',
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    // email: user.email  // uncomment this if you want to send the email as well
+                }
+            });
+        });
+    })(req, res, next);
 });
+
 
 router.post('/logout', (req, res) => {
     req.logout();
@@ -76,6 +121,8 @@ const ensureAuthenticated = (req, res, next) => {
 
     res.status(401).send('You need to log in first.');
   };
+
+  
   router.get('/current_user', ensureAuthenticated, (req, res) => {
    
     const userData = {

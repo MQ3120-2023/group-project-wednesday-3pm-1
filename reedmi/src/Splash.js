@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Splash.css';
+import CreateAccountOverlay from './CreateAccountOverlay';
 
 function Splash() {
     const [user, setUser] = useState(null);
@@ -22,19 +23,16 @@ function Splash() {
             });
     }, []);
 
-    const navigateToFeed = () => {
-        navigate('/feed');
-    };
 
-    const temporaryButtonHandler = () => {
-        console.log('Temporary button clicked');
-        navigateToFeed();
-    };
-
-    const handleAddUser = () => {
+    const handleRegister = () => {
         navigate('/register');
     };
-   
+
+    // Navigate to the Login page
+    const handleLogin = () => {
+        navigate('/login');
+    };
+ 
     return (
         <div className="splash-main-container">
             <h2 className="splash-heading">Welcome To ReedMi</h2>
@@ -45,12 +43,12 @@ function Splash() {
             ) : user ? (
                 <div>
                     <p className="splash-welcome-text">Welcome back, {user.username}!</p>
-                    <button className="splash-temporary-button" onClick={navigateToFeed}>Go to Feed</button>
+                    
                 </div>
             ) : (
                 <div>
-                    <button className="splash-temporary-button" onClick={handleAddUser}>Sign Up</button>
-                    <button className="splash-temporary-button" onClick={temporaryButtonHandler}>Login</button>
+                   <button className="splash-temporary-button" onClick={handleRegister}>Sign Up</button>
+                    <button className="splash-temporary-button" onClick={handleLogin}>Login</button>
                 </div>
             )}
         </div>

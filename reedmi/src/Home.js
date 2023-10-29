@@ -1,4 +1,4 @@
-import './App.css';
+import './Home.css';
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -8,13 +8,32 @@ import TechNews from './components/TechNews';
 import NewTopic from './components/NewTopic';
 import NewPost from './components/NewPost';
 
-function App() {
+function Home() {
+
+  const [username, setUsername] = useState('');
+  const [error, setError] = useState(null);
 
   const [posts, setPosts] = useState([]);
   const [allTopics, setTopics] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState("All");
   const [showTopicForm, setShowTopicForm] = useState(false)
   
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/auth/current_user', { withCredentials: true });
+      setUsername(response.data.username);
+    } catch (err) {
+      setError('Could not fetch user data');
+    }
+  };
+
+  useEffect(() => {
+    console.log("effect is running");
+    fetchPosts();
+    fetchTopics();
+    fetchCurrentUser(); // Fetch the current user's data
+  }, []);
+
   const fetchPosts = () => {
     axios
       .get("http://localhost:3001/api/posts")
@@ -49,9 +68,11 @@ function App() {
   }
 
   useEffect(() => {
+    
     console.log("effect is running");
     fetchPosts();
     fetchTopics();
+    fetchCurrentUser(); 
   }, []);
 
 
@@ -60,10 +81,12 @@ function App() {
   }
   return (
     <div className="App">
-      <Router>
+      
         <header className="App-header">
           <p><Link to={"/"}> ReedMi </Link></p>
           <Link to="/techNews">TechNews</Link>
+          {error && <p>{error}</p>}
+        {username && <p>Logged in as: {username}</p>} {/* Display the username */}
         </header>
         <aside id='sideBar'>
           Topics:
@@ -79,15 +102,8 @@ function App() {
         <div>
           <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
         </div>
-        <Routes>
-          <Route path="/SelectedPost/:postId" element={<SelectedPost posts={posts} />} />
-          <Route path='/' element={<PostList posts={posts} filter={selectedTopic} />} />
-          <Route path="/techNews" element={<TechNews />} />
-          <Route path="/createNewPost" element={<NewPost fetchPosts = {fetchPosts} allTopics={allTopics} />} />
-        </Routes>
-      </Router>
     </div>
   );
 }
 
-export default App;
+export default Home;
