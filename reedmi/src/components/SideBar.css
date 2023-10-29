@@ -3,7 +3,8 @@
     padding: 20px;
     position: fixed;
     left: 0;
-    width: 200px;
+    bottom: 11px;
+    max-width: fit-content;
     z-index: 1;
     border-radius: 10px; 
 }
