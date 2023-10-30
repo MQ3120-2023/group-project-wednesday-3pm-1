@@ -11,11 +11,12 @@ const cors = require('cors');
 
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://reedmi-test.onrender.com'],
     methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
     credentials: true, 
     optionsSuccessStatus: 200 
 };
+
 
 // Load data from JSON file into memory
 const rawData = fs.readFileSync("server/data.json")

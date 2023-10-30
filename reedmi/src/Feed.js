@@ -8,7 +8,7 @@ function Feed() {
   useEffect(() => {
     console.log("effect is running");
     axios
-      .get("http://localhost:3001/api/posts")
+      .get("/api/posts")
       .then((response) => {
         console.log("we have a response", response);
         setPosts(response.data);

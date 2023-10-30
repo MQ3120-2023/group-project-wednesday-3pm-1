@@ -27,7 +27,7 @@ function AppRoutes() {
 
   const fetchPosts = () => {
     axios
-      .get("http://localhost:3001/api/posts")
+      .get("/api/posts")
       .then((response) => {
         setPosts(response.data);
       })
@@ -38,7 +38,7 @@ function AppRoutes() {
 
   const fetchTopics = () => {
     axios
-      .get("http://localhost:3001/api/topics")
+      .get("/api/topics")
       .then((response) => {
         setTopics(response.data);
         console.log(response.data);
@@ -51,7 +51,7 @@ function AppRoutes() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/auth/current_user', { withCredentials: true });
+      const response = await axios.get('/api/auth/current_user', { withCredentials: true });
       setUsername(response.data.username);
     } catch (err) {
       setError('Could not fetch user data');

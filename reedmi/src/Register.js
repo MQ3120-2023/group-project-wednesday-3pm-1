@@ -23,7 +23,7 @@ const Register = () => {
     const loginUser = async () => {
         try {
             // Attempt to login
-            const response = await axios.post('http://localhost:3001/api/auth/login', { login: username, password: password });
+            const response = await axios.post('/api/auth/login', { login: username, password: password });
 
             if (response.data) {
                 navigate('/home');
@@ -38,7 +38,7 @@ const Register = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3001/api/auth/register', {
+            const response = await axios.post('/api/auth/register', {
                 email: email,
                 username: username,
                 password: password,

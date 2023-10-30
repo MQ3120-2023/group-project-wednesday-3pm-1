@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 function TechNews() {
     const[news, setNews] = useState([])
     const [searchQuery, setSearchQuery] = useState('');  // state to store the search query
-    const baseurl = `http://localhost:3001/api/techNews`
+    const baseurl = `/api/techNews`
 
     const fetchNews = () => {
         // setNews([]); // Reset news state to empty array

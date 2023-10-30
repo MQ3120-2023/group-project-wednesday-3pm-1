@@ -10,7 +10,7 @@ function NewPost({fetchPosts, allTopics}) {
     const [postImage, setImage] = useState(null)
     const [postTopic, setTopic] = useState('Hardware');
     
-    const baseurl = `http://localhost:3001/api/createNewPost`
+    const baseurl = `/api/createNewPost`
 
     const addPostToBackEnd = (e) => {
         e.preventDefault();

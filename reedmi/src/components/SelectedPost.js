@@ -18,7 +18,7 @@ function SelectedPost() {
   const [dislikes, setDislikes] = useState(0);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/posts/${postId}`)
+    axios.get(`/api/posts/${postId}`)
       .then(response => {
         setPost(response.data);
         setLikes(response.data.likes || 0);

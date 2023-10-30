@@ -20,7 +20,7 @@ function NewTopic({ fetchTopics, hideForm}){
           topicDescription: topicDescription
         }
         axios
-          .post(`http://localhost:3001/api/topics/`, newTopic)
+          .post(`/api/topics/`, newTopic)
           .then(() => {
             fetchTopics(); // To make sure that the updated topic list is displayed
           })

@@ -7,11 +7,12 @@ const cors = require('cors');
 const router = express.Router();
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://reedmi-test.onrender.com'],
     methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
     credentials: true, 
     optionsSuccessStatus: 200 
 };
+
 
 router.use(cors(corsOptions));
 router.use(express.json());
