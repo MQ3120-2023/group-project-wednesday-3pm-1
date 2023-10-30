@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './Feed.css';
+import apiClient from "./apiClient";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     console.log("effect is running");
-    axios
-      .get("http://localhost:3001/api/posts")
+    apiClient
+      .get("/api/posts")
       .then((response) => {
         console.log("we have a response", response);
         setPosts(response.data);

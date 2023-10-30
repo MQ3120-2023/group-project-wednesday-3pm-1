@@ -14,11 +14,12 @@ require('./passportSetup');
 const app = express()
 
 var corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://reedmi-test.onrender.com'],
   methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
   credentials: true, 
   optionsSuccessStatus: 200 
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json())

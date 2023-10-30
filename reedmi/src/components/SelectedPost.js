@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import "../Home.css";
 import './SelectedPost.css';
+import apiClient from "../apiClient";
 
 function SelectedPost() {
   const { postId } = useParams();
@@ -18,7 +18,7 @@ function SelectedPost() {
   const [dislikes, setDislikes] = useState(0);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/posts/${postId}`)
+    apiClient.get(`/api/posts/${postId}`)
       .then(response => {
         setPost(response.data);
         setLikes(response.data.likes || 0);
@@ -40,7 +40,7 @@ function SelectedPost() {
     event.preventDefault();
 
     
-      axios
+    apiClient
         .post(`http://localhost:3001/api/posts/${postId}/comments`, {
           id: "c" + (post.comments.length + 1).toString(),
           author: "Your Name",
@@ -61,13 +61,13 @@ function SelectedPost() {
     const handleLike = () => {
       if(reacted){
         console.log("removing a like");
-        axios.post(`http://localhost:3001/api/posts/${postId}/like`, {likes:-1}).then(() => {
+        apiClient.post(`http://localhost:3001/api/posts/${postId}/like`, {likes:-1}).then(() => {
           setLikes(likes-1);
           setReacted(false);
         });
     }else{
         console.log("adding a like");
-        axios.post(`http://localhost:3001/api/posts/${postId}/like`, {likes:1}).then(() => {
+        apiClient.post(`http://localhost:3001/api/posts/${postId}/like`, {likes:1}).then(() => {
           setLikes(likes+1);
           setReacted(true);
       });
@@ -78,13 +78,13 @@ function SelectedPost() {
   const handleDislike = () => {
     if(reacted){
       console.log("removing a dislike")
-      axios.post(`http://localhost:3001/api/posts/${postId}/dislike`, {dislikes:-1}).then(() => {
+      apiClient.post(`http://localhost:3001/api/posts/${postId}/dislike`, {dislikes:-1}).then(() => {
         setDislikes(dislikes-1);
         setReacted(false);
       });
     }else{
       console.log("adding a dislike");
-      axios.post(`http://localhost:3001/api/posts/${postId}/dislike`, {dislikes:1}).then(() => {
+      apiClient.post(`http://localhost:3001/api/posts/${postId}/dislike`, {dislikes:1}).then(() => {
         setDislikes(dislikes+1);
         setReacted(true);
     });

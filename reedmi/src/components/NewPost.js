@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
+import apiClient from "../apiClient";
 import './NewPost.css'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,7 +10,7 @@ function NewPost({fetchPosts, allTopics}) {
     const [postImage, setImage] = useState(null)
     const [postTopic, setTopic] = useState('Hardware');
     const [showMessage, setShowMessage] = useState(false);
-    const baseurl = `http://localhost:3001/api/createNewPost`
+    const baseurl = `/api/createNewPost`
 
     // will be run whenever the showMessage state changes 
     useEffect(() => {
@@ -44,7 +44,7 @@ function NewPost({fetchPosts, allTopics}) {
     //         dislikes: 0
     //    };
         // axios.post(baseurl, newPost)
-        axios.post(baseurl, formData, {
+        apiClient.post(baseurl, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

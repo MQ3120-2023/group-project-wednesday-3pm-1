@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import '../Home.css';
+import apiClient from "../apiClient";
 
 function NewTopic({ fetchTopics, hideForm}){
 
@@ -19,8 +19,8 @@ function NewTopic({ fetchTopics, hideForm}){
           topicName: topicName,
           topicDescription: topicDescription
         }
-        axios
-          .post(`http://localhost:3001/api/topics/`, newTopic)
+        apiClient
+          .post(`/api/topics/`, newTopic)
           .then(() => {
             fetchTopics(); // To make sure that the updated topic list is displayed
           })

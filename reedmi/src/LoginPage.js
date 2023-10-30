@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import CreateAccountOverlay from './CreateAccountOverlay';
+import apiClient from "./apiClient";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const LoginPage = () => {
   
     const loginUser = async () => {
         try {
-            const response = await axios.post('http://localhost:3001/api/auth/login', {
+            const response = await apiClient.post('/api/auth/login', {
                 login: userData.username,
                 password: userData.password,
             }, {
@@ -57,7 +58,7 @@ const LoginPage = () => {
 
     const handleGoogleSignIn = () => {
         console.log("Google Sign-In");
-        window.location.href = "http://localhost:3001/api/auth/google";
+        window.location.href = "/api/auth/google";
     };
 
     return (
