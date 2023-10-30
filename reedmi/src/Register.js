@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
+import apiClient from "./apiClient";
+
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -23,7 +25,7 @@ const Register = () => {
     const loginUser = async () => {
         try {
             // Attempt to login
-            const response = await axios.post('/api/auth/login', { login: username, password: password });
+            const response = await apiClient.post('/api/auth/login', { login: username, password: password });
 
             if (response.data) {
                 navigate('/home');
@@ -38,7 +40,7 @@ const Register = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('/api/auth/register', {
+            const response = await apiClient.post('/api/auth/register', {
                 email: email,
                 username: username,
                 password: password,

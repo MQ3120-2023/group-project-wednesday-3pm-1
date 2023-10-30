@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
+
 import SingleArticle from "./SingleArticle";
 import { v4 as uuidv4 } from 'uuid';
+import apiClient from "../apiClient";
 
 function TechNews() {
     const[news, setNews] = useState([])
@@ -11,7 +12,7 @@ function TechNews() {
     const fetchNews = () => {
         // setNews([]); // Reset news state to empty array
         console.log("printing: ",searchQuery)
-        axios.get(baseurl, {
+        apiClient.get(baseurl, {
             params: {
                 q: searchQuery  // pass the search query as a parameter in the request we are sending to the server 
             }

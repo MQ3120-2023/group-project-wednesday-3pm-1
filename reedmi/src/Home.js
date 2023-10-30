@@ -11,6 +11,7 @@ import './components/SideBar.css';
 import './components/SelectedPost.css';
 import './components/HomePosts.css';
 
+
 function Home({posts, allTopics, fetchTopics}) {
   const [selectedTopic, setSelectedTopic] = useState("All");
   const [showTopicForm, setShowTopicForm] = useState(false)

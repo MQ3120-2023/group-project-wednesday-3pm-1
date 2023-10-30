@@ -1,17 +1,18 @@
 // AppRoutes.js
-import axios from "axios";
 import { useState, useEffect } from "react";
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from './Home';
-import Splash from './Splash';
 import SelectedPost from './components/SelectedPost';
 import TechNews from './components/TechNews';
 import NewPost from './components/NewPost';
 import Register from './Register';
 import LoginPage from './LoginPage';
+import apiClient from "./apiClient";
+
 
 function AppRoutes() {
+
   const [error, setError] = useState(null);
   const [username, setUsername] = useState('');
   const [posts, setPosts] = useState([]);
@@ -26,7 +27,7 @@ function AppRoutes() {
   }, []);
 
   const fetchPosts = () => {
-    axios
+    apiClient
       .get("/api/posts")
       .then((response) => {
         setPosts(response.data);
@@ -37,7 +38,7 @@ function AppRoutes() {
   }
 
   const fetchTopics = () => {
-    axios
+    apiClient
       .get("/api/topics")
       .then((response) => {
         setTopics(response.data);
@@ -51,7 +52,7 @@ function AppRoutes() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get('/api/auth/current_user', { withCredentials: true });
+      const response = await apiClient.get('/api/auth/current_user', { withCredentials: true });
       setUsername(response.data.username);
     } catch (err) {
       setError('Could not fetch user data');
