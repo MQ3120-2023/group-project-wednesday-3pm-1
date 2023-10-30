@@ -23,15 +23,27 @@ doConnect()
   // Defines a Collection (posts) in our database  
   // Defines what each Document/Object in that Collection will look like (fields)
   // Defining the type of fields in each Document/Object in the "posts" Collection/Array
-const posts = new mongoose.Schema({
-    // no need to define id field, as database autogenerates for us
-    postTitle: String,
-    postContent: String,
-    img: String,
-    category: String
-})
+// Post Schema
+const postSchema = new mongoose.Schema({
+  postTitle: String,
+  postContent: String,
+  img: String,
+  category: String,
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment'
+    }
+  ],
+  reactions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Reaction'
+    }
+  ]
+});
 
-posts.set('toJSON', {
+postSchema.set('toJSON', {
     transform: (document, returnedObject) => {
       returnedObject.id = returnedObject._id.toString()
       delete returnedObject._id
@@ -39,6 +51,6 @@ posts.set('toJSON', {
     }
   })
 
-const Post = mongoose.model("Post", posts)
+const Post = mongoose.model("Post", postSchema)
 
 module.exports = Post
