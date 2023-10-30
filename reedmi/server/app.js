@@ -50,11 +50,7 @@ app.use(passport.session());
 app.use('/api/auth', authRoutes);
 
 const apiURL = 'https://newsapi.org/v2/everything'
-// const apiKey = process.env.API_KEY // does not work, will fix later
-const apiKey = '8ab8a0f1c0b346d6b1182bac2e252c9e';
-// works if I hardcode the API key
-// const query = 'bitcoin'
-
+const apiKey = process.env.API_KEY;
 
 // These need to be integrated with the database once the front end
 // functionality is fixeds
@@ -113,9 +109,6 @@ app.get('/api/techNews', (req, res) => {
   const userQuery = req.query.q; 
   // the server is making the request to the third party API using Axios 
   axios.get(apiURL, {
-    // headers : {
-    //   'X-Api-Key': apiKey
-    // }
     params : {
       q: userQuery,
       apiKey: apiKey
