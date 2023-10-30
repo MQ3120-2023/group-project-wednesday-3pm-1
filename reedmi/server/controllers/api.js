@@ -17,8 +17,6 @@ var corsOptions = {
     optionsSuccessStatus: 200 
 };
 
-
-
 // Load data from JSON file into memory
 const rawData = fs.readFileSync("server/data.json")
 const data = JSON.parse(rawData)
