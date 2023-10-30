@@ -34,7 +34,7 @@ function Home() {
     console.log("effect is running");
     fetchPosts();
     fetchTopics();
-    fetchCurrentUser(); // Fetch the current user's data
+    fetchCurrentUser();
   }, []);
 
   const fetchPosts = () => {
@@ -50,7 +50,7 @@ function Home() {
 
   const fetchTopics = () => {
     axios
-      .get("http://localhost:3001/api/topics")  // Changed https to http for consistency
+      .get("http://localhost:3001/api/topics")
       .then((response) => {
         setTopics(response.data);
         console.log(response.data);

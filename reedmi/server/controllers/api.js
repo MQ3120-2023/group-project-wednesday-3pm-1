@@ -64,19 +64,19 @@ apiRouter.get('/api/posts', (req, res) => {
 });
 
 apiRouter.get('/api/posts/:id', (req, res) => {
-    const postId = req.params.id;
-    Post.findById(postId)
-      .then(post => {
-        if (!post) {
-          return res.status(404).json({ error: 'Post not found' });
-        }
-        res.json(post);
-      })
-      .catch(error => {
-        console.error('Error fetching post:', error);
-        res.status(500).json({ error: 'Internal server error' });
-      });
-  });
+  const postId = req.params.id;
+  Post.findById(postId)
+    .then(post => {
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+      res.json(post);
+    })
+    .catch(error => {
+      console.error('Error fetching post:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    });
+});
 
 apiRouter.post('/api/createNewPost', upload.single('postImage'), (req, res) => {
     const body = req.body;
