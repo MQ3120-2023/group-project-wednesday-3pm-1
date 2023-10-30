@@ -1,0 +1,28 @@
+#sideBar {
+    background-color: whitesmoke;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    bottom: 11px;
+    max-width: fit-content;
+    z-index: 1;
+    border-radius: 10px; 
+}
+
+.sideBarLink {
+    color: rgb(48, 50, 54);
+    text-decoration: none;
+    display: block;    
+}
+
+.sideBarP, .sideBarButton {
+    margin: 10px 0; 
+    border-radius: 5px; 
+    transition: background-color 0.3s; 
+    cursor: pointer; 
+    
+}
+
+.sideBarP:hover, .sideBarButton:hover {
+    background-color: rgb(214, 96, 28);
+}

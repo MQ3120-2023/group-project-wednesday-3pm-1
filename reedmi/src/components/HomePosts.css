@@ -1,0 +1,35 @@
+#postTitle{
+    margin-top: 0px;
+  }
+  
+  .post-container{
+    background-color: rgb(48, 50, 54);
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 50px;
+   
+    
+  }
+  .postContent{
+    text-align: left;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+  figure{
+    width: 900px;
+    height: 500px;
+    display: inline-block;
+    position: relative;
+    border-radius: 10px;
+  }
+  .postImage{
+    object-fit: cover;
+    width: 90%;
+    height: 90%;
+  }
+  a{
+    text-decoration: none;
+    color: rgb(244, 233, 233);
+    display: block;
+  }

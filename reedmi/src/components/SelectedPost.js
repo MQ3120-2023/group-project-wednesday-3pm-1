@@ -2,20 +2,33 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../Home.css";
+import './SelectedPost.css';
 
-function SelectedPost({ posts }) {
+function SelectedPost() {
   const { postId } = useParams();
 
  
-  const post = posts ? posts.find((p) => p.id === postId) : null;
+  // const post = ??
 
- 
+  const [post, setPost] = useState(null);
+
   const [commentInput, setCommentInput] = useState("");
   const [reacted, setReacted] = useState(false);
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
 
- 
+  useEffect(() => {
+    axios.get(`http://localhost:3001/api/posts/${postId}`)
+      .then(response => {
+        setPost(response.data);
+        setLikes(response.data.likes || 0);
+        setDislikes(response.data.dislikes || 0);
+      })
+      .catch(error => {
+        console.error('Error fetching post:', error);
+      });
+  }, [postId]);
+
   useEffect(() => {
     if (post) {
       setLikes(post.likes || 0);
