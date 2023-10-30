@@ -211,6 +211,18 @@ Here, any file inside the `uploads/` directory can be accessed by going to `<ser
 ---
 
 
-## TechNews
+## TechNews - Mif
 - Cache whatever the api returns so we do not have to keep sending requests 
 - Navigation to make sure we go back to the article rather than the search bar 
+- Amazon S3 **
+- Testing **
+- add ENV (API Key and mongodb URL) ** when doing deployment
+- merge **
+- likes dislikes and comments **
+- CSS for each Component 
+- refactor CSS **
+- refactor code **
+- deployment too see if multer works ** 
+- Deployment Documentation
+- Code Documentation 
+- news api feature **
