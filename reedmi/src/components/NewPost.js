@@ -9,8 +9,20 @@ function NewPost({fetchPosts, allTopics}) {
     const [postContent, setContent] = useState('');
     const [postImage, setImage] = useState(null)
     const [postTopic, setTopic] = useState('Hardware');
-    
+    const [showMessage, setShowMessage] = useState(false);
     const baseurl = `http://localhost:3001/api/createNewPost`
+
+    // will be run whenever the showMessage state changes 
+    useEffect(() => {
+        if (showMessage) {
+            // if showMessage is true, wait for 2 seconds and turn it to false 
+            const timer = setTimeout(() => {
+                setShowMessage(false);
+            }, 4000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [showMessage]);
 
     const addPostToBackEnd = (e) => {
         e.preventDefault();
@@ -65,6 +77,7 @@ function NewPost({fetchPosts, allTopics}) {
                 <option value="other">Other</option>
             </select>
             <button id="submitButton" type="submit">Post</button>
+            {(showMessage ? <div className="newPostAddedMessage">Post Successfully added!</div> : null)}
         </form>
     )
 }
