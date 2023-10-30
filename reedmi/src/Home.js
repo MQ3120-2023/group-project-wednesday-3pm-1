@@ -11,55 +11,9 @@ import './components/SideBar.css';
 import './components/SelectedPost.css';
 import './components/HomePosts.css';
 
-function Home() {
-
-  const [username, setUsername] = useState('');
-  const [error, setError] = useState(null);
-
-  const [posts, setPosts] = useState([]);
-  const [allTopics, setTopics] = useState([]);
+function Home({posts, allTopics, fetchTopics}) {
   const [selectedTopic, setSelectedTopic] = useState("All");
   const [showTopicForm, setShowTopicForm] = useState(false)
-  
-  const fetchCurrentUser = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/api/auth/current_user', { withCredentials: true });
-      setUsername(response.data.username);
-    } catch (err) {
-      setError('Could not fetch user data');
-    }
-  };
-
-  useEffect(() => {
-    console.log("effect is running");
-    fetchPosts();
-    fetchTopics();
-    fetchCurrentUser();
-  }, []);
-
-  const fetchPosts = () => {
-    axios
-      .get("http://localhost:3001/api/posts")
-      .then((response) => {
-        setPosts(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching products:", error);
-      });
-  }
-
-  const fetchTopics = () => {
-    axios
-      .get("http://localhost:3001/api/topics")
-      .then((response) => {
-        setTopics(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching topics:", error);
-      });
-  }
-
   const showForm = (booleanVariable) => {
     if (booleanVariable) {
       return (<NewTopic fetchTopics = {fetchTopics} hideForm = {hideForm} />)
@@ -70,18 +24,6 @@ function Home() {
     setShowTopicForm(false);
   }
 
-  useEffect(() => {
-    
-    console.log("effect is running");
-    fetchPosts();
-    fetchTopics();
-    fetchCurrentUser(); 
-  }, []);
-
-
-  const addNewPost = (newPost) => {
-
-  }
   return (
     <div className="App">
      
