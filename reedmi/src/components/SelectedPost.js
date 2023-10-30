@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "../Home.css";
+
 import './SelectedPost.css';
 import apiClient from "../apiClient";
 
@@ -36,27 +36,36 @@ function SelectedPost() {
     }
   }, [post]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    addComment()
+};
 
+
+const addComment = async () => {
+  try {
+  const response = await apiClient.post(`/api/posts/${postId}/comment`, { commentInput }, { withCredentials: true });
+  if (response.status === 200) {
+    console.log("Comment saved successfully!", response.data);
+    setCommentInput('');
     
-    apiClient
-        .post(`http://localhost:3001/api/posts/${postId}/comments`, {
-          id: "c" + (post.comments.length + 1).toString(),
-          author: "Your Name",
-          text: commentInput,
+    setTimeout(() => {
+      apiClient.get(`/api/posts/${postId}`)
+        .then(response => {
+          setPost(response.data);
         })
-        .then(() => {
-
-          post.comments.push({
-            id: "c" + (post.comments.length + 1).toString(),
-            author: "Your Name",
-            text: commentInput,
-          });
-          setCommentInput("");
+        .catch(error => {
+          console.error('Error fetching post:', error);
         });
-    };
+    }, 500);
+  } else {
+    console.error("Error submitting comment:", response.data.error);
+  }
+} catch (error) {
+  console.error("Network error:", error);
+}
 
+}
 
     const handleLike = () => {
       if(reacted){
@@ -125,18 +134,18 @@ function SelectedPost() {
             Submit
           </button>
         </form>
-      </div>
+        </div>
 
-      {post.comments && post.comments.length > 0 ? (
-        post.comments.map((comment) => (
-          <p key={comment.id}>
-            {comment.author}: {comment.text}
-          </p>
-        ))
-      ) : (
-        <p>No comments yet.</p>
-      )}
-    </div>
+        {post.comments && post.comments.length > 0 ? (
+          post.comments.map((comment) => (
+            <p key={comment.id}>
+          <span className="comment-text"> {comment.author.username}: {comment.content}</span>
+            </p>
+          ))
+        ) : (
+          <p>No comments yet.</p>
+        )}
+      </div>
   );
 }
 

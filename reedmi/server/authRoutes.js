@@ -7,7 +7,7 @@ const cors = require('cors');
 const router = express.Router();
 
 var corsOptions = {
-    origin: ['http://localhost:3000', 'https://reedmi-test.onrender.com'],
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://reedmi-test.onrender.com'],
     methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
     credentials: true, 
     optionsSuccessStatus: 200 
@@ -115,7 +115,7 @@ router.post('/logout', (req, res) => {
 });
 
 
-const ensureAuthenticated = (req, res, next) => {
+ const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
       return next();
     }
@@ -123,6 +123,7 @@ const ensureAuthenticated = (req, res, next) => {
     res.status(401).send('You need to log in first.');
   };
 
+module.exports = ensureAuthenticated;
   
   router.get('/current_user', ensureAuthenticated, (req, res) => {
    
@@ -135,6 +136,5 @@ const ensureAuthenticated = (req, res, next) => {
 
 
 
-  
 
-module.exports = router;
+module.exports = { router, ensureAuthenticated };

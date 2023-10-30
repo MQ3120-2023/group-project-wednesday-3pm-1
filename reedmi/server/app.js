@@ -9,12 +9,13 @@ const session = require('express-session');
 const passport = require('passport');
 const fs = require("fs");
 const authRoutes = require('./authRoutes');
+const MongoStore = require('connect-mongo');
 require('./passportSetup');
 
 const app = express()
 
 var corsOptions = {
-  origin: ['http://localhost:3000', 'https://reedmi-test.onrender.com'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://reedmi-test.onrender.com'],
   methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
   credentials: true, 
   optionsSuccessStatus: 200 
@@ -24,86 +25,31 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json())
 app.use(express.static('build'))
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
 
 app.use(session({
   secret: 'reedmiauth',
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
   cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: false,
       httpOnly: false,
-      sameSite: 'none',
+      sameSite: 'lax',
       maxAge: 24 * 60 * 60 * 1000,
      
-  }
+  },
+  
 }));
-
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes.router);
 
 const apiURL = 'https://newsapi.org/v2/everything'
 const apiKey = process.env.API_KEY;
 
-// These need to be integrated with the database once the front end
-// functionality is fixeds
-//MAKING NEW COMMENTS
-app.post("/api/posts/:postId/comments"), (req, res) => {
-  const postId = parseInt(req.params.postId);
-  const comment = req.body;
-
-  // Finds the specified post
-  const post = posts.find(p => p.id === postId);
-  if (!post) {
-      return res.status(404).json({ error: 'Your post has not been found!' });
-  }
-
-  // Adds the newly made comment to the post's comment section
-  post.comments.push(comment);
-
-  // Saves the updated posts array backwards to the data.json
-  fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
-
-}
-
-
-//LIKING
-app.post("/api/posts/:postId/like", (req, res) => {
-  const body = req.body
-  const postId = parseInt(req.params.postId, 10);
-  const post = posts.find(p => p.id === postId);
-  if (!post) {
-      return res.status(404).json({ error: 'Your post has not been found!' });
-  }
-
-  post.likes = post.likes + body.likes;
-
-  fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
-  res.json({ status: 'Request fulfilled' });
-});
-
-//DISLIKING
-app.post("/api/posts/:postId/dislike", (req, res) => {
-  const body = req.body
-  const postId = parseInt(req.params.postId, 10);
-  const post = posts.find(p => p.id === postId);
-  if (!post) {
-      return res.status(404).json({ error: 'Your post has not been found!' });
-  }
-
-  post.dislikes = post.dislikes + body.dislikes;
-
-  fs.writeFileSync("data.json", JSON.stringify({ posts: posts }, null, 2));
-  res.json({ status: 'success' });
-});
 
 // Fetching Latest News from a third party API
 app.get('/api/techNews', (req, res) => {

@@ -31,8 +31,8 @@ const postSchema = new mongoose.Schema({
   category: String,
   comments: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment'
+      type: mongoose.Schema.Types.ObjectId, // The type of this field is an ObjectId string, which will be an id of an existing Comment object.
+      ref: 'Comment' // This tells mongodb that this field will be referencing a Comment object.
     }
   ],
   reactions: [

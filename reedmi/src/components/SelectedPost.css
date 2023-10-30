@@ -6,6 +6,10 @@ form{
   display: inline-block;
 }
 
+.comment-text {
+
+}
+
 .comment-container {
   display: inline-block; /* Changed from inline to inline-block */
   border: none;
@@ -16,6 +20,7 @@ form{
   overflow: hidden;
   min-height: 40px;
   line-height: 20px;
+  color: white;
 }
 
 .comment {
