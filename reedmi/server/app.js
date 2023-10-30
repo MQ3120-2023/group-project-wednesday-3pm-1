@@ -14,7 +14,7 @@ require('./passportSetup');
 const app = express()
 
 var corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3001',
   methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
   credentials: true, 
   optionsSuccessStatus: 200 
