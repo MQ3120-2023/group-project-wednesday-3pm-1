@@ -86,6 +86,8 @@ apiRouter.get('/api/posts/:id', async (req, res) => {
       }
   
       // Query the Reaction collection based on postId
+      // Calculate the number of likes and dislikes of this post
+      // based on the Reaction object of this post
       const reactions = await Reaction.find({ postId: postId });
   
       let likes = 0;
@@ -99,7 +101,6 @@ apiRouter.get('/api/posts/:id', async (req, res) => {
             console.log("User reaction found:", reaction.reaction);
             userReaction = reaction.reaction;
           }
-
       });
 
   

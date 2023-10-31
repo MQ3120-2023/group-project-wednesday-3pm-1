@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../Home.css';
+import './PostList.css';
 
 function PostList({posts, filter}) {
   const navigate = useNavigate(); // Hook from react-router
@@ -23,7 +24,7 @@ function PostList({posts, filter}) {
   };
 
   return (
-    <div>
+    <div className = 'allPosts'>
       {filteredPosts.map((post) => {
         return (
           <div 

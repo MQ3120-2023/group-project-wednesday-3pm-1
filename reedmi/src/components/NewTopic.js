@@ -32,7 +32,7 @@ function NewTopic({ fetchTopics, hideForm}){
     
     return(
         <div>
-        <form onSubmit={handleSubmitNewTopic}>
+        <form className = "newTopicForm" onSubmit={handleSubmitNewTopic}>
             <label>Topic Name</label>
             <input type="text" name="topicName" maxLength={25} required/>
             <br></br>

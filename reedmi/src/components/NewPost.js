@@ -25,6 +25,7 @@ function NewPost({fetchPosts, allTopics}) {
     }, [showMessage]);
 
     const addPostToBackEnd = (e) => {
+        setShowMessage(true)
         e.preventDefault();
         const formData = new FormData();
         formData.append('postTitle', postTitle);
