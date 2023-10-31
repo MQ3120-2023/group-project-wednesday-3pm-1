@@ -4,9 +4,6 @@
  
 }
 
-.main-content {
-  background-color: #cddee7f5;
-}
 
 .App {
   font-family: Arial, sans-serif;
@@ -15,9 +12,14 @@
   align-items: center;
 }
 
+.global-background {
+  background-color: #cddee7f5;
+}
+
 .main-content {
+  background-color: #cddee7f5;
   width: 100%;
-  margin-top: 4em;  /* Adjust based on your actual header height */
+  padding-top: 50px;  /* Adjust based on your actual header height */
   display: flex; 
   justify-content: start; 
   align-items: flex-start; /* Align children to the top */
@@ -25,6 +27,7 @@
 
 /* Styles for content area */
 .content-area {
+  
   
   padding: 1em;
   width: 80%; /* Set width as required */

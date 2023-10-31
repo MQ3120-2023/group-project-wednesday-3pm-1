@@ -5,19 +5,21 @@ import './Navbar.css';
 function Navbar() {
     return (
         <header className="App-header">
-            <p className="header-title">
-                <Link className="header-link" to={"/home"}>
-                    ReedMi
-                </Link>
-            </p>
-            <div className="navOptions">
-                <Link className="header-link" to="/techNews">
-                    TechNews
-                </Link>
-                <div className="navbar-links">
-                    <Link id="add-new-post" to="/createNewPost">
-                        Add New Post +
+            <div className="header-contents">
+                <p className="header-title header-link">
+                    <Link className="header-link" to={"/home"}>
+                        ReedMi
                     </Link>
+                </p>
+                <div className="navOptions">
+                    <Link className="header-link header-link-secondary" to="/techNews">
+                        TechNews
+                    </Link>
+                    <div className="navbar-links">
+                        <Link id="add-new-post" to="/createNewPost">
+                            Add New Post +
+                        </Link>
+                    </div>
                 </div>
             </div>   
         </header>

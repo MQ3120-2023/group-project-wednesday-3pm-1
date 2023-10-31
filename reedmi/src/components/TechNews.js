@@ -4,6 +4,8 @@ import SingleArticle from "./SingleArticle";
 import { v4 as uuidv4 } from 'uuid';
 import apiClient from "../apiClient";
 import './TechNews.css';
+import Navbar from "../Navbar";
+
 function TechNews() {
     const[news, setNews] = useState([])
     const [searchQuery, setSearchQuery] = useState('');  // state to store the search query
@@ -33,6 +35,8 @@ function TechNews() {
     return (
         // depends on how the data we get from the Third Party Api is formatted
         <div>
+            <Navbar />
+
             <div className="techNewsSearchBar" >
                 <input
                     type="text"

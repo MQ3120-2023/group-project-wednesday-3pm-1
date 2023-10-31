@@ -1,12 +1,18 @@
 /* General header styles */
-.App-header {
+.App-header, .header-contents {
   width: 100%;
   background-color: #333;
   color: white;
- 
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+ 
+}
+
+.header-contents {
+  
+  padding-right: 30px;
 }
 
 .header-title {
@@ -16,11 +22,20 @@
 }
 
 /* Link styles */
+
+.header-title {
+  font-size: 35px;
+}
+
+.header-link-secondary {
+  font-size: 25px;
+}
+
 .header-link {
   color: white;
   text-decoration: none;
   padding: 10px 15px;
-  font-size: 18px;
+ 
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
