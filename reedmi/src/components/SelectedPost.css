@@ -12,11 +12,7 @@
   
 }
 
-.selectedPost {
-  background-color: lightblue;
-}
-
-.post-container {
+.selected-post-container {
   background-color: rgb(237, 237, 237);
 }
 

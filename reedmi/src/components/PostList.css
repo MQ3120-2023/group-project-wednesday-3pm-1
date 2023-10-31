@@ -4,3 +4,9 @@
   flex-direction: column;
   gap: 3px; 
 }
+
+.postList-title {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 20px 0;
+}

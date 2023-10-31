@@ -31,8 +31,11 @@ function Home({posts, allTopics, fetchTopics}) {
       <div className="main-content">
         <div id='sideBar'> 
           `Topics;`
-          {/* <button className="newTopicButton" onClick={() => setShowTopicForm(!showTopicForm)}>Create Topic +</button>
-          {showForm(showTopicForm)} */}
+       
+          <button className="eachTopicButton" onClick={() => setSelectedTopic("All")}>
+              <p className="eachTopicText">All</p>
+            </button>
+
           {allTopics.map((currentTopic, index) => (
             <button className="eachTopicButton" onClick={() => setSelectedTopic(currentTopic.topicName)}>
               <p className="eachTopicText" key={index}>{currentTopic.topicName}</p>

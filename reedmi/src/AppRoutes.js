@@ -17,13 +17,21 @@ function AppRoutes() {
   const [username, setUsername] = useState('');
   const [posts, setPosts] = useState([]);
   const [allTopics, setTopics] = useState([]);
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("effect is running");
-    fetchPosts();
-    fetchTopics();
-    fetchCurrentUser();
+    const fetchData = async () => {
+      try {
+        await fetchTopics();
+        await fetchCurrentUser();
+        await fetchPosts();
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  
+    fetchData();
   }, []);
 
   const fetchPosts = () => {
@@ -59,7 +67,11 @@ function AppRoutes() {
     }
   };
 
+  if (loading) {
+    return <div></div>;
+  }
   
+
   return (
     <Router>
       <Routes>

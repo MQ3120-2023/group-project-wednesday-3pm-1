@@ -24,7 +24,9 @@ function PostList({posts, filter}) {
   };
 
   return (
+    
     <div className = 'allPosts'>
+      <h1 style={{ textAlign: 'center' }}>{filter === "All" ? "All Posts" : filter}</h1>
       {filteredPosts.map((post) => {
         return (
           <div 
@@ -32,7 +34,7 @@ function PostList({posts, filter}) {
             className="post-container" 
             onClick={() => handlePostClick(post.id)}
           >
-            <h1 id="postTitle">{post.postTitle}</h1>
+            <h1 id="posList-title">{post.postTitle}</h1>
             <figure>
               <img className="postImage" src={post.img} alt={post.postTitle} />
             </figure>
