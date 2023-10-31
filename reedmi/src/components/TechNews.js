@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import SingleArticle from "./SingleArticle";
 import { v4 as uuidv4 } from 'uuid';
 import apiClient from "../apiClient";
-
+import './TechNews.css';
 function TechNews() {
     const[news, setNews] = useState([])
     const [searchQuery, setSearchQuery] = useState('');  // state to store the search query
@@ -32,17 +32,21 @@ function TechNews() {
 
     return (
         // depends on how the data we get from the Third Party Api is formatted
-        <div >
-            <input
-                type="text"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)} // Update state on every keystroke
-                placeholder="Search for news topics..."
-            />
-            <button onClick={fetchNews}>Search</button>
-            {news.map((singleNewsArticle) => ( // maybe this happens before the async call returns 
-                <SingleArticle key={uuidv4()} singleNewsArticle={singleNewsArticle}/>
-            ))}
+        <div>
+            <div className="techNewsSearchBar" >
+                <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)} // Update state on every keystroke
+                    placeholder="Search for news topics..."
+                />
+                <button className="techNewsSearchButton" onClick={fetchNews}>Search</button>
+            </div>
+            <div>
+                {news.map((singleNewsArticle) => ( // maybe this happens before the async call returns 
+                    <SingleArticle key={uuidv4()} singleNewsArticle={singleNewsArticle} />
+                ))}
+            </div>
         </div>
     )
 }

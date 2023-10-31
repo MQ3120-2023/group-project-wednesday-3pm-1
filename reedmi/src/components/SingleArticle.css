@@ -1,11 +1,73 @@
-.singleArticle{
- font-family: monospace;
- font-size: 20px;
- background-color: rgb(1, 19, 54);
- color: white;
+
+.singleArticle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #FFFFFF;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(43, 42, 42, 0.1);
 }
 
-#articleLink{
-    text-decoration: underline;
-    color:rgb(235, 123, 11);
+#articleSource,
+#articleAuthor {
+  border: 1px solid rgb(63, 230, 66);
+  padding: 2px;
+  margin: 2px;
+  border-radius: 5px;
+  background-color:#dcf0dc;
+  color:rgb(72, 205, 19);
 }
+
+
+#articleTitle {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color: #F8F9FA;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+#articleDescription {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+  background-color: #F0F1F6;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+#articleImage {
+  width: 100%;
+  max-height: 400px;
+  object-fit: scale-down;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  background-color: white;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#articleImage:hover {
+  border: 1px solid rgb(63, 230, 66);;
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+
+#articleLink {
+  font-size: 14px;
+  color: #007BFF;
+  background-color: white;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+#articleLink:hover {
+  text-decoration: underline;
+  background-color: #cadedf;
+}
+

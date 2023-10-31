@@ -1,4 +1,9 @@
 /* Global styles for Home component */
+* {
+ font-family: monospace;
+ background-color: #cddee7f5;
+}
+
 .App {
   font-family: Arial, sans-serif;
   display: flex;
@@ -31,33 +36,6 @@
 
 .main-content {
   margin-top: 4em;  /* Adjust based on your actual header height */
-}
-
-#sideBar {
-  min-height: 100vh;
-}
-
-#sideBar {
-  min-height: calc(100vh - 4em);
-}
-.sideBarLink, .sideBarButton {
-  display: block;
-  margin-bottom: 1em;
-  text-align: center;
-  background-color: #d3d3d3;
-  padding: 0.5em;
-  cursor: pointer;
-  border: none;
-}
-
-.sideBarP {
-  margin: 0;
-  font-size: 1em;
-}
-
-.sideBarButton {
-  background-color: #4caf50;
-  color: white;
 }
 
 /* Styles for content area */

@@ -9,9 +9,10 @@
 
 /* Style for the post title */
 #postTitle {
-  font-size: 2rem;
-  color: #333;
+  font-size:50px;
+  color: #000000;
   margin-bottom: 1rem;
+
 }
 
 /* Style for the post image */
@@ -27,7 +28,7 @@ button.submitButton {
   margin: 10px 5px;
   border: none;
   border-radius: 6px;
-  background-color: #3498db;
+  background-color: #c7522b;
   color: #fff;
   cursor: pointer;
 }
@@ -39,7 +40,7 @@ button.submitButton:hover {
 /* Style for post content */
 .postContent {
   font-size: 1.2rem;
-  color: #555;
+  color: #fafafa;
   line-height: 1.6;
   margin-top: 20px;
 }
