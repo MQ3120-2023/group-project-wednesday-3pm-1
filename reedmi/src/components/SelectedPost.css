@@ -3,12 +3,30 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+}
+
+.selectedPost {
+  background-color: lightblue;
+}
+
+.post-container {
+  background-color: rgb(237, 237, 237);
+}
+
+.postView-postTitleAndContent {
+  line-height: 0.8;
+  margin-bottom: 50px; /* Adjust the value as needed */
 }
 
 /* Style for the post title */
-#postTitle {
+#postView-PostTitle {
   font-size: 2rem;
   color: #333;
   margin-bottom: 1rem;
@@ -22,7 +40,17 @@
 }
 
 /* Style for likes and dislikes */
-button.submitButton {
+.selectedReactButton {
+  padding: 12px 20px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 6px;
+  background-color: #133a54;
+  color: #fff;
+  cursor: pointer;
+}
+
+.reactButton {
   padding: 12px 20px;
   margin: 10px 5px;
   border: none;
@@ -35,6 +63,7 @@ button.submitButton {
 button.submitButton:hover {
   background-color: #2980b9;
 }
+
 
 /* Style for post content */
 .postContent {
@@ -66,19 +95,4 @@ textarea.comment {
   background-color: #f2f2f2;
   padding: 10px;
   border-radius: 6px;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .post-container {
-    padding: 10px;
-  }
-
-  #postTitle {
-    font-size: 1.5rem;
-  }
-
-  .postContent {
-    font-size: 1rem;
-  }
 }

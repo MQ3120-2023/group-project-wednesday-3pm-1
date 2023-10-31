@@ -6,14 +6,7 @@
   align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  color: white;
-  padding: 1em;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
+
 
 .header-title {
   font-size: 1.5em;
@@ -30,39 +23,16 @@
 }
 
 .main-content {
+  width: 100%;
   margin-top: 4em;  /* Adjust based on your actual header height */
+  display: flex; 
+  justify-content: start; 
+  align-items: flex-start; /* Align children to the top */
 }
 
-#sideBar {
-  min-height: 100vh;
-}
-
-#sideBar {
-  min-height: calc(100vh - 4em);
-}
-.sideBarLink, .sideBarButton {
-  display: block;
-  margin-bottom: 1em;
-  text-align: center;
-  background-color: #d3d3d3;
-  padding: 0.5em;
-  cursor: pointer;
-  border: none;
-}
-
-.sideBarP {
-  margin: 0;
-  font-size: 1em;
-}
-
-.sideBarButton {
-  background-color: #4caf50;
-  color: white;
-}
-
-/* Styles for content area */
 .content-area {
-  margin-left:25%;
   background-color: #ffffff;
   padding: 1em;
+  width: 80%; /* Set width as required */
 }
+

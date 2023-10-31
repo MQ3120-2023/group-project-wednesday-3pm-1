@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Navbar from "../Navbar";
 
 import './SelectedPost.css';
 import apiClient from "../apiClient";
@@ -65,65 +66,116 @@ const fetchPost = () => {
 };
 
 
+const handleLike = () => {
+  // If already liked, then undo the like
+  if (reacted === 'upvote') {
+    setReacted(null);
+    setLikes(prevLikes => prevLikes - 1);
+  } else {
+    setReacted('upvote');
+    setLikes(prevLikes => prevLikes + 1);
 
-    const handleLike = () => {
-      console.log("Like!")
-      apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'upvote' }, { withCredentials: true })
-      setTimeout(fetchPost, 0);
-    };
-    
+    // If previously disliked, then also undo the dislike
+    if (reacted === 'downvote') {
+      setDislikes(prevDislikes => prevDislikes - 1);
+    }
+  }
+  
+  apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'upvote' }, { withCredentials: true })
+    .then(() => setTimeout(fetchPost, 500));
+};
 
-  const handleDislike = () => {
-    apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'downvote' }, { withCredentials: true })
-    setTimeout(fetchPost, 0);
-  };
+const handleDislike = () => {
+  // If already disliked, then undo the dislike
+  if (reacted === 'downvote') {
+    setReacted(null);
+    setDislikes(prevDislikes => prevDislikes - 1);
+  } else {
+    setReacted('downvote');
+    setDislikes(prevDislikes => prevDislikes + 1);
+
+    // If previously liked, then also undo the like
+    if (reacted === 'upvote') {
+      setLikes(prevLikes => prevLikes - 1);
+    }
+  }
+
+  apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'downvote' }, { withCredentials: true })
+    .then(() => setTimeout(fetchPost, 500));
+};
+
 
   
   if (!post) {
-    return <div>Loading post...</div>;
+    return <div><Navbar>  </Navbar></div>;
   }
 
   return (
+
+    <div className="selectedPost">
+
+<Navbar/>
+
     <div className="post-container">
-      <h1 id="postTitle">{post.postTitle}</h1>
-     
+
+    <div className="postView-postTitleAndContent">
+
+      <h1 id="postView-PostTitle">{post.postTitle}</h1>
       <p className="postContent">{post.postContent}</p>
-      <figure>
-        <img className="postImage" src={post.img} alt={post.postTitle} />
-      </figure>
+        </div>
+        <figure>
+          <img className="postImage" src={post.img} alt={post.postTitle} />
+        </figure>
+
       <div>
-        <p>Likes: {likes}</p>
-        <p>Dislikes: {dislikes}</p>
-        <button onClick={handleLike} className="submitButton">Like</button>
-        <button onClick={handleDislike} className="submitButton">Dislike</button>
+        <h2>👍: {likes}</h2>
+        <h2>👎: {dislikes}</h2>
+        <button 
+        onClick={handleLike} 
+        className={`${reacted === 'upvote' ? 'selectedReactButton' : 'reactButton'}`}>
+        {reacted === 'upvote' ? 'Liked' : 'Like'}
+      </button>
+      <button 
+        onClick={handleDislike} 
+        className={`${reacted === 'downvote' ? 'selectedReactButton' : 'reactButton'}`}>
+        {reacted === 'downvote' ? 'Disliked' : 'Dislike'}
+      </button>
       </div>
     
-      <div className="formBox">
-        <form onSubmit={handleSubmit}>
-          <label>Add comment: </label>
-          <div className="comment-container">
-            <textarea
-              className="comment"
-              value={commentInput}
-              onChange={(e) => setCommentInput(e.target.value)}
-              rows="1"
-            />
-          </div>
-          <button type="submit" className="submitButton">
-            Submit
-          </button>
-        </form>
-        </div>
+      <h2>Replies</h2>
 
         {post.comments && post.comments.length > 0 ? (
           post.comments.map((comment) => (
             <p key={comment.id}>
-          <span className="comment-text"> {comment.author.username}: {comment.content}</span>
+          <span className="comment-username">{comment.author.username}:</span>
+          <span className="comment-text">{comment.content}</span>
             </p>
           ))
         ) : (
           <p>No comments yet.</p>
         )}
+
+  <div className="formBox">
+          <form onSubmit={handleSubmit}>
+            <h3>New Reply</h3>
+            <div className="comment-container">
+              <textarea
+                className="comment"
+                value={commentInput}
+                onChange={(e) => setCommentInput(e.target.value)}
+                rows="1"
+              />
+            </div>
+            <button type="submit" className="submitButton">
+              Submit
+            </button>
+          </form>
+          </div>
+
+        </div>
+
+        
+
       </div>
   );
 }

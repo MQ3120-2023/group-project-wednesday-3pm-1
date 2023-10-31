@@ -1,19 +1,20 @@
-#sideBar {
-    background-color: whitesmoke;
-    padding: 20px;
-    position: fixed;
-    left: 0;
-    bottom: 11px;
-    max-width: fit-content;
-    z-index: 1;
-    border-radius: 10px; 
-}
+
 
 .sideBarLink {
     color: rgb(48, 50, 54);
     text-decoration: none;
     display: block;    
 }
+
+
+
+#sideBar {
+    min-height: calc(100vh - 4em);
+    width: 10%;
+    padding: 0; /* Remove padding */
+    margin: 20px; /* Remove margin */
+  }
+
 
 .sideBarP, .sideBarButton {
     margin: 10px 0; 
@@ -26,3 +27,24 @@
 .sideBarP:hover, .sideBarButton:hover {
     background-color: rgb(214, 96, 28);
 }
+
+
+.sideBarLink, .sideBarButton {
+    display: block;
+    margin-bottom: 1em;
+    text-align: center;
+    background-color: #d3d3d3;
+    padding: 0.5em;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .sideBarP {
+    margin: 0;
+    font-size: 1em;
+  }
+  
+  .sideBarButton {
+    background-color: #4caf50;
+    color: white;
+  }

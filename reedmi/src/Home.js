@@ -8,6 +8,7 @@ import TechNews from './components/TechNews';
 import NewTopic from './components/NewTopic';
 import NewPost from './components/NewPost';
 import './components/SideBar.css';
+import Navbar from "./Navbar";
 
 
 function Home({posts, allTopics, fetchTopics}) {
@@ -25,16 +26,7 @@ function Home({posts, allTopics, fetchTopics}) {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p className="header-title"><Link className="header-link" to={"/home"}> ReedMi </Link></p>
-        <div className="navOptions">
-        
-          <Link className="header-link" to="/techNews">TechNews</Link>
-          <div className="navbar-links">
-            <Link id="add-new-post" to="/createNewPost">Add New Post + </Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       <div className="main-content">
         <div id='sideBar'> 
