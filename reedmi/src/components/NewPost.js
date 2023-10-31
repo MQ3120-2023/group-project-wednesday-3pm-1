@@ -35,16 +35,6 @@ function NewPost({fetchPosts, allTopics}) {
         if (postImage) {
             formData.append('postImage', postImage);
         }
-    //     const newPost ={
-    //         postTitle: postTitle,
-    //         postContent: postContent,
-    //         img: postImage? URL.createObjectURL(postImage): null, // Converting the File Object to a data URL
-    //         topic: postTopic,
-    //         comments: [],
-    //         likes: 0,
-    //         dislikes: 0
-    //    };
-        // axios.post(baseurl, newPost)
         apiClient.post(baseurl, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -65,10 +55,10 @@ function NewPost({fetchPosts, allTopics}) {
        // Hence have the "required" attribute to enforce that certain fields MUST be filled out
        // Before submitting the form
         <form id="newPostForm" onSubmit={addPostToBackEnd}>
-            <input id="postTitle" type="text" value={postTitle} onChange={(e) => setTitle(e.target.value)} placeholder="Post Title" required />
-            <input id="postImage"  type="file" onChange={(e) => setImage(e.target.files[0])} />
-            <textarea id="postContent" value={postContent} onChange={(e) => setContent(e.target.value)} placeholder="Content" required></textarea>
-            <select id="postTopic" value={postTopic} onChange={(e) => setTopic(e.target.value)} required>
+            <input id="postTitleForm" type="text" value={postTitle} onChange={(e) => setTitle(e.target.value)} placeholder="Post Title" required />
+            <input id="postImageForm"  type="file" onChange={(e) => setImage(e.target.files[0])} />
+            <textarea id="postContentForm" value={postContent} onChange={(e) => setContent(e.target.value)} placeholder="Content" required></textarea>
+            <select id="postTopicForm" value={postTopic} onChange={(e) => setTopic(e.target.value)} required>
                 <option value="" disabled>Select a Topic</option>
                 {allTopics.map((t) => (
                     <option value={t.topicName}>
@@ -77,7 +67,7 @@ function NewPost({fetchPosts, allTopics}) {
                 ))}
                 <option value="other">Other</option>
             </select>
-            <button id="submitButton" type="submit">Post</button>
+            <button id="submitButtonPostForm" type="submit">Post</button>
             {(showMessage ? <div className="newPostAddedMessage">Post Successfully added!</div> : null)}
         </form>
     )
