@@ -9,6 +9,7 @@
   margin-top: 50px;
   margin-bottom: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: white;
   
 }
 
@@ -63,7 +64,7 @@ button.submitButton:hover {
 /* Style for post content */
 .postContent {
   font-size: 1.2rem;
-  color: #fafafa;
+  color: #000000;
   line-height: 1.6;
   margin-top: 20px;
 }

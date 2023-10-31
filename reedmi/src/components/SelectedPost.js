@@ -43,7 +43,7 @@ const addComment = async () => {
     console.log("Comment saved successfully!", response.data);
     setCommentInput('');
     
-    setTimeout(fetchPost, 500);
+    setTimeout(fetchPost, 0);
   } else {
     console.error("Error submitting comment:", response.data.error);
   }
@@ -82,7 +82,7 @@ const handleLike = () => {
   }
   
   apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'upvote' }, { withCredentials: true })
-    .then(() => setTimeout(fetchPost, 500));
+    .then(() => setTimeout(fetchPost, 0));
 };
 
 const handleDislike = () => {
@@ -112,7 +112,7 @@ const handleDislike = () => {
 
   return (
 
-    <div className="selectedPost">
+    <div className="selectedPost global-background">
 
 <Navbar/>
 
@@ -123,9 +123,9 @@ const handleDislike = () => {
       <h1 id="postView-PostTitle">{post.postTitle}</h1>
       <p className="postContent">{post.postContent}</p>
         </div>
-        <figure>
+       
           <img className="postImage" src={post.img} alt={post.postTitle} />
-        </figure>
+      
 
       <div>
         <h2>👍: {likes}</h2>

@@ -3,9 +3,12 @@
     padding: 20px;
     color:white;
     font-size: 25px;
-    max-width: fit-content;
+    width: 200px;
     border-radius: 10px; 
-    min-height: calc(100vh - 4em);
+    padding-top: 40px;
+    padding-bottom: 60px;
+    margin-left: 20px;
+
 }
 
 .eachTopicButton{
