@@ -29,6 +29,16 @@ const postSchema = new mongoose.Schema({
   postContent: String,
   img: String,
   category: String,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  author: 
+    {
+      type: mongoose.Schema.Types.ObjectId, // The type of this field is an ObjectId string, which will be an id of an existing Comment object.
+      ref: 'User' // This tells mongodb that this field will be referencing a user object.
+    }
+  ,
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId, // The type of this field is an ObjectId string, which will be an id of an existing Comment object.

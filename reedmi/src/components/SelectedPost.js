@@ -13,26 +13,19 @@ function SelectedPost() {
   const [post, setPost] = useState(null);
 
   const [commentInput, setCommentInput] = useState("");
-  const [reacted, setReacted] = useState(false);
+  const [reacted, setReacted] = useState(null); // 'upvote' or 'downvote'
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
 
   useEffect(() => {
-    apiClient.get(`/api/posts/${postId}`)
-      .then(response => {
-        setPost(response.data);
-        setLikes(response.data.likes || 0);
-        setDislikes(response.data.dislikes || 0);
-      })
-      .catch(error => {
-        console.error('Error fetching post:', error);
-      });
+    fetchPost();
   }, [postId]);
 
   useEffect(() => {
     if (post) {
       setLikes(post.likes || 0);
       setDislikes(post.dislikes || 0);
+      setReacted(post.userReaction || null);
     }
   }, [post]);
 
@@ -49,15 +42,7 @@ const addComment = async () => {
     console.log("Comment saved successfully!", response.data);
     setCommentInput('');
     
-    setTimeout(() => {
-      apiClient.get(`/api/posts/${postId}`)
-        .then(response => {
-          setPost(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching post:', error);
-        });
-    }, 500);
+    setTimeout(fetchPost, 500);
   } else {
     console.error("Error submitting comment:", response.data.error);
   }
@@ -67,38 +52,30 @@ const addComment = async () => {
 
 }
 
+const fetchPost = () => {
+  apiClient.get(`/api/posts/${postId}`)
+    .then(response => {
+      setPost(response.data);
+      setLikes(response.data.likes || 0);
+        setDislikes(response.data.dislikes || 0);
+    })
+    .catch(error => {
+      console.error('Error fetching post:', error);
+    });
+};
+
+
+
     const handleLike = () => {
-      if(reacted){
-        console.log("removing a like");
-        apiClient.post(`http://localhost:3001/api/posts/${postId}/like`, {likes:-1}).then(() => {
-          setLikes(likes-1);
-          setReacted(false);
-        });
-    }else{
-        console.log("adding a like");
-        apiClient.post(`http://localhost:3001/api/posts/${postId}/like`, {likes:1}).then(() => {
-          setLikes(likes+1);
-          setReacted(true);
-      });
-    }
+      console.log("Like!")
+      apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'upvote' }, { withCredentials: true })
+      setTimeout(fetchPost, 0);
     };
     
 
   const handleDislike = () => {
-    if(reacted){
-      console.log("removing a dislike")
-      apiClient.post(`http://localhost:3001/api/posts/${postId}/dislike`, {dislikes:-1}).then(() => {
-        setDislikes(dislikes-1);
-        setReacted(false);
-      });
-    }else{
-      console.log("adding a dislike");
-      apiClient.post(`http://localhost:3001/api/posts/${postId}/dislike`, {dislikes:1}).then(() => {
-        setDislikes(dislikes+1);
-        setReacted(true);
-    });
-
-    }
+    apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'downvote' }, { withCredentials: true })
+    setTimeout(fetchPost, 0);
   };
 
   

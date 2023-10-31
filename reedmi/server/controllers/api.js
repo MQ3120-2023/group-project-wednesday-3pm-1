@@ -8,6 +8,7 @@ const multer = require('multer')
 const path = require('path');
 const cors = require('cors');
 const Comment = require('../models/comment')
+const Reaction = require('../models/reaction')
 const passport = require('passport');
 const ensureAuthenticated = require('../authRoutes').ensureAuthenticated;
 
@@ -65,26 +66,60 @@ apiRouter.get('/api/posts', (req, res) => {
         });
 });
 
-apiRouter.get('/api/posts/:id', (req, res) => {
-  const postId = req.params.id;
-  Post.findById(postId)
-    .populate({
-        path: 'comments', // First level field to populate
-        populate: {
-        path: 'author', // Second level field to populate within comments
-        }
-    })
-    .then(post => {
+const mongoose = require('mongoose');
+
+apiRouter.get('/api/posts/:id', async (req, res) => {
+    const postId = req.params.id;
+    const userId = req.user ? req.user._id : null;
+    try {
+      const post = await Post.findById(postId)
+        .populate({
+          path: 'comments', // First level field to populate
+          populate: {
+            path: 'author', // Second level field to populate within comments
+          }
+        })
+        .populate('author');
+  
       if (!post) {
         return res.status(404).json({ error: 'Post not found' });
       }
-      res.json(post);
-    })
-    .catch(error => {
+  
+      // Query the Reaction collection based on postId
+      const reactions = await Reaction.find({ postId: postId });
+  
+      let likes = 0;
+      let dislikes = 0;
+      let userReaction = null;
+      reactions.forEach(reaction => {
+        if (reaction.reaction === 'upvote') likes++;
+        else if (reaction.reaction === 'downvote') dislikes++;
+
+        if (userId && reaction.userId.toString() === userId.toString()) {
+            console.log("User reaction found:", reaction.reaction);
+            userReaction = reaction.reaction;
+          }
+
+      });
+
+  
+        if (userReaction === null) {
+            console.log("User reaction not found");
+        }
+      // Convert the mongoose document to a plain JavaScript object
+      const postObject = post.toObject(); 
+      
+      // Add data for the frontend to use
+      postObject.likes = likes;
+      postObject.dislikes = dislikes;
+      postObject.userReaction = userReaction;
+  
+      res.json(postObject);
+    } catch (error) {
       console.error('Error fetching post:', error);
       res.status(500).json({ error: 'Internal server error' });
-    });
-});
+    }
+  });
 
 apiRouter.post('/api/posts/:postId/comment', ensureAuthenticated, (req, res) => {
     const postId = req.params.postId;
@@ -117,6 +152,59 @@ apiRouter.post('/api/posts/:postId/comment', ensureAuthenticated, (req, res) => 
         });
 });
 
+// Add a reaction to a post
+
+// sample axios call to this function:
+// axios.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'upvote' }, { withCredentials: true })
+
+
+apiRouter.post('/api/posts/:postId/reaction', ensureAuthenticated, async (req, res) => {
+
+    console.log(`Make a reaction with ${JSON.stringify(req.body)}`)
+
+    const postId = req.params.postId;
+    const userId = req.user._id; 
+    const reactionType = req.body.reaction;
+  
+    if (['upvote', 'downvote'].indexOf(reactionType) === -1) {
+      return res.status(400).json({ error: 'Invalid reaction type' });
+    }
+  
+    try {
+      const existingReaction = await Reaction.findOne({ postId, userId });
+      
+      if (existingReaction) {
+        if (existingReaction.reaction === reactionType) {
+          // Toggle - Remove existing reaction
+          await Reaction.findByIdAndDelete(existingReaction._id);
+          await Post.findByIdAndUpdate(postId, { $pull: { reactions: existingReaction._id } }, { new: true });
+          return res.json({ message: 'Reaction removed' });
+        } else {
+          // Update - Change the existing reaction to the opposite type
+          existingReaction.reaction = reactionType;
+          await existingReaction.save();
+          return res.json({ message: 'Reaction updated' });
+        }
+      }
+    
+      // Create a new Reaction object
+      const newReaction = new Reaction({ postId, userId, reaction: reactionType });
+    
+      const savedReaction = await newReaction.save();
+    
+      // Update the post's reactions array
+      await Post.findByIdAndUpdate(postId, { $push: { reactions: savedReaction._id } }, { new: true });
+    
+      res.json({ message: 'Reaction added successfully' });
+      
+    } catch (error) {
+      console.error("Error saving reaction or updating post's reactions:", error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+  
+
 apiRouter.get('/api/posts/:postId/comments', (req, res) => {
     const postId = req.params.postId;
 
@@ -140,7 +228,7 @@ apiRouter.get('/api/posts/:postId/comments', (req, res) => {
         });
 });
 
-apiRouter.post('/api/createNewPost', upload.single('postImage'), (req, res) => {
+apiRouter.post('/api/createNewPost', ensureAuthenticated, upload.single('postImage'), (req, res) => {
     const body = req.body;
     // Prepare image URL for local storage
     let imgUrl = '';
@@ -152,6 +240,7 @@ apiRouter.post('/api/createNewPost', upload.single('postImage'), (req, res) => {
         postContent: body.postContent,
         img: imgUrl,
         category: body.postTopic,
+        author: req.user._id,
         comments: [],
         likes: 0,
         dislikes: 0
@@ -164,48 +253,6 @@ apiRouter.post('/api/createNewPost', upload.single('postImage'), (req, res) => {
 })
 
 
-apiRouter.post('/api/posts/:postId/react', ensureAuthenticated, (req, res) => {
-    const postId = req.params.postId;
-    const userId = req.user._id; // Assuming the user's ID is stored in req.user._id after authentication
-    const reactionType = req.body.reaction; // "upvote" or "downvote"
-
-    // Check if the user has already reacted to this post
-    Reaction.findOne({ postId: postId, userId: userId })
-        .then(existingReaction => {
-            if (existingReaction) {
-                // Update the existing reaction
-                existingReaction.reaction = reactionType;
-                existingReaction.save()
-                    .then(updatedReaction => {
-                        res.json(updatedReaction);
-                    })
-                    .catch(error => {
-                        console.error("Error updating reaction:", error);
-                        res.status(500).json({ error: 'Internal server error' });
-                    });
-            } else {
-                // Create a new reaction
-                const newReaction = new Reaction({
-                    postId: postId,
-                    userId: userId,
-                    reaction: reactionType
-                });
-
-                newReaction.save()
-                    .then(savedReaction => {
-                        res.json(savedReaction);
-                    })
-                    .catch(error => {
-                        console.error("Error saving reaction:", error);
-                        res.status(500).json({ error: 'Internal server error' });
-                    });
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching reaction:", error);
-            res.status(500).json({ error: 'Internal server error' });
-        });
-});
 
 
 

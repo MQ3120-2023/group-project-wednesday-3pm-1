@@ -1,61 +1,68 @@
+/* Global styles for Home component */
 .App {
-  /*text-align: center;*/
-  background: linear-gradient(to right, #1e90ff, #00bfff);
-  display: flex;       
-  flex-direction: column;     
-  align-items: center;  
-  min-height: 100vh;        /* Ensure the app takes up the full viewport height */
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  color: white;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header-title {
+  font-size: 1.5em;
+}
+
+.header-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navOptions {
+  display: flex;
+  gap: 1em;
 }
 
 .main-content {
-  display: flex;
-  width: 100%;             
-  padding: 20px;            
-  box-sizing: border-box;  
-  justify-content: center; /* To make sure padding doesn't expand the container's width */
+  margin-top: 4em;  /* Adjust based on your actual header height */
 }
 
-.content-area{ 
-  flex: 1;                 /* Make sure content takes up remaining width after sidebar */
-  display: flex;
-  flex-direction: column; 
-  align-items: center;    
-  margin-left: 220px; 
+#sideBar {
+  min-height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#sideBar {
+  min-height: calc(100vh - 4em);
+}
+.sideBarLink, .sideBarButton {
+  display: block;
+  margin-bottom: 1em;
+  text-align: center;
+  background-color: #d3d3d3;
+  padding: 0.5em;
+  cursor: pointer;
+  border: none;
 }
 
-/**Headers**/
-
-.App-header {
-  padding: 20px 0;
-  align-self: stretch;  
-  background-color: rgb(32, 32, 32);
+.sideBarP {
+  margin: 0;
+  font-size: 1em;
 }
 
-
-
-.header-title{
-  font-size: 50px;
-}
-.navbar-links{
-  margin-top: 20px;
+.sideBarButton {
+  background-color: #4caf50;
+  color: white;
 }
 
-.navOptions a:hover{
-  background-color: rgb(214, 96, 28);
-  
-}
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Styles for content area */
+.content-area {
+  margin-left:25%;
+  background-color: #ffffff;
+  padding: 1em;
 }
