@@ -31,13 +31,15 @@ function PostList({posts, filter}) {
         return (
           <div 
             key={post.id} 
-            className="post-container" 
+            className="postlist-post-container" 
             onClick={() => handlePostClick(post.id)}
           >
-            <h1 id="posList-title">{post.postTitle}</h1>
-            <figure>
-              <img className="postImage" src={post.img} alt={post.postTitle} />
-            </figure>
+
+            
+            <h1 id="postList-title">{post.postTitle}</h1>
+    
+              <img className="postlist-postImage" src={post.img} alt={post.postTitle} />
+            
           </div>
         );
       })}

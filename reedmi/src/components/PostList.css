@@ -5,8 +5,27 @@
   gap: 3px; 
 }
 
-.postList-title {
-  font-size: 1.5rem;
-  color: #fff;
-  margin: 20px 0;
+#postList-title {
+  font-size: 30px;
+  margin-left: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* Style for the post image */
+.postlist-postImage {
+  width: 100%;
+  
+  object-fit: cover;
+}
+
+.postlist-post-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 50px;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  
 }
