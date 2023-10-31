@@ -1,4 +1,4 @@
-import './Home.css';
+//import './Home.css';
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -8,8 +8,6 @@ import TechNews from './components/TechNews';
 import NewTopic from './components/NewTopic';
 import NewPost from './components/NewPost';
 import './components/SideBar.css';
-import './components/SelectedPost.css';
-import './components/HomePosts.css';
 
 
 function Home({posts, allTopics, fetchTopics}) {

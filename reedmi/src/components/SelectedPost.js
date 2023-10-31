@@ -86,6 +86,8 @@ const fetchPost = () => {
   return (
     <div className="post-container">
       <h1 id="postTitle">{post.postTitle}</h1>
+     
+      <p className="postContent">{post.postContent}</p>
       <figure>
         <img className="postImage" src={post.img} alt={post.postTitle} />
       </figure>
@@ -95,7 +97,7 @@ const fetchPost = () => {
         <button onClick={handleLike} className="submitButton">Like</button>
         <button onClick={handleDislike} className="submitButton">Dislike</button>
       </div>
-      <p className="postContent">{post.postContent}</p>
+    
       <div className="formBox">
         <form onSubmit={handleSubmit}>
           <label>Add comment: </label>

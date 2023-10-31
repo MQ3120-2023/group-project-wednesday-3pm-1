@@ -1,52 +1,84 @@
-form{
-  font-size: 16px;
-}
-
-.formBox {
-  display: inline-block;
-}
-
-.comment-text {
-
-}
-
-.comment-container {
-  display: inline-block; /* Changed from inline to inline-block */
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  padding: 1px 6px;
+/* Base container for the post */
+.post-container {
   width: 100%;
-  overflow: hidden;
-  min-height: 40px;
-  line-height: 20px;
-  color: white;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.comment {
-  width: 100%; /* The textarea should span the full width of its container */
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 3px;
-  overflow: auto; /* Scroll if text exceeds the height */
+/* Style for the post title */
+#postTitle {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
-.comment:focus {
-  outline: none; /* Optional: This removes the blue outline when focused */
+/* Style for the post image */
+.postImage {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
-
-.submitButton{
-  background-color: transparent;
-  text-decoration: none;
-  border-style: solid;
-  padding: 10px;
-  color: white;
-  margin-left: 5px;
-}
-.submitButton:hover{
+/* Style for likes and dislikes */
+button.submitButton {
+  padding: 12px 20px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3498db;
+  color: #fff;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 50%);
-  color: black;
-  border-radius: 3px;
+}
+
+button.submitButton:hover {
+  background-color: #2980b9;
+}
+
+/* Style for post content */
+.postContent {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* Style for the comment box and form */
+.formBox {
+  margin-top: 20px;
+}
+
+textarea.comment {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Style for comments list */
+.comment-text {
+  font-size: 1rem;
+  color: #333;
+  margin-top: 20px;
+  display: block;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .post-container {
+    padding: 10px;
+  }
+
+  #postTitle {
+    font-size: 1.5rem;
+  }
+
+  .postContent {
+    font-size: 1rem;
+  }
 }
