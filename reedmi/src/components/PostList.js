@@ -40,12 +40,12 @@ function PostList({posts, filter}) {
               <div className="postList-bodyPreview">{post.postContent}</div>
               </div>
               <img className="postlist-postImage" src={post.img} alt={post.postTitle} />
+         
+                    
+          </div>
+        );
+      })}
 
-            </div>
-          );
-        })}
-        
-      </div>
     </div>
   );
 }
