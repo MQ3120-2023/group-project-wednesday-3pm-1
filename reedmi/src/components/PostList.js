@@ -25,9 +25,8 @@ function PostList({posts, filter}) {
 
   return (
     
-    <div >
+    <div  className = "allPosts ">
       <h1 className = "topicTitle" style={{ textAlign: 'center' }}>{filter === "All" ? "All Posts" : filter}</h1>
-      <div className='allPosts'>
         {filteredPosts.map((post) => {
           return (
             <div
@@ -44,8 +43,6 @@ function PostList({posts, filter}) {
             </div>
           );
         })}
-        
-      </div>
     </div>
   );
 }
