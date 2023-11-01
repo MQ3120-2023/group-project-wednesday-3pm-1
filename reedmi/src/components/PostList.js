@@ -25,24 +25,27 @@ function PostList({posts, filter}) {
 
   return (
     
-    <div className = 'allPosts'>
-      <h1 style={{ textAlign: 'center' }}>{filter === "All" ? "All Posts" : filter}</h1>
-      {filteredPosts.map((post) => {
-        return (
-          <div 
-            key={post.id} 
-            className="postlist-post-container" 
-            onClick={() => handlePostClick(post.id)}
-          >
+    <div >
+      <h1 className = "topicTitle" style={{ textAlign: 'center' }}>{filter === "All" ? "All Posts" : filter}</h1>
+      <div className='allPosts'>
+        {filteredPosts.map((post) => {
+          return (
+            <div
+              key={post.id}
+              className="postlist-post-container"
+              onClick={() => handlePostClick(post.id)}
+            >
 
-            
-            <h1 id="postList-title">{post.postTitle}</h1>
-    
+
+              <h1 id="postList-title">{post.postTitle}</h1>
+
               <img className="postlist-postImage" src={post.img} alt={post.postTitle} />
-            
-          </div>
-        );
-      })}
+
+            </div>
+          );
+        })}
+        
+      </div>
     </div>
   );
 }
