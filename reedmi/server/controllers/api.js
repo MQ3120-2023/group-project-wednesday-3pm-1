@@ -57,7 +57,9 @@ apiRouter.get('/api/posts', (req, res) => {
     // Instead of returning the "posts" array from file
     // We will fetch the data from the database
     // And passing it back to our client
-    Post.find({}).then(result => {
+    Post.find({})
+    .populate('author')
+    .then(result => {
         console.log(result)
         res.json(result)
     }).catch(error => {
@@ -202,10 +204,8 @@ apiRouter.post('/api/posts/:postId/reaction', ensureAuthenticated, async (req, r
       console.error("Error saving reaction or updating post's reactions:", error);
       res.status(500).json({ error: 'Internal server error' });
     }
-  });
+});
   
-  
-
 apiRouter.get('/api/posts/:postId/comments', (req, res) => {
     const postId = req.params.postId;
 
