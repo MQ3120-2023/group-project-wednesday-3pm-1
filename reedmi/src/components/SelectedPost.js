@@ -81,7 +81,7 @@ const handleLike = () => {
     }
   }
   
-  apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'upvote' }, { withCredentials: true })
+  apiClient.post(`/api/posts/${postId}/reaction`, { reaction: 'upvote' }, { withCredentials: true })
     .then(() => setTimeout(fetchPost, 0));
 };
 
@@ -100,7 +100,7 @@ const handleDislike = () => {
     }
   }
 
-  apiClient.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'downvote' }, { withCredentials: true })
+  apiClient.post(`/api/posts/${postId}/reaction`, { reaction: 'downvote' }, { withCredentials: true })
     .then(() => setTimeout(fetchPost, 500));
 };
 
