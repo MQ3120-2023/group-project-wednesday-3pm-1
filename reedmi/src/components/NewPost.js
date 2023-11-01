@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import apiClient from "../apiClient";
 import './NewPost.css'
+import Navbar from "../Navbar.js";
 import { v4 as uuidv4 } from 'uuid';
 
 function NewPost({fetchPosts, allTopics}) {
@@ -54,6 +55,8 @@ function NewPost({fetchPosts, allTopics}) {
        // We make it optional for the user to insert an image, all the other fields need to be compulsory
        // Hence have the "required" attribute to enforce that certain fields MUST be filled out
        // Before submitting the form
+    <div>
+        <Navbar />
         <form id="newPostForm" onSubmit={addPostToBackEnd}>
             <input id="postTitleForm" type="text" value={postTitle} onChange={(e) => setTitle(e.target.value)} placeholder="Post Title" required />
             <input id="postImageForm"  type="file" onChange={(e) => setImage(e.target.files[0])} />
@@ -70,6 +73,7 @@ function NewPost({fetchPosts, allTopics}) {
             <button id="submitButtonPostForm" type="submit">Post</button>
             {(showMessage ? <div className="newPostAddedMessage">Post Successfully added!</div> : null)}
         </form>
+    </div>
     )
 }
 
