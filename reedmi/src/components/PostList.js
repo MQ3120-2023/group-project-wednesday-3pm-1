@@ -34,12 +34,14 @@ function PostList({posts, filter}) {
             className="postlist-post-container" 
             onClick={() => handlePostClick(post.id)}
           >
-
-            
-            <h1 id="postList-title">{post.postTitle}</h1>
-    
+            <div className="postList-infoContainer">
+              <h2 id="postList-info">u/{post.author ? post.author.username : "calum"} | 3h ago</h2>
+              <h1 id="postList-title">{post.postTitle}</h1>
+              <div className="postList-bodyPreview">{post.postContent}</div>
+              </div>
               <img className="postlist-postImage" src={post.img} alt={post.postTitle} />
-            
+         
+                    
           </div>
         );
       })}
