@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import CreateAccountOverlay from './CreateAccountOverlay';
 import apiClient from "./apiClient";
+import GoogleButton from 'react-google-button';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -31,8 +32,6 @@ const LoginPage = () => {
     const closeOverlay = () => {
         setShowOverlay(false);
     };
-
-
   
     const loginUser = async () => {
         try {
@@ -58,7 +57,7 @@ const LoginPage = () => {
 
     const handleGoogleSignIn = () => {
         console.log("Google Sign-In");
-        window.location.href = "/api/auth/google";
+        window.location.href = "http://localhost:3001/api/auth/google";
     };
 
     return (
@@ -93,26 +92,17 @@ const LoginPage = () => {
                                 className="login-input"
                             />
                         </div>
-                        <button type="submit" className="login-button">Log In</button>
-
-                     
-
-                    </form>
-
-                    <button onClick={handleGoogleSignIn} className="gsi-material-button">
-                            <div className="gsi-material-button-state"></div>
-                            <div className="gsi-material-button-content-wrapper">
-                                <div className="gsi-material-button-icon">
-                                    <svg viewBox="0 0 48 48">
-                                        {/* Insert your SVG paths here */}
-                                    </svg>
-                                </div>
-                                <span className="gsi-material-button-contents">Continue with Google</span>
-                                <span style={{display: "none"}}>Continue with Google</span>
-                            </div>
-                        </button>
-
+                        
+                        <div className="loginbuttons">
+                            <button type="submit" className="login-button">Log In</button>
+                            <GoogleButton className='googlebutton'
+                                type="light" // can be light or dark
+                                onClick={ handleGoogleSignIn }
+                            />
+                        </div>
+                        </form>
                     <p className="signup-text">
+                        
                 New Here? <span className="signup-link" onClick={openOverlay}>Create Account</span>
             </p>
 

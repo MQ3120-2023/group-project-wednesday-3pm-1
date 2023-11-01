@@ -35,7 +35,10 @@ function PostList({posts, filter}) {
             onClick={() => handlePostClick(post.id)}
           >
             <div className="postList-infoContainer">
-              <h2 id="postList-info">u/{post.author ? post.author.username : "calum"} | 3h ago</h2>
+              
+              <h2 id="postList-info">
+                u/{post.author ? post.author.username : "calum"}
+              </h2>
               <h1 id="postList-title">{post.postTitle}</h1>
               <div className="postList-bodyPreview">{post.postContent}</div>
               </div>
@@ -49,5 +52,6 @@ function PostList({posts, filter}) {
     </div>
   );
 }
+
 
 export default PostList;

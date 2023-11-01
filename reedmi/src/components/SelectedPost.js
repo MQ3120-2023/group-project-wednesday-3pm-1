@@ -120,6 +120,9 @@ const handleDislike = () => {
 
     <div className="postView-postTitleAndContent">
 
+    <h2 id="postList-info">
+        u/{post.author ? post.author.username : "calum"}
+      </h2>
       <h1 id="postView-PostTitle">{post.postTitle}</h1>
       <p className="postContent">{post.postContent}</p>
         </div>

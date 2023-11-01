@@ -20,6 +20,12 @@ function Navbar() {
                             Add New Post +
                         </Link>
                     </div>
+
+                    <div className="navbar-links">
+                        <Link id="add-new-post" to="/login">
+                            Sign Out
+                        </Link>
+                    </div>
                 </div>
             </div>   
         </header>
