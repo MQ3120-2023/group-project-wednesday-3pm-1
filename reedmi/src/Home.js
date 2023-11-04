@@ -12,10 +12,10 @@ import './components/SideBar.css';
 import Navbar from './Navbar';
 
 
-function Home({posts, allTopics, fetchTopics}) {
-  const [selectedTopic, setSelectedTopic] = useState("All");
+function Home({posts, allTopics, fetchTopics}) { 
+  const [selectedTopic, setSelectedTopic] = useState("All"); /*Use state hooks  */
   const [showTopicForm, setShowTopicForm] = useState(false)
-  const showForm = (booleanVariable) => {
+  const showForm = (booleanVariable) => { /*Responsible for showing add topic form when button is toggled*/
     if (booleanVariable) {
       return (<NewTopic fetchTopics = {fetchTopics} hideForm = {hideForm} />)
     }
