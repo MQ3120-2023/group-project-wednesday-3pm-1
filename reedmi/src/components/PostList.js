@@ -4,11 +4,11 @@ import '../Home.css';
 import './PostList.css';
 
 function PostList({posts, filter}) {
-  const navigate = useNavigate(); // Hook from react-router
+  const navigate = useNavigate(); 
   const [filteredPosts, setFilteredPosts] = useState(posts);
 
   useEffect(() => {
-    console.log(`Filtering posts with filter ${filter}!`);
+    console.log(`Filtering posts with filter ${filter}!`); /*For debugging purposes, to check if post filtering is working correctly */
     console.log(JSON.stringify(posts));
 
     if (!filter || filter === "All") {
