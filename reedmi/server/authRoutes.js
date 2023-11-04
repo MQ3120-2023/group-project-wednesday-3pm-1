@@ -109,11 +109,13 @@ router.post('/login', (req, res, next) => {
 });
 
 
-router.post('/logout', (req, res) => {
-    req.logout();
-    res.send({ message: 'Logged out successfully!' });
-});
-
+router.post('/logout', function(req, res, next){
+    console.log("Logging out");
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });
 
  const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
