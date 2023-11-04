@@ -43,9 +43,48 @@ Navbar.js:
     - Contains navigation links that allow the user to access the main areas of the app such as the home page, the TechNews section, and the functionality to create a new post.
     - Offers a sign-out option for user session termination, enhancing the security and personalized experience of the app.
 
+PostList.js
+    -Allows the homepage to display all the different posts that have been uploaded to the backend by users.
+
+NewTopic.js
+    -Allows users to create new topics, by sending inputted topic to backend server and updating the topic list accordingly.
     
+NewPost.js
+    -Allows user to create posts which are then stored in the backend. When creating a post, the user is required to add a title, image, content, and topic. This post is then able to be viewed by other users who log into the website.
+
+## Summary of Main Roles
+
+Mifta
+- TechNews and use of third party api
+- Creating new topics 
+- Creating new posts 
+- Use of multer to enable users to upload images 
+- Use of MongoDB
+
+Ryan
+- Authentication, Registration and Login using Passport
+- Connecting comments and likes to a user and making sure it's saved
+- The schemas used to save Reactions from users 
+- Use of MongoDB
+
+Calum 
+- Displaying all Posts
+- Selected Post Display 
+- Initial use of a dummy json server (data.json) before the transition to mongodb 
+- creating like and dislike button
+- creating new comments 
+
+Ahmed:
+- Filtering all Posts based on topics 
+- Creating new topics
+- Main CSS
 
 
+
+
+Everyone:
+- Overall Design 
+- Documentation
 
 
 
