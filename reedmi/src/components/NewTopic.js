@@ -27,7 +27,7 @@ function NewTopic({ fetchTopics, hideForm}){
         apiClient
           .post(`/api/topics/`, newTopic)
           .then(() => {
-            fetchTopics(); // To make sure that the updated topic list is displayed
+            fetchTopics(); // Makes sure that the updated topic list is displayed
           })
           .catch((error) => {
             console.error("There was an error posting the new topic:", error);
