@@ -11,10 +11,10 @@ import './components/SideBar.css';
 import Navbar from './Navbar';
 
 
-function Home({posts, allTopics, fetchTopics}) {
-  const [selectedTopic, setSelectedTopic] = useState("All");
+function Home({posts, allTopics, fetchTopics}) { 
+  const [selectedTopic, setSelectedTopic] = useState("All"); /*Use state hooks  */
   const [showTopicForm, setShowTopicForm] = useState(false)
-  const showForm = (booleanVariable) => {
+  const showForm = (booleanVariable) => { /*Responsible for showing add topic form when button is toggled*/
     if (booleanVariable) {
       return (<NewTopic fetchTopics = {fetchTopics} hideForm = {hideForm} />)
     }
@@ -32,19 +32,21 @@ function Home({posts, allTopics, fetchTopics}) {
         <div id='sideBar'> 
           `Topics;`
        
-          <button className="eachTopicButton" onClick={() => setSelectedTopic("All")}>
-              <p className="eachTopicText">All</p>
+          <button className="eachTopicButton" onClick={() => setSelectedTopic("All")}> {/*this button shows all posts when clicked */}
+              <p className="eachTopicText">All</p> 
             </button>
-
-          {allTopics.map((currentTopic, index) => (
+          
+          {/*Iterates over each topic in the array, and creates and assigns every topic to their own button */}
+          {allTopics.map((currentTopic, index) => ( 
             <button className="eachTopicButton" onClick={() => setSelectedTopic(currentTopic.topicName)}>
               <p className="eachTopicText" key={index}>{currentTopic.topicName}</p>
             </button>
           ))}
+          {/*This button uses the showForm constant to display the form responsible for adding a new topic to the topic list */}
           <button className="newTopicButton" onClick={() => setShowTopicForm(!showTopicForm)}>Create New Topic +</button>
           {showForm(showTopicForm)}
         </div>
-
+            {/*This component displays only posts in correlation to what topic has been selected */}
         <div className="content-area">
           <PostList posts={posts} filter={selectedTopic} />
         </div>

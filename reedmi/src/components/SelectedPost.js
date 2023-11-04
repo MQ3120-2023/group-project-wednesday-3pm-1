@@ -8,9 +8,6 @@ import apiClient from "../apiClient";
 function SelectedPost() {
   const { postId } = useParams();
 
- 
-  // const post = ??
-
   const [post, setPost] = useState(null);
 
   const [commentInput, setCommentInput] = useState("");
