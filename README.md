@@ -86,5 +86,13 @@ Everyone:
 - Overall Design 
 - Documentation
 
+## Communications
+
+- We were kept up to date through checking the github to do list, in which our progress could be measured based on what status we selected on each task requirement.
+- We also had quick meetings every day using discord to discuss what work needed to be done and how we were tracking with tasks.
+- Additionally, we had weekly meetings in person during class, where we had to report to the tutor on our progress. Based off their feedback, we had discussions after this in
+which we assigned new goals for the following week.
+- If we ran into issues, we used the discord chat to express this to the rest of team, in which all members would try their best to help.
+
 
 
