@@ -49,6 +49,8 @@ PostList.js
 NewTopic.js
     -Allows users to create new topics, by sending inputted topic to backend server and updating the topic list accordingly.
     
+NewPost.js
+    -Allows user to create posts which are then stored in the backend. When creating a post, the user is required to add a title, image, content, and topic. This post is then able to be viewed by other users who log into the website.
 
 ## Summary of Main Roles
 
