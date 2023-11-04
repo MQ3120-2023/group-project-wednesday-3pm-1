@@ -50,7 +50,39 @@ NewTopic.js
     -Allows users to create new topics, by sending inputted topic to backend server and updating the topic list accordingly.
     
 
+## Summary of Main Roles
 
+Mifta
+- TechNews and use of third party api
+- Creating new topics 
+- Creating new posts 
+- Use of multer to enable users to upload images 
+- Use of MongoDB
+
+Ryan
+- Authentication, Registration and Login using Passport
+- Connecting comments and likes to a user and making sure it's saved
+- The schemas used to save Reactions from users 
+- Use of MongoDB
+
+Calum 
+- Displaying all Posts
+- Selected Post Display 
+- Initial use of a dummy json server (data.json) before the transition to mongodb 
+- creating like and dislike button
+- creating new comments 
+
+Ahmed:
+- Filtering all Posts based on topics 
+- Creating new topics
+- Main CSS
+
+
+
+
+Everyone:
+- Overall Design 
+- Documentation
 
 
 
