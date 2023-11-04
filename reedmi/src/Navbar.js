@@ -1,13 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-<<<<<<< HEAD
-/*Function responsible for navigating through the website in the header*/
-=======
 import apiClient from './apiClient';
 import { useNavigate } from 'react-router-dom';
-
->>>>>>> 5fd7af539bd23ce5b0e69451e388bbcf84641d65
+/*Function responsible for navigating through the website in the header*/
 function Navbar() {
     return (
         <header className="App-header">
@@ -28,13 +24,10 @@ function Navbar() {
                     </div>
                     
                     <div className="navbar-links">
-<<<<<<< HEAD
                         <Link id="add-new-post" to="/login"> {/* Link for the user to sign out */}
                             Sign Out
                         </Link>
-=======
                       
->>>>>>> 5fd7af539bd23ce5b0e69451e388bbcf84641d65
                     </div>
                 </div>
             </div>   
