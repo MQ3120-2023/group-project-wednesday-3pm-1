@@ -43,6 +43,11 @@ Navbar.js:
     - Contains navigation links that allow the user to access the main areas of the app such as the home page, the TechNews section, and the functionality to create a new post.
     - Offers a sign-out option for user session termination, enhancing the security and personalized experience of the app.
 
+PostList.js
+    -Allows the homepage to display all the different posts that have been uploaded to the backend by users.
+
+NewTopic.js
+    -Allows users to create new topics, by sending inputted topic to backend server and updating the topic list accordingly.
     
 
 
