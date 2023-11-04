@@ -8,9 +8,12 @@ function NewTopic({ fetchTopics, hideForm}){
     const handleSubmitNewTopic = (event) => {
         event.preventDefault();
         hideForm();
+
+        //retrieves topic's name and description
         const topicName = event.target.elements.topicName.value;
         const topicDescription = event.target.elements.topicDescription.value;
 
+        //debugging
         console.log("Topic Name:", topicName);
         console.log("Topic Description:", topicDescription);
 
@@ -19,6 +22,8 @@ function NewTopic({ fetchTopics, hideForm}){
           topicName: topicName,
           topicDescription: topicDescription
         }
+
+        //Sends a POST request to the server to create a new topic
         apiClient
           .post(`/api/topics/`, newTopic)
           .then(() => {
