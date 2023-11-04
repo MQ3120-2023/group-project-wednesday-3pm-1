@@ -30,3 +30,23 @@ This screenshot shows the interface that appears when a user clicks on a post.
 
 The screenshot builds upon the earlier 'Selected Post.png', providing a view where users can interact with the post through 'Like' or 'Dislike' buttons. Additionally, it displays a tally of the accumulated likes and dislikes, giving a snapshot of the community's reception to the post. Below the reactions, users can browse through existing replies to the post, offering a window into the community's dialogue. To further engage with the conversation, users have the option to add their comments, contributing their perspectives to the ongoing discussion.
 
+## Welcome Page.png: 
+
+This screenshot captures the initial welcome screen that users encounter when they navigate to the ReedMi web application. The design conveys a clean and welcoming atmosphere with a minimalist aesthetic. Key elements featured in this image include:
+    - Sign-In Module (Right): Positioned on the right side of the screen, this module presents a straightforward and accessible form for users to sign in. It includes fields for 'Username' and 'Password', along with a 'Log In' button. Below this, there is an option to 'Sign in with Google', offering a convenient alternative authentication method via Google's OAuth system.
+    - Account Creation Link: For new users, there is a prompt 'New Here? Create Account' beneath the sign-in options, guiding them toward registration on the platform.
+
+## Register Page.png:
+
+The screenshot shows the registration page for our ReedMi platform. The layout is designed for users to easily sign up using their email address, username and a secure password. 
+
+## Tech News Search.png: 
+
+The screenshot presents the interface that appears when users click on the 'Tech News' button in the Navigation Bar. Users can fetch relevant news articles from a third party API. 
+
+## Tech News Page 'tesla'.png:
+
+The screenshot showcases the result interface of the 'Tech News' section when a user utilizes the search functionality, in this instance, using the keyword 'tesla'. The features highlighted in this image include:
+    - Search Bar (Top): The search bar is prominently displayed, where users can enter search terms to find relevant news articles. It currently shows the term 'tesla' as the search input.
+    - Search Results: Below the search bar, the results of the query are shown. Each result includes the source of the news (e.g., Engadget, The Verge), the author's name, a title that is hyperlinked to the full article, an accompanying image, and a brief excerpt from the news piece.
+    - Navigational Prompts: The bottom of the excerpt contains a 'Click here to view full article' link, encouraging users to read the complete article on the original website.
