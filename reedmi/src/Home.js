@@ -3,6 +3,7 @@ import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PostList from './components/PostList';
+import Sidebar from './components/Sidebar';
 import SelectedPost from './components/SelectedPost';
 import TechNews from './components/TechNews';
 import NewTopic from './components/NewTopic';
@@ -26,31 +27,22 @@ function Home({posts, allTopics, fetchTopics}) {
 
   return (
     <div className="App">
-      <Navbar />
+        <Navbar />
 
-      <div className="main-content">
-        <div id='sideBar'> 
-          `Topics;`
-       
-          <button className="eachTopicButton" onClick={() => setSelectedTopic("All")}>
-              <p className="eachTopicText">All</p>
-            </button>
+        <div className="main-content">
+        <Sidebar 
+                allTopics={allTopics} 
+                fetchTopics={fetchTopics} 
+                setSelectedTopic={setSelectedTopic}
+                selectedTopic={selectedTopic}
+            />
 
-          {allTopics.map((currentTopic, index) => (
-            <button className="eachTopicButton" onClick={() => setSelectedTopic(currentTopic.topicName)}>
-              <p className="eachTopicText" key={index}>{currentTopic.topicName}</p>
-            </button>
-          ))}
-          <button className="newTopicButton" onClick={() => setShowTopicForm(!showTopicForm)}>Create New Topic +</button>
-          {showForm(showTopicForm)}
+            <div className="content-area">
+                <PostList posts={posts} filter={selectedTopic} />
+            </div>
         </div>
-
-        <div className="content-area">
-          <PostList posts={posts} filter={selectedTopic} />
-        </div>
-      </div>
     </div>
-  );
+);
 }
 
 export default Home;

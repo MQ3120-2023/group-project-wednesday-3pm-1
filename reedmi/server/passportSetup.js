@@ -11,7 +11,7 @@ passport.use(new GoogleStrategy({
   },
   async (token, tokenSecret, profile, done) => {
     try {
-      let user = await User.findOne({ 'google.id': profile.id });
+      let user = await User.findOne({ 'email': profile.emails[0].value });
       if (!user) {
         const emailSplit = profile.emails[0].value.split('@');
         const baseUsername = emailSplit[0];
@@ -19,10 +19,9 @@ passport.use(new GoogleStrategy({
         const generatedUsername = `${baseUsername}${randomNumber}`;
 
         user = new User({
-          'google.id': profile.id,
+          'google.id': profile.emails[0].value,
           username: generatedUsername,
           email: profile.emails[0].value
-          
         });
 
         await user.save();
@@ -33,6 +32,7 @@ passport.use(new GoogleStrategy({
     }
   }
 ));
+
 
 
 passport.use(new LocalStrategy({
