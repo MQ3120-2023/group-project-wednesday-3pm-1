@@ -11,9 +11,8 @@
 
 }
 
-.eachTopicButton{
-   width:80%;
-   background-color: #c7522b;
+.topicButton {
+    width:80%;
    border-radius: 4px;
    border: none;
    display: block;
@@ -22,8 +21,16 @@
 
 }
 
-.eachTopicText{
+.topicButton-unselected{
     background-color: #c7522b;
+}
+
+.topicButton-selected{
+    background-color: #04a848;
+}
+
+.eachTopicText{
+   
     margin: 5px 0;
     color:rgb(255, 255, 255);
 }
@@ -39,11 +46,8 @@
     
 }
 
-.eachTopicButton:hover{
-    background-color: #07272d;
-    .eachTopicText{
-        background-color: #07272d;
-    }
+.topicButton:hover{
+    transform: scale(1.02); /* Expand the button by 5% */
 }
 
 .newTopicButton:hover{
@@ -101,6 +105,5 @@
 .newTopicForm button:hover {
     background-color: #07272d; /* Consistent with our hover color scheme */
 }
-
 
 
