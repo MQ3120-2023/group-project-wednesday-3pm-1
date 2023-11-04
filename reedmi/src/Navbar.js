@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import apiClient from './apiClient';
-import { useNavigate } from 'react-router-dom';
+
 
 function Navbar() {
     return (
@@ -23,7 +22,7 @@ function Navbar() {
                         </Link>
                     </div>
 
-                    <div className="navbar-links">
+                    <divg className="navbar-links">
                       
                     </div>
                 </div>
