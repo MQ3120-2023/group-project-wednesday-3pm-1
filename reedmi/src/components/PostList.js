@@ -11,14 +11,17 @@ function PostList({posts, filter}) {
     console.log(`Filtering posts with filter ${filter}!`); /*For debugging purposes, to check if post filtering is working correctly */
     console.log(JSON.stringify(posts));
 
+    //Shows all posts without filtering if 'all' button is clicked
     if (!filter || filter === "All") {
       setFilteredPosts(posts);
     } else {
+    //Otherwise, filter posts based of what category (topic) has been selected
       const newFilteredPosts = posts.filter(post => post.category.toLowerCase() === filter.toLowerCase());
       setFilteredPosts(newFilteredPosts);
     }
   }, [posts, filter]);
 
+  //Navigates to SelectedPost.js page of specified post that the user has clicked on
   const handlePostClick = (postId) => {
     navigate(`/SelectedPost/${postId}`);
   };
@@ -32,10 +35,11 @@ function PostList({posts, filter}) {
           <div 
             key={post.id} 
             className="postlist-post-container" 
-            onClick={() => handlePostClick(post.id)}
+            onClick={() => handlePostClick(post.id)} //On clicked, navigates to post's detail page
           >
             <div className="postList-infoContainer">
               
+              {/* Displays authors user name or default name if user name isn't retrieved */}
               <h2 id="postList-info">
                 u/{post.author ? post.author.username : "calum"}
               </h2>
