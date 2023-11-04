@@ -8,7 +8,7 @@ import SelectedPost from './components/SelectedPost';
 import TechNews from './components/TechNews';
 import NewTopic from './components/NewTopic';
 import NewPost from './components/NewPost';
-import './components/SideBar.css';
+
 import Navbar from './Navbar';
 
 
@@ -30,12 +30,13 @@ function Home({posts, allTopics, fetchTopics}) {
         <Navbar />
 
         <div className="main-content">
+        
         <Sidebar 
-                allTopics={allTopics} 
-                fetchTopics={fetchTopics} 
-                setSelectedTopic={setSelectedTopic}
-                selectedTopic={selectedTopic}
-            />
+          allTopics={allTopics} 
+          fetchTopics={fetchTopics} 
+          setSelectedTopic={setSelectedTopic}
+          selectedTopic={selectedTopic}
+          />
 
             <div className="content-area">
                 <PostList posts={posts} filter={selectedTopic} />
