@@ -125,8 +125,6 @@ router.post('/logout', function(req, res, next){
 
     res.status(401).send('You need to log in first.');
   };
-
-
   
   router.get('/current_user', ensureAuthenticated, (req, res) => {
    

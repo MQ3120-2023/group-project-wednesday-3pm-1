@@ -8,7 +8,7 @@ const Reaction = require('../models/reaction') // Importing the Reaction model
 const multer = require('multer')
 const path = require('path');
 const cors = require('cors');
-const ensureAuthenticated = require('./authRoutes').ensureAuthenticated;
+const ensureAuthenticated = require('./auth').ensureAuthenticated;
 
 // When you create a router using express.Router(), it's like creating a "mini-application" 
 // that you can use to define routes. This router doesn't represent the whole application but rather a subset of route handlers.
