@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
-import apiClient from "./apiClient";
 import GoogleButton from 'react-google-button';
+import apiClient from './apiClient';
+
+const baseURL = process.env.NODE_ENV === 'production' ? 'https://reedmi-app.herokuapp.com' : 'http://localhost:3001';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -69,7 +71,8 @@ const LoginPage = () => {
 
     const handleGoogleSignIn = () => {
         console.log("Google Sign-In");
-        window.location.href = `${apiClient.base}/api/auth/google`;
+       // apiClient.get('/api/auth/google', { withCredentials: true })
+        window.location.href = `${baseURL}/api/auth/google`;
     };
 
     return (
@@ -109,7 +112,7 @@ const LoginPage = () => {
                             <button type="submit" className="login-button">Log In</button>
                             <GoogleButton className='googlebutton'
                                 type="light" // can be light or dark
-                                onClick={ handleGoogleSignIn }
+                                onClick={(handleGoogleSignIn)}
                             />
                            
                         </div>

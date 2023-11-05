@@ -15,12 +15,16 @@ const app = express() // The main Express Server Instance
 
 // Serve static files from the React build directory
 if (production) {
-  app.use(express.static(path.join(__dirname, '..', 'build')));
+  // Exprees will serve up production assets
+  app.use(express.static('reedmi/build'));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-  });
 }
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
 var corsOptions = {
@@ -60,4 +64,13 @@ app.use(apiRouter)
 
 // Exports the Express application instance
 // So other files can get access to this instance
+
+if (production) {
+   // Express serve up index.html file if it doesn't recognize route
+   const path = require('path');
+   app.get('*', (req, res) => {
+     res.sendFile(path.resolve(__dirname, 'reedmi', 'build', 'index.html'));
+   });
+}
+
 module.exports = app
