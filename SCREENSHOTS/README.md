@@ -1,6 +1,16 @@
-From ILearn:
+## Video Walkthrough of our ReedMi App
 
-A folder SCREENSHOTS containing screenshots (or maybe a video) of key pages in your application and a README.md file that describes what they show. (done but video optional??)
+For a comprehensive understanding of the ReedMi application and its features, we have provided a video walkthrough. This recording guides you through the entire application, showcasing the functionality and user experience from start to finish. To view the video, please follow this link: 
+https://drive.google.com/file/d/1PprORvWk8RhP3JXkMq7IbkBh6iBCSQQD/view?usp=sharing 
+
+Topics Covered in the Video:
+
+- Account registration and User Login
+- Navigating the home page and topic selection
+- Creating Topics & Posts
+- Interacting with Posts using likes, dislikes and comments 
+- Using the Search Feature in 'Tech News'
+- Logging Out
 
 ## Add New Post Feature.png 
 

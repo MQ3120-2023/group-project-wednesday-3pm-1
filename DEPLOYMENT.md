@@ -5,6 +5,21 @@
 
 The live version of our application can be accessed at the following URL:
 [Reedmi Application](https://reedmi-test.onrender.com)
+### Deployment Steps Explained:
+
+1. **Static Files in Express**: Added `app.use(express.static('build'))` in the Express server file to serve static files from the 'build' directory.
+
+2. **Serving React Build through Express**: The compiled React code from the 'build' directory is served by the Express server. This means there's no need to run the frontend server separately in production.
+
+3. **Building and Running the Server**: The commands `npm install && npm run build` are used to install dependencies and build the React application, and `npm run server` is used to start the server.
+
+4. **Environment-Dependent Port Selection**: A conditional ternary operator is used to choose the server port. It runs on port 3000 in production and on port 3001 in development.
+
+5. **Frontend Axios Calls**: The frontend makes Axios calls to the domain hosting the application. This is where both the server and frontend are operational together.
+
+6. **Server Hosting**: The server is hosted at the specified website.
+
+7. **Port Handling in Different Environments**: Previously, for local development, requests were made to 'localhost:3001'. In production, requests are directed to the hosting website's domain.
 
 ## Running and Building the Project Locally
 
