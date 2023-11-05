@@ -52,6 +52,97 @@ NewTopic.js
 NewPost.js
     -Allows user to create posts which are then stored in the backend. When creating a post, the user is required to add a title, image, content, and topic. This post is then able to be viewed by other users who log into the website.
 
+
+### TechNews Feature & Data Flow Documentation 
+`TechNews.js` & `SingleArticle.js`
+The TechNews feature allows users to interact with a web application interface to request and display technology news articles. Here's the data flow detailed with state names and application behavior:
+
+#### 1. TechNews.js
+- The `TechNews` component loads when the user visits the TechNews section of the application.
+- The initial state `news` is an empty array, and `searchQuery` is an empty string.
+- A function `fetchNews` is defined to handle the retrieval of news articles.
+
+#### 2. User Interaction and Input
+- The user types a search term into the input field of the search bar, which updates the `searchQuery` state with the current input value.
+
+#### 3. GET Request to the Backend Server in ./reedmi/server/controllers/api.js
+- Upon clicking the "Search" button, the `fetchNews` function is called.
+- This function uses the `apiClient` to make a GET request to the backend server, including `searchQuery` as a query parameter.
+- The backend server has an endpoint `/api/techNews` designed to receive GET requests from the Front-End Client.
+- It extracts the `searchQuery` from the incoming request for processing.
+
+#### 5. GET Request to Third-party API
+**API Details:**
+`URL: https://newsapi.org/v2/everything`
+Provides a list of news articles based on the supplied search parameters.
+- The server sends a GET request to the third-party News API, incorporating the `searchQuery` received from the frontend along with the necessary API key for authentication.
+
+#### 6. Receiving News Data from the Third-Party API
+- The News API processes the request and sends back a list of articles that match the `searchQuery` to the express server.
+- The server then relays this list of articles in JSON format back to the requesting frontend client.
+
+#### 7. Frontend Data Handling
+- The response from the backend is received by the `fetchNews` function.
+- The function then updates the `news` state with the array of articles contained in the response, which prompts a re-render of the `TechNews` component to display the new data.
+
+#### 8. Display of Articles
+- The `TechNews` component takes the `news` state (now filled with articles) and uses it to render a list of `SingleArticle` components, each displaying the content of one news article.
+
+#### 9. Error Management
+- If there is an issue with the request to the backend server or the third-party API, an error is caught in the `fetchNews` function.
+- The error triggers a console error message indicating the failure to retrieve the news. 
+
+
+
+### Use of MongoDB as our Data Store:
+This part outlines how MongoDB is being used as the database for oue React application. It includes details on the initial setup, data ingestion, and all the schemas used in our database.
+
+#### Initial Setup
+- **Database Connection**: The application connects to MongoDB using Mongoose. Environment variables are utilised to store the connection URl securely.
+
+#### Data Ingestion
+- **Dummy Data**: Before user interaction, the database is populated with dummy data from a `data.json` file. This ensures that the application has content to display upon initial load.
+- **Data Ingestion Script**: The script reads the JSON file, parses the content, and uses Mongoose models to insert data into the MongoDB database only if it does not already exist.
+
+#### Schemas Used: (Can be found at /reedmi/server/models)
+##### Post Schema
+- `postTitle`: String representing the title.
+- `postContent`: String for the body content.
+- `img`: String URL for related imagery.
+- `category`: String indicating the post's category.
+- `createdAt`: Date marking the creation time.
+- `author`: Holds an ObjectId that references a User document. This creates a relationship between the Post and the User who created it.
+- `comments`: An array holding ObjectIds, each referencing a Comment document. This links the Post to all associated comments.
+- `reactions`: An array of ObjectIds referencing Reaction documents to represent user reactions to the post.
+
+##### User Schema
+Holds user information:
+
+- `username`: Unique string for the user's name.
+- `email`: String for the user's email, unique to each user.
+- `password`: Encrypted string for the user's password.
+
+##### Comment Schema
+Represents comments on posts:
+
+- `content`: String for the comment text.
+- `author`: ObjectId referencing a User document to denote the commenter's identity.
+- `post`: ObjectId referencing the related Post document. This establishes a connection between the comment and the specific post it belongs to.
+- `createdAt`: Date of comment creation.
+
+##### Reaction Schema
+Tracks reactions to posts:
+
+- `postId`: ObjectId referencing a Post document to associate the reaction with a particular post.
+- `userId`: ObjectId referencing a User document to attribute the reaction to a specific user.
+- `reaction`: String indicating the type of reaction, with limited options (e.g., 'upvote', 'downvote').
+
+##### Topic Schema
+Categorizes posts:
+
+- `topicName`: String for the topic title.
+- `topicDescription`: String detailing the topic.
+
 ## Summary of Main Roles
 
 Mifta
