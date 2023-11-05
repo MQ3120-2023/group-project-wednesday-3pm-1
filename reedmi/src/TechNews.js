@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import SingleArticle from "./SingleArticle";
+import SingleArticle from "./components/SingleArticle";
 import { v4 as uuidv4 } from 'uuid';
-import apiClient from "../apiClient";
+import apiClient from "./apiClient";
 import './TechNews.css';
-import Navbar from "../Navbar";
+import Navbar from "./components/Navbar";
 
 function TechNews() {
     const[news, setNews] = useState([])

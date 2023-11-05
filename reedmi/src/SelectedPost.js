@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../Navbar";
+import Navbar from "./components/Navbar";
 
 import './SelectedPost.css';
-import apiClient from "../apiClient";
+import apiClient from "./apiClient";
 
 function SelectedPost() {
   const { postId } = useParams();

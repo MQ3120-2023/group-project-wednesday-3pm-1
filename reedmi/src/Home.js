@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PostList from './components/PostList';
 import Sidebar from './components/Sidebar';
-import Navbar from './Navbar';
+import Navbar from './components/Navbar';
 
 function Home({posts, allTopics, fetchTopics}) { 
   const [selectedTopic, setSelectedTopic] = useState("All"); 

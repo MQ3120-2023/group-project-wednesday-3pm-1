@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import apiClient from '../apiClient';
 
 function Navbar() {
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        apiClient.get('/api/auth/current_user')
+            .then(response => setUsername(response.data.username))
+            .catch(error => console.error(error));
+    }, []);
+
     return (
         <header className="App-header">
             <div className="header-contents">
@@ -22,12 +31,13 @@ function Navbar() {
                     </div>
 
                     <div className="navbar-links">
-                      
+                        <Link id="add-new-post" to="/login">
+                            Log Out '{username}'
+                        </Link>
                     </div>
                 </div>
             </div>   
         </header>
-
     );
 }
 export default Navbar;

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('./models/user');
 const cors = require('cors');
+const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://reedmi-test.onrender.com';
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router.get('/google',
 router.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('http://localhost:3000/home');
+    res.redirect(`${baseURL}/home`);
   }
 );
 
@@ -113,7 +114,7 @@ router.post('/logout', function(req, res, next){
     console.log("Logging out");
     req.logout(function(err) {
       if (err) { return next(err); }
-      res.redirect('/');
+      res.redirect(`${baseURL}/welcome`);
     });
   });
 
@@ -125,7 +126,7 @@ router.post('/logout', function(req, res, next){
     res.status(401).send('You need to log in first.');
   };
 
-module.exports = ensureAuthenticated;
+
   
   router.get('/current_user', ensureAuthenticated, (req, res) => {
    

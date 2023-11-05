@@ -20,7 +20,8 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json())
-app.use(express.static('build'))
+
+
 app.use(session({
   secret: 'reedmiauth',
   resave: false,
@@ -38,7 +39,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use('/api/auth', authRoutes.router);
+
 // The app.js file imports the apiRouter from api.js with const apiRouter = require("./controllers/api").
 // It then uses this router with app.use(apiRouter), which means all the routes we defined in api.js are now active and part of our server's route handling
 app.use(apiRouter)

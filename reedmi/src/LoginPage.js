@@ -1,9 +1,8 @@
 // LoginPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
-import CreateAccountOverlay from './CreateAccountOverlay';
 import apiClient from "./apiClient";
 import GoogleButton from 'react-google-button';
 
@@ -23,16 +22,11 @@ const LoginPage = () => {
         });
     };
 
-    const [showOverlay, setShowOverlay] = useState(false);
 
     const openOverlay = () => {
         navigate("/register")
     };
 
-    const closeOverlay = () => {
-        setShowOverlay(false);
-    };
-  
     const loginUser = async () => {
         try {
             const response = await apiClient.post('/api/auth/login', {
@@ -50,6 +44,24 @@ const LoginPage = () => {
         }
     };
 
+    const logoutUser = async () => {
+        try {
+            const response = await apiClient.post('/api/auth/logout', {}, {
+                withCredentials: true
+            });
+
+            if (response.data) {
+                navigate('/');
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        logoutUser();
+    }, []);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         loginUser();
@@ -57,7 +69,7 @@ const LoginPage = () => {
 
     const handleGoogleSignIn = () => {
         console.log("Google Sign-In");
-        window.location.href = "http://localhost:3001/api/auth/google";
+        window.location.href = `${apiClient.base}/api/auth/google`;
     };
 
     return (
@@ -99,18 +111,12 @@ const LoginPage = () => {
                                 type="light" // can be light or dark
                                 onClick={ handleGoogleSignIn }
                             />
+                           
                         </div>
-                        </form>
+                    </form>
                     <p className="signup-text">
-                        
-                New Here? <span className="signup-link" onClick={openOverlay}>Create Account</span>
-            </p>
-
-            
-
-
-            {showOverlay && <CreateAccountOverlay onClose={closeOverlay} loginUser={loginUser} />}
-
+                        New Here? <span className="signup-link" onClick={openOverlay}>Create Account</span>
+                    </p>
                 </div>
             </div>
         </div>

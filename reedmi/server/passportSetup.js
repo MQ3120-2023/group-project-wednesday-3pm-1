@@ -3,11 +3,12 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const User = require('./models/user');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const baseURL = process.env.NODE_ENV === 'production' ? 'https://reedmia-test.onrender.com' : 'http://localhost:3000';
 
 passport.use(new GoogleStrategy({
     clientID: process.env.googleclientID,
     clientSecret: process.env.googleclientSecret,
-    callbackURL: 'http://localhost:3001/api/auth/google/callback'
+    callbackURL: `${baseURL}/api/auth/google/callback` 
   },
   async (token, tokenSecret, profile, done) => {
     try {
