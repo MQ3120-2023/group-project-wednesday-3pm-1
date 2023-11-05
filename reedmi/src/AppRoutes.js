@@ -1,4 +1,3 @@
-// AppRoutes.js
 import { useState, useEffect } from "react";
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
@@ -12,7 +11,6 @@ import apiClient from "./apiClient";
 
 
 function AppRoutes() {
-
   const [error, setError] = useState(null);
   const [username, setUsername] = useState('');
   const [posts, setPosts] = useState([]);
@@ -30,7 +28,6 @@ function AppRoutes() {
         console.error(err);
       }
     };
-  
     fetchData();
   }, []);
 
@@ -62,8 +59,10 @@ function AppRoutes() {
     try {
       const response = await apiClient.get('/api/auth/current_user', { withCredentials: true });
       setUsername(response.data.username);
+      console.log(username)
     } catch (err) {
       setError('Could not fetch user data');
+      console.log(error)
     }
   };
 

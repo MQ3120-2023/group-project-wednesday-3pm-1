@@ -12,7 +12,6 @@ function TechNews() {
     const baseurl = `/api/techNews`
 
     const fetchNews = () => {
-        // setNews([]); // Reset news state to empty array
         console.log("printing: ",searchQuery)
         apiClient.get(baseurl, {
             params: {
@@ -28,15 +27,10 @@ function TechNews() {
         })
     }
 
-    useEffect(() => {
-        fetchNews() // is called when the TechNews Page is rendered 
-    }, [])
-
     return (
-        // depends on how the data we get from the Third Party Api is formatted
+
         <div>
             <Navbar />
-
             <div className="techNewsSearchBar" >
                 <input
                     type="text"

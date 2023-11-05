@@ -3,7 +3,6 @@
  font-family: monospace;
 }
 
-
 .App {
   font-family: Arial, sans-serif;
   display: flex;
@@ -20,16 +19,12 @@
   width: 100%;
   padding-top: 50px;  /* Adjust based on your actual header height */
   display: flex; 
-  justify-content: start; 
   align-items: flex-start; /* Align children to the top */
 }
 
 /* Styles for content area */
 .content-area {
-  
-  
-  padding: 1em;
+  padding: 3em;
   width: 80%; /* Set width as required */
-  
 }
 

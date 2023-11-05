@@ -46,9 +46,7 @@ function PostList({posts, filter}) {
               <h1 id="postList-title">{post.postTitle}</h1>
               <div className="postList-bodyPreview">{post.postContent}</div>
               </div>
-              <img className="postlist-postImage" src={post.img} alt={post.postTitle} />
-         
-                    
+              <img className="postlist-postImage" src={post.img} alt={post.postTitle} />      
           </div>
         );
       })}

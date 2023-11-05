@@ -53,8 +53,23 @@ NewPost.js
     -Allows user to create posts which are then stored in the backend. When creating a post, the user is required to add a title, image, content, and topic. This post is then able to be viewed by other users who log into the website.
 
 
-### TechNews Feature & Data Flow Documentation 
-`TechNews.js` & `SingleArticle.js`
+### Creating a New Post Feature: `NewPost.js`
+1. **User Interaction**: The user enters information into the new post form on the front end and optionally includes an image file.
+2. **Form Submission**: Upon submitting the form, the `addPostToBackEnd` function triggers, which prepares the form data to be sent to the express server. This function creates a `FormData` object containing the user's inputs and the image file, if provided.
+3. **Making a POST Request to the Server**: The front end sends the `FormData` to the server's `/api/createNewPost` endpoint via a POST request.
+4. **Server Handling with Multer**:
+   - The server employs Multer as a middleware to handle the incoming file. Multer processes the file, storing it in the designated 'uploads' directory with a unique filename.
+   - Alongside file handling, Multer makes the text fields available in `req.body` and the file information in `req.file`.
+5. **Database Update**:
+   - **New Post Creation**: The server constructs a new post object with the received text data and generates an image URL using the stored file's path, if an image was uploaded.
+   - **Save Operation**: This new post object is then saved to the database, which involves creating a new document in the posts collection.
+6. **Server Response**: The server sends back a JSON response containing the details of the newly created post to the front end.
+7. **Frontend Update**:
+   - **User Notification**: The front end uses the server's response to display a success message, informing the user that the post has been added.
+   - **PostList Update**: The list of posts is updated whenever a new post has been added successfully, by calling the `fetchPosts()` function.
+
+
+### TechNews Feature & Data Flow Documentation `TechNews.js` & `SingleArticle.js`
 The TechNews feature allows users to interact with a web application interface to request and display technology news articles. Here's the data flow detailed with state names and application behavior:
 
 #### 1. TechNews.js
@@ -93,10 +108,8 @@ Provides a list of news articles based on the supplied search parameters.
 - The error triggers a console error message indicating the failure to retrieve the news. 
 
 
-
 ### Use of MongoDB as our Data Store:
 This part outlines how MongoDB is being used as the database for oue React application. It includes details on the initial setup, data ingestion, and all the schemas used in our database.
-
 #### Initial Setup
 - **Database Connection**: The application connects to MongoDB using Mongoose. Environment variables are utilised to store the connection URl securely.
 
@@ -117,14 +130,12 @@ This part outlines how MongoDB is being used as the database for oue React appli
 
 ##### User Schema
 Holds user information:
-
 - `username`: Unique string for the user's name.
 - `email`: String for the user's email, unique to each user.
 - `password`: Encrypted string for the user's password.
 
 ##### Comment Schema
 Represents comments on posts:
-
 - `content`: String for the comment text.
 - `author`: ObjectId referencing a User document to denote the commenter's identity.
 - `post`: ObjectId referencing the related Post document. This establishes a connection between the comment and the specific post it belongs to.
@@ -132,14 +143,12 @@ Represents comments on posts:
 
 ##### Reaction Schema
 Tracks reactions to posts:
-
 - `postId`: ObjectId referencing a Post document to associate the reaction with a particular post.
 - `userId`: ObjectId referencing a User document to attribute the reaction to a specific user.
 - `reaction`: String indicating the type of reaction, with limited options (e.g., 'upvote', 'downvote').
 
 ##### Topic Schema
 Categorizes posts:
-
 - `topicName`: String for the topic title.
 - `topicDescription`: String detailing the topic.
 
@@ -169,9 +178,6 @@ Ahmed:
 - Filtering all Posts based on topics 
 - Creating new topics
 - Main CSS
-
-
-
 
 Everyone:
 - Overall Design 
