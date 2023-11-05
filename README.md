@@ -18,8 +18,8 @@ our README.md should contain a description of your project along the following l
 ## Project Description 
 
 Our project ReedMi is a user-focused discussion platform similar to Reddit that aims to create a network for 'geeky' users to talk and gain knowledge about tech-related topics. ReedMi will help create this network by offering a forum for tech enthusiasts to propose topics and publish content. All users can access these various postings and participate by leaving comments likes or dislikes. Users can search for topics using the side panel filter, which will lead them to thier favorite posts. Users can create new posts using the Navigation bar to add to the forum. Users can fetch news from a third party API through 'Tech News'.
+ReedMi uses MongoDB, as the datastore, more about this is found later in this document.
 
-ReedMi uses MongoDB, a server that retrieves and transfesr data to and from a database that houses user-generated content.
 ReedMi uses Google authentication 
 
 ## Our Vision for the future 
@@ -27,34 +27,58 @@ ReedMi uses Google authentication
 If the project were to advance, the next phase of development would focus on augmenting the interactivity and user control within the ReedMi platform. This would include implementing functionality for users to express their opinions more dynamically by introducing the ability to like or dislike comments made by other users. This feature would add a layer of engagement and allow for a more nuanced reflection of user sentiment within discussions. Moreover, we would empower users with the ability to manage their digital footprint on the platform by granting them the capability to delete their own posts and any comments they have made. This step is critical for ensuring that users feel a sense of ownership and responsibility over their content and can adapt their contributions as their perspectives evolve or to correct any errors post-publication. Finally we would've enabled the reply system where users can engage with other users under posts.
 
 ## Source Code Guide
+### `AppRoutes.js`
+    - This is the first componenent being rendered in `index.js`, which is the entry point of the REACT application.
+- Handles routing and data fetching for all the other componenets in the Application, before the other componenents are rendered. This ensures that  that data is fetched before the user interacts with the app
+- Sets up `Routes` that map specific paths to corresponding components, such as `Home`, `Register`, `LoginPage`, `SelectedPost`, `TechNews`, and `NewPost`.
+- Includes a redirect for any undefined paths (`*`) to the login page, ensuring that users are guided to a defined route.
+#### State Management 
+- Manages several pieces of state:
+  - `error`: Tracks any errors that occur during API calls or data fetching.
+  - `username`: Stores the current user's username after successful authentication.
+  - `posts`: An array of post data retrieved from the database.
+  - `allTopics`: An array of topics fetched from the database, used for categorising posts.
+  - `loading`: A boolean flag to indicate whether the application is in the process of fetching necessary data.
+#### Data Fetching and Effects
+- When this componenent is first loaded, a series of asynchronous operations are called to fetch data:
+  - Fetches topics, the current user, and posts by invoking `fetchTopics`, `fetchCurrentUser`, and `fetchPosts` functions.
+  - The `loading` state is set to `false` after all data fetching is completed, indicating that the application is ready to be used.
+- `fetchPosts`: Retrieves a list of posts from the backend and updates the `posts` state.
+- `fetchTopics`: Fetches available topics from the backend to categorize posts and updates the `allTopics` state.
+- `fetchCurrentUser`: Attempts to fetch the currently authenticated user's details and set the `username`. On failure, it sets an error message.
 
-Home.js:
-    Responsible for displaying all elements relating to the main page. This involves, the side bar containing topic selection, user posts, Reedmi logo, tech news button, and create post button.
+#### Route Definitions
+- Defines routes and their respective components, establishing the structure for navigating the application.
+- For routes that require data, passes the relevant state data and functions as props to the components.
 
-SelectedPost.js:
-    -Responsible for displaying post data for the respective post that the user has clicked on.
-    -Displays all information relevant to the post, including the image, title, and description.
-    -Provides like and dislike button for the user to interact with. If user likes or dislikes, the respective like or dislike counter is updated by one. Checks also if user has already liked or disliked, In which they will unlike or dislike if they click again. User can like or dislike no more than once, unless they unlike or dislike. User like or dislike input is sent to backend.
-    -Provides comment feature, displaying existing comments, and allowing user to add their own comments using a form.
+### `Home.js`:
+- The `Home` component is primary view for users to browse posts.
+- It is responsable for rendering the following Child Componenets:  `Navbar` for navigation, a `Sidebar` for topic selection, and a `PostList` that displays posts filtered by the selected topic.
+- Users can filter posts by choosing a topic from the `Sidebar`, which updates the `selectedTopic` state and dynamically alters the list of displayed posts. Props like `posts` (the list of all posts), `allTopics` (available topics for filtering), and `fetchTopics` (a function to refresh topics) are passed down to child components.
 
-Navbar.js:
-    - Serves as the primary navigation component of the ReedMi app.
-    - Provides a consistent top header across different views with the "ReedMi" logo that links to the home page.
-    - Contains navigation links that allow the user to access the main areas of the app such as the home page, the TechNews section, and the functionality to create a new post.
-    - Offers a sign-out option for user session termination, enhancing the security and personalized experience of the app.
+### `PostList.js`:
 
-PostList.js
-    -Allows the homepage to display all the different posts that have been uploaded to the backend by users.
+- Allows the homepage to display all the different posts that have been uploaded to the backend by users.
 
-NewTopic.js
-    -Allows users to create new topics, by sending inputted topic to backend server and updating the topic list accordingly.
-    
-NewPost.js
-    -Allows user to create posts which are then stored in the backend. When creating a post, the user is required to add a title, image, content, and topic. This post is then able to be viewed by other users who log into the website.
+### `SelectedPost.js`:
 
+- Responsible for displaying post data for the respective post that the user has clicked on.
+- Displays all information relevant to the post, including the image, title, and description.
+- Provides like and dislike button for the user to interact with. If user likes or dislikes, the respective like or dislike counter is updated by one. Checks also if user has already liked or disliked, In which they will unlike or dislike if they click again. User can like or dislike no more than once, unless they unlike or dislike. User like or dislike input is sent to backend.
+- Provides comment feature, displaying existing comments, and allowing user to add their own comments using a form.
 
-### Creating a New Post Feature: `NewPost.js`
-1. **User Interaction**: The user enters information into the new post form on the front end and optionally includes an image file.
+### `Navbar.js`:
+
+- Serves as the primary navigation component of the ReedMi app.
+- Provides a consistent top header across different views with the "ReedMi" logo that links to the home page.
+- Contains navigation links that allow the user to access the main areas of the app such as the home page, the TechNews section, and the functionality to create a new post.
+
+### `NewTopic.js`:
+- Allows users to create new topics, by sending inputted topic to the database and updating the topic list accordingly.
+
+### `NewPost.js`: Creating a New Post Feature:
+
+1. **User Interaction**: The user enters information into the new post form on the front end, which includes a title, image, content, topic and optionally includes an image file.
 2. **Form Submission**: Upon submitting the form, the `addPostToBackEnd` function triggers, which prepares the form data to be sent to the express server. This function creates a `FormData` object containing the user's inputs and the image file, if provided.
 3. **Making a POST Request to the Server**: The front end sends the `FormData` to the server's `/api/createNewPost` endpoint via a POST request.
 4. **Server Handling with Multer**:
@@ -69,7 +93,7 @@ NewPost.js
    - **PostList Update**: The list of posts is updated whenever a new post has been added successfully, by calling the `fetchPosts()` function.
 
 
-### TechNews Feature & Data Flow Documentation `TechNews.js` & `SingleArticle.js`
+### `TechNews.js` & `SingleArticle.js`: TechNews Feature & Data Flow Documentation
 The TechNews feature allows users to interact with a web application interface to request and display technology news articles. Here's the data flow detailed with state names and application behavior:
 
 #### 1. TechNews.js
