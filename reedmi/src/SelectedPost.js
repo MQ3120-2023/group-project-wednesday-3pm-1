@@ -107,7 +107,7 @@ const handleDislike = () => {
 
   
   if (!post) {
-    return <div><Navbar>  </Navbar></div>;
+    return <div className="global-background"><Navbar>  </Navbar></div>;
   }
 
   return (
