@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../Home.css';
 import './PostList.css';
+import ImageWithCheck from "./ImageWithCheck";
 
 function PostList({posts, filter}) {
   const navigate = useNavigate(); 
@@ -31,25 +32,25 @@ function PostList({posts, filter}) {
     <div className = 'allPosts'>
       <h1 className="topicTitle" style={{ textAlign: 'center' }}>{filter === "All" ? "All Posts" : filter}</h1>
       {filteredPosts.map((post) => {
-        return (
-          <div 
-            key={post.id} 
-            className="postlist-post-container" 
-            onClick={() => handlePostClick(post.id)} //On clicked, navigates to post's detail page
-          >
-            <div className="postList-infoContainer">
-              
-              {/* Displays authors user name or default name if user name isn't retrieved */}
-              <h2 id="postList-info">
-                u/{post.author ? post.author.username : "calum"}
-              </h2>
-              <h1 id="postList-title">{post.postTitle}</h1>
-              <div className="postList-bodyPreview">{post.postContent}</div>
-              </div>
-              <img className="postlist-postImage" src={post.img} alt={post.postTitle} />      
-          </div>
-        );
-      })}
+  return (
+    <div 
+      key={post.id} 
+      className="postlist-post-container" 
+      onClick={() => handlePostClick(post.id)} //On clicked, navigates to post's detail page
+    >
+      <div className="postList-infoContainer">
+        
+        {/* Displays authors user name or default name if user name isn't retrieved */}
+        <h2 id="postList-info">
+          u/{post.author ? post.author.username : "calum"}
+        </h2>
+        <h1 id="postList-title">{post.postTitle}</h1>
+        <div className="postList-bodyPreview">{post.postContent}</div>
+        </div>
+        {post.img && <ImageWithCheck className="postlist-postImage" src={post.img} alt={post.postTitle} />}      
+    </div>
+  );
+})}
 
     </div>
   );

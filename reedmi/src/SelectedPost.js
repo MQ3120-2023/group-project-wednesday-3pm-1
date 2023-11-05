@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import ImageWithCheck from "./components/ImageWithCheck";
 
 import './SelectedPost.css';
 import apiClient from "./apiClient";
@@ -127,7 +128,7 @@ const handleDislike = () => {
       <p className="postContent">{post.postContent}</p>
         </div>
        
-          <img className="postImage" src={post.img} alt={post.postTitle} />
+        {post.img && <ImageWithCheck className="postImage" src={post.img} alt={post.postTitle} />}
       
 
       <div>
