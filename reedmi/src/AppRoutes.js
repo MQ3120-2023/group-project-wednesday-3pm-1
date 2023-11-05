@@ -8,7 +8,7 @@ import NewPost from './components/NewPost';
 import Register from './Register';
 import LoginPage from './LoginPage';
 import apiClient from "./apiClient";
-
+import AuthenticatedRoute from './AuthenticatedRoute';
 
 function AppRoutes() {
   const [error, setError] = useState(null);
@@ -16,6 +16,7 @@ function AppRoutes() {
   const [posts, setPosts] = useState([]);
   const [allTopics, setTopics] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loggingIn, setLoggingIn] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +31,17 @@ function AppRoutes() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await fetchCurrentUser();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchUser();
+  }, [loggingIn]);
 
   const fetchPosts = () => {
     apiClient
@@ -57,6 +69,7 @@ function AppRoutes() {
 
   const fetchCurrentUser = async () => {
     try {
+      console.log("Fetching current user")
       const response = await apiClient.get('/api/auth/current_user', { withCredentials: true });
       setUsername(response.data.username);
       console.log(username)
@@ -69,18 +82,33 @@ function AppRoutes() {
   if (loading) {
     return <div></div>;
   }
-  
 
   return (
     <Router>
       <Routes>
-        <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/home' element={<Home posts = {posts} allTopics = {allTopics} fetchTopics={fetchTopics}/>} /> 
-        <Route path="/SelectedPost/:postId" element={<SelectedPost posts = {posts}/>} />
-        <Route path="/techNews" element={<TechNews />} />
-        <Route path="/createNewPost" element={<NewPost fetchPosts = {fetchPosts} allTopics = {allTopics} />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path='/register' element={<Register setLoggingIn={setLoggingIn} />} />
+        <Route path='/login' element={<LoginPage setLoggingIn={setLoggingIn} />} />
+        <Route path='/home' element={
+          <AuthenticatedRoute username={username} setLoggingIn={setLoggingIn}>
+            <Home posts={posts} allTopics={allTopics} fetchTopics={fetchTopics} setLoggingIn={setLoggingIn}/>
+          </AuthenticatedRoute>
+        } />
+        <Route path="/SelectedPost/:postId" element={
+          <AuthenticatedRoute username={username} loggingIn={loggingIn}>
+            <SelectedPost posts={posts}/>
+          </AuthenticatedRoute>
+        } />
+        <Route path="/techNews" element={
+          <AuthenticatedRoute username={username} loggingIn={loggingIn}>
+            <TechNews />
+          </AuthenticatedRoute>
+        } />
+        <Route path="/createNewPost" element={
+         <AuthenticatedRoute username={username} loggingIn={loggingIn}>
+            <NewPost fetchPosts={fetchPosts} allTopics={allTopics} />
+          </AuthenticatedRoute>
+        } />
+       <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );

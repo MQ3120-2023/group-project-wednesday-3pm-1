@@ -110,13 +110,22 @@ router.post('/login', (req, res, next) => {
 });
 
 
-router.post('/logout', function(req, res, next){
-    console.log("Logging out");
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect(`${baseURL}/welcome`);
+router.get('/logout', function (req, res) {
+  req.logout(function(err) {
+    if (err) {
+      console.log('Error : Failed to logout.', err);
+      return res.status(500).send(err);
+    }
+    req.session.destroy(function (err) {
+      if (err) {
+        console.log('Error : Failed to destroy the session during logout.', err);
+      }
+      res.clearCookie('connect.sid', { path: '/' });
+      res.status(200).redirect(`${baseURL}/login`);
     });
   });
+});
+
 
  const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {

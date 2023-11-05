@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import apiClient from '../apiClient';
+import { baseURL } from '../apiClient';
 
 function Navbar() {
     const [username, setUsername] = useState('');
@@ -11,6 +12,8 @@ function Navbar() {
             .then(response => setUsername(response.data.username))
             .catch(error => console.error(error));
     }, []);
+
+    let url = `${baseURL}/api/auth/logout`;
 
     return (
         <header className="App-header">
@@ -31,7 +34,8 @@ function Navbar() {
                     </div>
 
                     <div className="navbar-links">
-                        <Link id="add-new-post" to="/login">
+
+                        <Link id="add-new-post" to={`${url}`}>
                             Log Out '{username}'
                         </Link>
                     </div>

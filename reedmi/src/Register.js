@@ -1,99 +1,144 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Register.css';
-import apiClient from "./apiClient";
+import './LoginPage.css'; // Using the same CSS file as LoginPage
+import apiClient from './apiClient';
 
-
-const Register = () => {
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
+const Register = ({ setLoggingIn }) => {
     const navigate = useNavigate();
+    const [userData, setUserData] = useState({
+        email: '',
+        username: '',
+        password: '',
+        confirmPassword: ''
+    });
+    const [error, setError] = useState('');
 
-    const passwordsMatch = () => {
-        if (password !== confirmPassword) {
-            setError('Passwords do not match.');
-            return false;
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setUserData({
+            ...userData,
+            [name]: value
+        });
+    };
+
+    const logoutUser = async () => {
+        try {
+            await apiClient.post('/api/auth/logout', {}, { withCredentials: true });
+        } catch (err) {
+            console.error(err);
         }
-        return true;
     };
 
     const loginUser = async () => {
-        try {
-            // Attempt to login
-            const response = await apiClient.post('/api/auth/login', { login: username, password: password });
 
-            if (response.data) {
-                navigate('/home');
-            }
+        setLoggingIn(true);
+
+        try {
+
+           
+
+            await apiClient.post('/api/auth/login', {
+                login: userData.username,
+                password: userData.password,
+            }, {
+                withCredentials: true
+            });
+
+            setLoggingIn(true);
+            navigate('/home');
         } catch (err) {
-            // Handle errors here by setting state so the user can know if their login attempt was unsuccessful
-            setError('Failed to login. Please try again.');
+            setError(err.response?.data?.message || 'Failed to login. Please try again.');
         }
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
+    const registerUser = async () => {
         try {
             const response = await apiClient.post('/api/auth/register', {
-                email: email,
-                username: username,
-                password: password,
-                confirm: confirmPassword,
+                email: userData.email,
+                username: userData.username,
+                password: userData.password,
+                confirm: userData.confirmPassword,
             });
-            
-            if (response.status === 200) {
-                // Registration was successful, redirect the user to the login page
-                loginUser();
-              } else {
-                // Registration was not successful, set the error state
-                setError('Failed to register. Please try again.');
-              }
 
-            console.log(response.data);
-        } catch (error) {
-            console.error(error);
+            if (response.status === 200) {
+                await logoutUser();
+                loginUser();
+            } else {
+                setError('Failed to register. Please try again.');
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to register. Please try again.');
         }
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        registerUser();
     };
 
     return (
-        <div className="register-container">
-            <h2>Register</h2>
-            {error && <div className="error-message">{error}</div>}
-            {success ? (
-                <div className="success-message">Registration successful! Logging in...</div>
-            ) : (
-                <form onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <label>Email:</label>
-                        <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-                    </div>
-                    <div className="input-group">
-                        <label>Username:</label>
-                        <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
-                    </div>
-                    <div className="input-group">
-                        <label>Password:</label>
-                        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
-                    </div>
-                    <div className="input-group">
-                        <label>Confirm Password:</label>
-                        <input
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(event) => setConfirmPassword(event.target.value)}
-                        />
-                    </div>
-                    <button className="register-btn" type="submit">
-                        Register
-                    </button>
-                </form>
-            )}
+        <div className="page-container">
+            <div className="welcome-section">
+                <h1 className='welcomeText'> Welcome to ReedMi</h1>
+            </div>
+            <div className="login-section">
+                <div className="login-content">
+                    <h2>Sign Up</h2>
+                    {error && <p className="error-message">{error}</p>}
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <div className="input-group">
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                required
+                                value={userData.email}
+                                onChange={handleInputChange}
+                                className="login-input"
+                            />
+                        </div>
+                        <div className="input-group">
+                            <input
+                                type="text" 
+                                name="username"
+                                placeholder="Username" 
+                                required
+                                value={userData.username}
+                                onChange={handleInputChange}
+                                className="login-input"
+                            />
+                        </div>
+                        <div className="input-group">
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                required
+                                value={userData.password}
+                                onChange={handleInputChange}
+                                className="login-input"
+                            />
+                        </div>
+                        <div className="input-group">
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="Confirm Password"
+                                required
+                                value={userData.confirmPassword}
+                                onChange={handleInputChange}
+                                className="login-input"
+                            />
+                        </div>
+                        <div className="loginbuttons">
+                            <button type="submit" className="login-button">Register</button>
+                        </div>
+                    </form>
+                    <p className="signup-text">
+                        Already have an account? <span className="signup-link" onClick={() => navigate("/login")}>Log In</span>
+                    </p>
+                </div>
+            </div>
         </div>
     );
 };

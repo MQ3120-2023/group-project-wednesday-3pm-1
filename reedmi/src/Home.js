@@ -2,9 +2,15 @@ import { useState } from "react";
 import PostList from './components/PostList';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
+import { useEffect } from "react";
 
-function Home({posts, allTopics, fetchTopics}) { 
+function Home({posts, allTopics, fetchTopics, setLoggingIn}) { 
   const [selectedTopic, setSelectedTopic] = useState("All"); 
+
+  useEffect(() => {
+    setLoggingIn(false);
+  }, []);
+
   return (
     <div className="App">
         <Navbar />

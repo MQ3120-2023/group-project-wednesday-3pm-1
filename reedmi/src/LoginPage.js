@@ -8,7 +8,7 @@ import apiClient from './apiClient';
 
 const baseURL = process.env.NODE_ENV === 'production' ? 'https://reedmi-test.onrender.com' : 'http://localhost:3001';
 
-const LoginPage = () => {
+const LoginPage = ({ setLoggingIn }) => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
         username: '',
@@ -30,7 +30,12 @@ const LoginPage = () => {
     };
 
     const loginUser = async () => {
+
+        setLoggingIn(true);
+
         try {
+
+
             const response = await apiClient.post('/api/auth/login', {
                 login: userData.username,
                 password: userData.password,
@@ -39,30 +44,13 @@ const LoginPage = () => {
             });
 
             if (response.data) {
+                setLoggingIn(true);
                 navigate('/home');
             }
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to login. Please try again.');
         }
     };
-
-   /* const logoutUser = async () => {
-        try {
-            const response = await apiClient.post('/api/auth/logout', {}, {
-                withCredentials: true
-            });
-
-            if (response.data) {
-                navigate('/');
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    useEffect(() => {
-        logoutUser();
-    }, []); */
 
     const handleSubmit = (event) => {
         event.preventDefault();
