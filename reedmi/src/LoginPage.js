@@ -44,7 +44,7 @@ const LoginPage = () => {
         }
     };
 
-    const logoutUser = async () => {
+   /* const logoutUser = async () => {
         try {
             const response = await apiClient.post('/api/auth/logout', {}, {
                 withCredentials: true
@@ -60,7 +60,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         logoutUser();
-    }, []);
+    }, []); */
 
     const handleSubmit = (event) => {
         event.preventDefault();
