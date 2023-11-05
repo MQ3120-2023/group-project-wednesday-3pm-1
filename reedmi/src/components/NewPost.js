@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import apiClient from "../apiClient";
 import './NewPost.css'
 import Navbar from "./Navbar.js";
-import { v4 as uuidv4 } from 'uuid';
 
 function NewPost({fetchPosts, allTopics}) {
     // states for each entry in the form

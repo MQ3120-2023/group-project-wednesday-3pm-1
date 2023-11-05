@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
 import './SingleArticle.css';
 function SingleArticle({singleNewsArticle}){
     console.log("Single News Article", singleNewsArticle)
-    const content = singleNewsArticle.content;
-    // const textContent = content.replace(/<\/?[^>]+(>|$)/g, " ") // remove HTML tags in content field from Third Party API 
     return (
         <div className = "singleArticle">
            
