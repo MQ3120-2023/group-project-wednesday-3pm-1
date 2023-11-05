@@ -2,6 +2,7 @@ const express = require('express')
 // const bcrypt = require("bcrypt")
 // const jwt = require("jsonwebtoken")
 const fs = require("fs") 
+const axios = require('axios');
 const Post = require("../models/posts") // Importing the Post model
 const Topic = require("../models/topics") // Importing the Topic model
 const multer = require('multer')
@@ -289,6 +290,30 @@ apiRouter.post('/api/topics', (req, res)  => {
         }
     });
 })
+
+const apiURL = 'https://newsapi.org/v2/everything'
+const apiKey = process.env.API_KEY;
+
+
+// Fetching Latest News from a third party API
+apiRouter.get('/api/techNews', (req, res) => {
+  const userQuery = req.query.q;
+  // the server is making the request to the third party API using Axios 
+  axios.get(apiURL, {
+    params: {
+      q: userQuery,
+      apiKey: apiKey
+    }
+  }).then(newsArray => { // once the newsArray is received from API, send it to the Client
+    res.json(newsArray.data);
+    console.log("Received news data from third party API successfully")
+  }).catch(error => {
+    console.error(error);  // Add this line
+    res.status(404);
+    console.log("API Key:", process.env.API_KEY)
+    res.send("Server could not fetch data from third-party API")
+  });
+});
 
 // apiRouter.post('/api/posts', (req, res) => {
 
