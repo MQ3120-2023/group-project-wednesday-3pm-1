@@ -27,19 +27,19 @@ apiRouter.use(express.urlencoded({ extended: false }));
 apiRouter.use('/uploads', express.static('uploads'));
 
 apiRouter.get('/api/posts', (req, res) => {
-    // Instead of returning the "posts" array from file
-    // We will fetch the data from the database
-    // And passing it back to our client
-    Post.find({})
-    .populate('author')
-    .then(result => {
-        console.log(result)
-        res.json(result)
-    }).catch(error => {
-            console.error("Error fetching posts:", error);
-            res.status(500).json({ error: 'Internal server error' });
-        });
+  // Fetch data from the database and pass it back to our client
+  Post.find({})
+      .populate('author')
+      .sort({createdAt: -1}) // Sort by createdAt in descending order
+      .then(result => {
+          console.log(result);
+          res.json(result);
+      }).catch(error => {
+          console.error("Error fetching posts:", error);
+          res.status(500).json({ error: 'Internal server error' });
+      });
 });
+
 
 apiRouter.get('/api/posts/:id', async (req, res) => {
     const postId = req.params.id;
