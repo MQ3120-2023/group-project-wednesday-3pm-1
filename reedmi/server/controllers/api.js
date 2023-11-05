@@ -1,54 +1,30 @@
 const express = require('express') 
-// const bcrypt = require("bcrypt")
-// const jwt = require("jsonwebtoken")
 const fs = require("fs") 
 const axios = require('axios');
 const Post = require("../models/posts") // Importing the Post model
 const Topic = require("../models/topics") // Importing the Topic model
+const Comment = require('../models/comment') // Importing the Comment model
+const Reaction = require('../models/reaction') // Importing the Reaction model 
 const multer = require('multer')
 const path = require('path');
 const cors = require('cors');
-const Comment = require('../models/comment')
-const Reaction = require('../models/reaction')
-const passport = require('passport');
 const ensureAuthenticated = require('../authRoutes').ensureAuthenticated;
-
-// Load data from JSON file into memory
-const rawData = fs.readFileSync("server/data.json")
-const data = JSON.parse(rawData)
 
 // When you create a router using express.Router(), it's like creating a "mini-application" 
 // that you can use to define routes. This router doesn't represent the whole application but rather a subset of route handlers.
 // Instead of app.get(a route), we now use apiRouter.get(a route) and import const apiRouter = express.Router()
 const apiRouter = express.Router()
-
 var corsOptions = {
     origin: ['http://localhost:3000', 'http://localhost:3001', 'https://reedmi-test.onrender.com'],
     methods: "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
     credentials: true, 
     optionsSuccessStatus: 200 
 };
-
-
 apiRouter.use(cors(corsOptions));
-
-
 // Middleware to parse url-encoded bodies
 apiRouter.use(express.urlencoded({ extended: false }));
 // Serve static images from the 'uploads' directory
 apiRouter.use('/uploads', express.static('uploads'));
-  
-
-// Configure multer storage
-const storage = multer.diskStorage({
-    destination: 'uploads/',
-    filename: (req, file, cb) => {
-        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
-    },
-});
-
-const upload = multer({ storage: storage });
-
 
 apiRouter.get('/', (req, res) => {
   res.send('Hello World');
@@ -68,8 +44,6 @@ apiRouter.get('/api/posts', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 });
-
-const mongoose = require('mongoose');
 
 apiRouter.get('/api/posts/:id', async (req, res) => {
     const postId = req.params.id;
@@ -157,11 +131,6 @@ apiRouter.post('/api/posts/:postId/comment', ensureAuthenticated, (req, res) => 
 });
 
 // Add a reaction to a post
-
-// sample axios call to this function:
-// axios.post(`http://localhost:3001/api/posts/${postId}/reaction`, { reaction: 'upvote' }, { withCredentials: true })
-
-
 apiRouter.post('/api/posts/:postId/reaction', ensureAuthenticated, async (req, res) => {
 
     console.log(`Make a reaction with ${JSON.stringify(req.body)}`)
@@ -230,6 +199,16 @@ apiRouter.get('/api/posts/:postId/comments', (req, res) => {
         });
 });
 
+// Configure multer storage
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 apiRouter.post('/api/createNewPost', ensureAuthenticated, upload.single('postImage'), (req, res) => {
     const body = req.body;
     // Prepare image URL for local storage
@@ -253,9 +232,6 @@ apiRouter.post('/api/createNewPost', ensureAuthenticated, upload.single('postIma
         console.log("New Post by User saved")
     })
 })
-
-
-
 
 
 apiRouter.get('/api/topics', (req, res) => {
@@ -294,7 +270,6 @@ apiRouter.post('/api/topics', (req, res)  => {
 const apiURL = 'https://newsapi.org/v2/everything'
 const apiKey = process.env.API_KEY;
 
-
 // Fetching Latest News from a third party API
 apiRouter.get('/api/techNews', (req, res) => {
   const userQuery = req.query.q;
@@ -314,53 +289,5 @@ apiRouter.get('/api/techNews', (req, res) => {
     res.send("Server could not fetch data from third-party API")
   });
 });
-
-// apiRouter.post('/api/posts', (req, res) => {
-
-//     // const token = getTokenFrom(req)
-//     // let decodedToken = null
-
-//     // try {
-//     //     decodedToken = jwt.verify(token, SECRET)
-//     // }
-//     // catch (error) {
-//     //     decodedToken = {id: null}
-//     // }
-
-//     // if (!token || !decodedToken.id) {
-//     //     return res.status(401).json({error: "invalid token"})
-//     // }
-
-//     const body = req.body
-
-//     const newPost = new Post({
-//         postTitle: body.postTitle,
-//         postContent: body.postContent,
-//         img: body.img,
-//         category: body.category
-//     })
-//     newPost.save().then(result => {
-//         res.json(result)
-//         console.log("post record saved")
-//     })
-// })
-
-// apiRouter.put('/api/posts/:id', (req, res) => {
-
-//     const body = req.body
-
-//     const newPost = new Post({
-//         postTitle: body.postTitle,
-//         postContent: body.postContent,
-//         img: body.img,
-//         category: body.category
-//     })
-    
-//     Post.findByIdAndUpdate(req.params.id, newPost, {new: true})
-//     .then(result => {
-//         res.json(result)
-//     })   
-// })
-
 
 module.exports = apiRouter;
