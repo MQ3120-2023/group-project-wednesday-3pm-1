@@ -8,8 +8,24 @@ const authRoutes = require('./controllers/auth');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
 require('./passportSetup');
+const path = require('path');
+const production = process.env.NODE_ENV === 'production';
 
 const app = express() // The main Express Server Instance 
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'build')));
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+// Only in production mode because in development mode, we have two servers running
+
+if (production) {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  }); 
+  
+}
 
 var corsOptions = {
   origin: ['http://localhost:3000', 'http://localhost:3001', 'https://reedmi-test.onrender.com'],

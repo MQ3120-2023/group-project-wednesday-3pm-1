@@ -26,10 +26,6 @@ apiRouter.use(express.urlencoded({ extended: false }));
 // Serve static images from the 'uploads' directory
 apiRouter.use('/uploads', express.static('uploads'));
 
-apiRouter.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
 apiRouter.get('/api/posts', (req, res) => {
     // Instead of returning the "posts" array from file
     // We will fetch the data from the database
