@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const User = require('./models/user');
+const User = require('../models/user');
 const cors = require('cors');
 const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://reedmi-test.onrender.com';
 

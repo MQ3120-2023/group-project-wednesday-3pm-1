@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require("cors")
 const session = require('express-session');
 const apiRouter = require("./controllers/api")
-const authRoutes = require('./authRoutes');
+const authRoutes = require('./controllers/authRoutes');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
 require('./passportSetup');
