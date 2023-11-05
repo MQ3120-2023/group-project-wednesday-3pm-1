@@ -78,7 +78,7 @@ const LoginPage = () => {
     return (
         <div className="page-container">
             <div className="welcome-section">
-                <h1>Welcome to ReedMi</h1>
+                <h1 className='welcomeText'> Welcome to ReedMi</h1>
             </div>
             <div className="login-section">
                 <div className="login-content">

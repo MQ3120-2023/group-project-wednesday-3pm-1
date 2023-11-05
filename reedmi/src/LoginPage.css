@@ -6,7 +6,7 @@
 
 .welcome-section {
     flex: 2; 
-    background: linear-gradient(to right, #1e90ff, #00bfff);
+    background-color: #d7e9f4f5;
     color: white;
     display: flex;
     align-items: center;
@@ -81,6 +81,10 @@
 .error-message {
     color: rgb(255, 255, 255);
     margin-bottom: 15px;
+}
+
+.welcomeText {
+  color: black;
 }
 
 .signup-text {
