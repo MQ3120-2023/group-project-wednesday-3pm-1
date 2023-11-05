@@ -61,10 +61,15 @@ app.use(apiRouter)
 
 
 if (production) {
-  app.use(express.static(path.join(__dirname, 'reedmi', 'build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'reedmi', 'build', 'index.html'));
+  app.use(express.static(path.resolve(__dirname, "../build"), {index: false}));
+  
+  const indexPath = path.join(__dirname, "../build/index.html");
+
+  app.get("*", (req, res) => {
+    console.log("sending index.html");
+    res.sendFile(indexPath);
   });
+
 }
 
 module.exports = app
