@@ -6,7 +6,7 @@ import './LoginPage.css';
 import GoogleButton from 'react-google-button';
 import apiClient from './apiClient';
 
-const baseURL = process.env.NODE_ENV === 'production' ? 'https://reedmi-test.herokuapp.com' : 'http://localhost:3001';
+const baseURL = process.env.NODE_ENV === 'production' ? 'https://reedmi-test.onrender.com' : 'http://localhost:3001';
 
 const LoginPage = () => {
     const navigate = useNavigate();
