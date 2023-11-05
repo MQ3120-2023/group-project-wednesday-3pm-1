@@ -55,7 +55,7 @@ If the project were to advance, the next phase of development would focus on aug
 - The `Home` component is primary view for users to browse posts.
 - It is responsable for rendering the following Child Componenets:  `Navbar` for navigation, a `Sidebar` for topic selection, and a `PostList` that displays posts filtered by the selected topic.
 - Users can filter posts by choosing a topic from the `Sidebar`, which updates the `selectedTopic` state and dynamically alters the list of displayed posts. Props like `posts` (the list of all posts), `allTopics` (available topics for filtering), and `fetchTopics` (a function to refresh topics) are passed down to child components.
-
+- Enables current user to Log out 
 ### `PostList.js`:
 
 - Allows the homepage to display all the different posts that have been uploaded to the backend by users.
